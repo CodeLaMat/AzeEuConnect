@@ -1,24 +1,32 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String  @id @default(uuid())
-  email     String  @unique
-  password  String
-  role      String  @default("user")
-  companies Company[]
+generator client {
+  provider = "prisma-client-js"
 }
 
-model Company {
-  id        String  @id @default(uuid())
-  name      String
-  owner     User    @relation(fields: [ownerId], references: [id])
-  ownerId   String
-  createdAt DateTime @default(now())
+model User {
+  id        String    @id @default(uuid())
+  firstName String?
+  lastName  String?
+  email     String    @unique
+  password  String
+  role      String    @default("user")
+
+  profile   Profile?
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  firstName String?
+  lastName  String?
+  location  String?
+  phone     String?
+  image     String?
+  // etc.
+
+  userId String  @unique
+  user   User    @relation(fields: [userId], references: [id])
 }

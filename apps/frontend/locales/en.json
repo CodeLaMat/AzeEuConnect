@@ -7,6 +7,7 @@
     "blog": "Blog",
     "contact": "Contact",
     "dashboard": "Dashboard",
+    "documents": "Documents",
     "logIn": "Log In",
     "signUp": "Sign Up",
     "logout": "Logout",
@@ -83,6 +84,11 @@
   "blog": {
     "title": "Our Blog",
     "description": "Read articles and insights on business formation."
+  },
+
+  "documents": {
+    "title": "Documents",
+    "description": "Check the list of documents required for the business formation."
   },
 
   "contact": {

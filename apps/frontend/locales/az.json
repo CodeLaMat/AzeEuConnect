@@ -7,6 +7,7 @@
     "blog": "Bloq",
     "contact": "Əlaqə",
     "dashboard": "İdarə Paneli",
+    "documents": "Sənədlər",
     "logIn": "Daxil Ol",
     "signUp": "Qeydiyyatdan Keç",
     "logout": "Çıxış",
@@ -90,11 +91,11 @@
   },
 
   "dashboard": {
-    "title": "İdarə Paneli",
+    "title": "İdarə paneli",
     "sidebar": {
-      "dashboard": "İdarə Paneli",
+      "dashboard": "İdarə paneli",
       "documents": "Sənədlər",
-      "companyFormation": "Şirkət Quruluşu",
+      "companyFormation": "Şirkət Qeydiyyatı",
       "taxAccounting": "Vergi və Mühasibatlıq",
       "banking": "Bankçılıq",
       "support": "Dəstək"
@@ -105,40 +106,131 @@
       "completedSteps": "{completed} / {total} addım tamamlandı"
     },
     "upcomingTasks": {
-      "title": "Gələcək Tapşırıqlar",
-      "task1": "Notarius sənədlərini təqdim edin ({days} gün)",
-      "task2": "Bank hesabı detallarını təsdiqləyin ({days} gün)",
-      "task3": "Vergi məsləhətləşməsi üçün görüş təyin edin ({days} gün)"
+      "title": "Gözlənilən Tapşırıqlar",
+      "task1": "Notarial sənədləri təqdim edin ({days} gün)",
+      "task2": "Bank hesab məlumatlarını təsdiqləyin ({days} gün)",
+      "task3": "Vergi məsləhətini planlaşdırın ({days} gün)"
     },
     "subscription": {
       "title": "Abunəlik",
-      "plan": "{plan} Paketi",
-      "activeUntil": "{date} tarixinə qədər aktiv",
-      "manage": "Abunəliyi İdarə et"
+      "plan": "{plan} Planı",
+      "activeUntil": "{date} tarixinədək aktivdir",
+      "manage": "Abunəliyi idarə et"
     },
     "recentDocuments": {
       "title": "Son Sənədlər",
       "uploaded": "{date} tarixində yüklənib",
-      "viewAll": "Hamısına Bax"
+      "viewAll": "Hamısını göstər"
+    },
+    "documents": {
+      "title": "Sənədlər",
+      "upload": {
+        "title": "Sənədləri Yüklə",
+        "description": "Baxış üçün lazımi biznes sənədlərini yükləyin.",
+        "button": "Faylı yüklə"
+      },
+      "status": {
+        "title": "Sənəd Statusu",
+        "documentReview": "Sənədin nəzərdən keçirilməsi",
+        "verification": "Təsdiq",
+        "completed": "Tamamlandı",
+        "inProgress": "Davam edir",
+        "approved": "Təsdiqlənib",
+        "pending": "Gözlənilir"
+      },
+      "recentDocuments": {
+        "title": "Son Sənədlər",
+        "uploaded": "{date} tarixində yüklənib"
+      }
     },
     "companyFormation": {
-      "title": "Şirkətin Qeydiyyatı",
-      "registrationProgress": "Qeydiyyatın Gedişatı",
+      "title": "Şirkət Qeydiyyatı",
+      "registrationProgress": "Qeydiyyat Prosesinin Gedişi",
       "steps": {
         "documentPreparation": "Sənədlərin Hazırlanması",
-        "notarization": "Notarial Təsdiq",
+        "notarization": "Notarial təsdiq",
         "bankAccountOpening": "Bank Hesabının Açılması",
-        "commercialRegisterEntry": "Kommersiya Reyestrinə Daxil Edilmə",
+        "commercialRegisterEntry": "Kommersiya Reyestrinə Qeydiyyat",
         "taxRegistration": "Vergi Qeydiyyatı"
       },
       "status": {
         "completed": "Tamamlandı",
-        "inProgress": "Davam Edir",
-        "notStarted": "Başlamayıb"
+        "inProgress": "Davam edir",
+        "notStarted": "Başlanılmayıb"
+      }
+    },
+    "taxAccounting": {
+      "title": "Vergi və Mühasibatlıq",
+      "taxStatus": {
+        "title": "Vergi Statusu",
+        "inProgress": "Davam edir",
+        "progress": "{completed} / {total} addım tamamlandı"
+      },
+      "services": {
+        "title": "Vergi və Mühasibatlıq Xidmətləri",
+        "taxConsulting": "Vergi Məsləhəti",
+        "taxConsultingDesc": "Vergi optimallaşdırılması və uyğunluq məsələləri üzrə peşəkar məsləhət alın.",
+        "vatFiling": "ƏDV Bəyannaməsi",
+        "vatFilingDesc": "ƏDV bəyannamənizi peşəkar dəstəklə təqdim edin."
+      },
+      "filings": {
+        "title": "Son Vergi Bəyannamələri",
+        "date": "Bəyannamə tarixi: {date}",
+        "completed": "Tamamlandı",
+        "pending": "Gözlənilir"
+      }
+    },
+    "banking": {
+      "title": "Bankçılıq",
+      "setup": {
+        "title": "Bank Hesabının Açılma Prosesinin Gedişi",
+        "inProgress": "Davam edir",
+        "progress": "{completed} / {total} addım tamamlandı"
+      },
+      "services": {
+        "title": "Bank Xidmətləri",
+        "businessAccounts": "Biznes Bank Hesabları",
+        "businessAccountsDesc": "Biznes bank hesablarını asanlıqla açın və idarə edin.",
+        "corporateCards": "Korporativ Kartlar",
+        "corporateCardsDesc": "Biznes əməliyyatlarınız üçün korporativ kartlar əldə edin."
+      },
+      "transactions": {
+        "title": "Son Bank Əməliyyatları",
+        "date": "Əməliyyat tarixi: {date}",
+        "completed": "Tamamlandı",
+        "pending": "Gözlənilir"
+      }
+    },
+    "support": {
+      "title": "Dəstək Mərkəzi",
+      "contact": {
+        "title": "Dəstək Xidməti ilə Əlaqə",
+        "description": "Yardım lazımdır? Telefon və ya e-poçt vasitəsilə dəstək komandamıza müraciət edin.",
+        "phone": "Bizə zəng edin",
+        "email": "Bizə yazın"
+      },
+      "liveChat": {
+        "title": "Canlı Çat",
+        "description": "Dəstək komandamızla real vaxtda danışaraq dərhal kömək alın.",
+        "startChat": "Çatı başladın"
+      },
+      "faq": {
+        "title": "Tez-Tez Verilən Suallar",
+        "faq1": {
+          "question": "Şirkət məlumatlarımı necə yeniləyə bilərəm?",
+          "answer": "Şirkət məlumatlarınızı 'Şirkət Qeydiyyatı' bölməsində yeniləyə bilərsiniz."
+        },
+        "faq2": {
+          "question": "Hansı ödəniş üsulları qəbul olunur?",
+          "answer": "Biz kredit kartları, PayPal və bank köçürmələrini qəbul edirik."
+        },
+        "faq3": {
+          "question": "Qeydiyyat prosesi nə qədər vaxt aparır?",
+          "answer": "Proses ölkəyə görə 2-6 həftə arasında dəyişir."
+        }
       }
     }
   },
-
   "heroTitle": "Avropada Biznesinizi Asanlıqla Başlayın",
   "heroDescription": "Şirkət qeydiyyatı, vergi uyğunluğu və biznes bankçılığı – hamısı bir yerdə.",
   "getStarted": "İndi Başlayın",

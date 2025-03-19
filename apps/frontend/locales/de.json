@@ -7,6 +7,8 @@
     "blog": "Blog",
     "contact": "Kontakt",
     "dashboard": "Dashboard",
+    "documents": "Dokumente",
+
     "logIn": "Anmelden",
     "signUp": "Registrieren",
     "logout": "Abmelden",
@@ -93,8 +95,8 @@
       "documents": "Dokumente",
       "companyFormation": "Firmengründung",
       "taxAccounting": "Steuern & Buchhaltung",
-      "banking": "Bankdienstleistungen",
-      "support": "Support"
+      "banking": "Bankwesen",
+      "support": "Unterstützung"
     },
     "registrationStatus": {
       "title": "Registrierungsstatus",
@@ -103,13 +105,13 @@
     },
     "upcomingTasks": {
       "title": "Bevorstehende Aufgaben",
-      "task1": "Notariell beglaubigte Dokumente einreichen ({days} Tage)",
-      "task2": "Bankkontodetails bestätigen ({days} Tage)",
+      "task1": "Notarielle Dokumente einreichen ({days} Tage)",
+      "task2": "Bankkontodaten verifizieren ({days} Tage)",
       "task3": "Steuerberatungstermin vereinbaren ({days} Tage)"
     },
     "subscription": {
       "title": "Abonnement",
-      "plan": "{plan} Tarif",
+      "plan": "{plan}-Plan",
       "activeUntil": "Aktiv bis {date}",
       "manage": "Abonnement verwalten"
     },
@@ -118,20 +120,112 @@
       "uploaded": "Hochgeladen am {date}",
       "viewAll": "Alle anzeigen"
     },
+    "documents": {
+      "title": "Dokumente",
+      "upload": {
+        "title": "Dokumente hochladen",
+        "description": "Laden Sie die erforderlichen Geschäftsdokumente zur Überprüfung hoch.",
+        "button": "Datei hochladen"
+      },
+      "status": {
+        "title": "Dokumentenstatus",
+        "documentReview": "Dokumentenprüfung",
+        "verification": "Verifizierung",
+        "completed": "Abgeschlossen",
+        "inProgress": "In Bearbeitung",
+        "approved": "Genehmigt",
+        "pending": "Ausstehend"
+      },
+      "recentDocuments": {
+        "title": "Letzte Dokumente",
+        "uploaded": "Hochgeladen am {date}"
+      }
+    },
     "companyFormation": {
-      "title": "Unternehmensgründung",
+      "title": "Firmengründung",
       "registrationProgress": "Registrierungsfortschritt",
       "steps": {
         "documentPreparation": "Dokumentenvorbereitung",
-        "notarization": "Notarielle Beglaubigung",
-        "bankAccountOpening": "Eröffnung eines Bankkontos",
-        "commercialRegisterEntry": "Eintragung ins Handelsregister",
+        "notarization": "Notarisierung",
+        "bankAccountOpening": "Bankkontoeröffnung",
+        "commercialRegisterEntry": "Handelsregistereintrag",
         "taxRegistration": "Steuerregistrierung"
       },
       "status": {
         "completed": "Abgeschlossen",
         "inProgress": "In Bearbeitung",
-        "notStarted": "Nicht begonnen"
+        "notStarted": "Nicht gestartet"
+      }
+    },
+    "taxAccounting": {
+      "title": "Steuern & Buchhaltung",
+      "taxStatus": {
+        "title": "Steuerstatus",
+        "inProgress": "In Bearbeitung",
+        "progress": "{completed} von {total} Schritten abgeschlossen"
+      },
+      "services": {
+        "title": "Steuer- & Buchhaltungsdienste",
+        "taxConsulting": "Steuerberatung",
+        "taxConsultingDesc": "Erhalten Sie professionelle Beratung zur Steueroptimierung und -konformität.",
+        "vatFiling": "Mehrwertsteuererklärung",
+        "vatFilingDesc": "Reichen Sie Ihre Mehrwertsteuererklärung mit professioneller Unterstützung ein."
+      },
+      "filings": {
+        "title": "Letzte Steuererklärungen",
+        "date": "Einreichungsdatum: {date}",
+        "completed": "Abgeschlossen",
+        "pending": "Ausstehend"
+      }
+    },
+    "banking": {
+      "title": "Bankwesen",
+      "setup": {
+        "title": "Fortschritt bei der Kontoeröffnung",
+        "inProgress": "In Bearbeitung",
+        "progress": "{completed} von {total} Schritten abgeschlossen"
+      },
+      "services": {
+        "title": "Bankdienstleistungen",
+        "businessAccounts": "Geschäftskonten",
+        "businessAccountsDesc": "Einfach Geschäftskonten eröffnen und verwalten.",
+        "corporateCards": "Unternehmens-Kreditkarten",
+        "corporateCardsDesc": "Erhalten Sie Firmenkreditkarten für geschäftliche Transaktionen."
+      },
+      "transactions": {
+        "title": "Letzte Transaktionen",
+        "date": "Transaktionsdatum: {date}",
+        "completed": "Abgeschlossen",
+        "pending": "Ausstehend"
+      }
+    },
+    "support": {
+      "title": "Support-Center",
+      "contact": {
+        "title": "Support kontaktieren",
+        "description": "Benötigen Sie Hilfe? Kontaktieren Sie unser Support-Team per Telefon oder E-Mail.",
+        "phone": "Rufen Sie uns an",
+        "email": "Schreiben Sie uns"
+      },
+      "liveChat": {
+        "title": "Live-Chat",
+        "description": "Chatten Sie in Echtzeit mit unserem Support-Team für sofortige Hilfe.",
+        "startChat": "Chat starten"
+      },
+      "faq": {
+        "title": "Häufig gestellte Fragen",
+        "faq1": {
+          "question": "Wie kann ich meine Firmendaten aktualisieren?",
+          "answer": "Sie können Ihre Firmendaten im Bereich 'Firmengründung' aktualisieren."
+        },
+        "faq2": {
+          "question": "Welche Zahlungsmethoden werden akzeptiert?",
+          "answer": "Wir akzeptieren Kreditkarten, PayPal und Banküberweisungen."
+        },
+        "faq3": {
+          "question": "Wie lange dauert der Registrierungsprozess?",
+          "answer": "Der Prozess dauert in der Regel 2 bis 6 Wochen, abhängig vom Land."
+        }
       }
     }
   },

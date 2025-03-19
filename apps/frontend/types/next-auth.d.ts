@@ -1,23 +1,68 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import NextAuth from "next-auth";
+import { DefaultSession, DefaultUser } from "next-auth";
+import { JWT } from "next-auth/jwt";
+
+/**
+ * Extend default NextAuth interfaces to include custom user fields like:
+ * - role
+ * - membership
+ * - firstName
+ * - lastName
+ * - location
+ */
 
 declare module "next-auth" {
-  interface User {
-    id: string;
-    email?: string | null;
-    name?: string | null;
-    image?: string | null;
+  interface User extends DefaultUser {
+    role?: string;
+    firstName?: string;
+    lastName?: string;
+    location?: string;
+
+    membership?: {
+      status: string;
+      plan: string;
+      expiration: string;
+      createdAt: string;
+      updatedAt: string;
+      subscriptionId: string;
+      planId: string;
+    };
   }
 
   interface Session {
-    user: User & {
-      id: string;
-    };
+    user?: {
+      role?: string;
+      firstName?: string;
+      lastName?: string;
+      location?: string;
+
+      membership?: {
+        status: string;
+        plan: string;
+        expiration: string;
+        createdAt: string;
+        updatedAt: string;
+        subscriptionId: string;
+        planId: string;
+      };
+    } & DefaultSession["user"];
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    id: string;
+    role?: string;
+    firstName?: string;
+    lastName?: string;
+    location?: string;
+
+    membership?: {
+      status: string;
+      plan: string;
+      expiration: string;
+      createdAt: string;
+      updatedAt: string;
+      subscriptionId: string;
+      planId: string;
+    };
   }
 }

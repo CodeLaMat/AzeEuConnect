@@ -3,8 +3,7 @@ import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
 
-// ✅ Ensure `.js` is included in imports
-import userRouter from "./src/routes/userRoutes.js";
+import userRouter from "./src/routes/userRoutes";
 
 dotenv.config();
 const app = express();

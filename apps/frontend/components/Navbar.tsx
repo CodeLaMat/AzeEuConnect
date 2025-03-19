@@ -19,12 +19,65 @@ export default function Navbar({ locale }: { locale: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("navbar");
-
   const handleLanguageChange = (newLocale: string) => {
+    // Safety check for supported locales
     if (!locales.includes(newLocale as "az" | "en" | "ru" | "de")) return;
     const newPath = `/${newLocale}${pathname.slice(3)}`;
     router.push(newPath);
   };
+
+  const userRole = session?.user?.role;
+
+  console.log("User Role:", userRole);
+  console.log("Session:", session);
+  function getNavLinks(role?: string) {
+    if (!role) {
+      // Not registered (no session)
+      return [
+        { href: "company-formation", label: t("companyFormation") },
+        { href: "services", label: t("services") },
+        { href: "pricing", label: t("pricing") },
+        { href: "about", label: t("aboutUs") },
+        { href: "blog", label: t("blog") },
+        { href: "contact", label: t("contact") },
+      ];
+    }
+
+    switch (role) {
+      case "admin":
+        return [
+          { href: "admin-dashboard", label: t("adminDashboard") },
+          { href: "users", label: t("manageUsers") },
+          { href: "services", label: t("services") },
+          { href: "pricing", label: t("pricing") },
+        ];
+      case "consultant":
+        return [
+          { href: "consultant-dashboard", label: t("consultantDashboard") },
+          { href: "clients", label: t("clients") },
+          { href: "services", label: t("services") },
+        ];
+      case "customer":
+        return [
+          { href: "dashboard", label: t("dashboard") },
+          { href: "company-formation", label: t("companyFormation") },
+          { href: "documents", label: t("documents") },
+          { href: "services", label: t("services") },
+          { href: "pricing", label: t("pricing") },
+        ];
+      default:
+        return [
+          { href: "company-formation", label: t("companyFormation") },
+          { href: "services", label: t("services") },
+          { href: "pricing", label: t("pricing") },
+          { href: "about", label: t("aboutUs") },
+          { href: "blog", label: t("blog") },
+          { href: "contact", label: t("contact") },
+        ];
+    }
+  }
+
+  const navLinks = getNavLinks(userRole);
 
   return (
     <nav className="flex justify-between items-center px-8 py-4 bg-blue-700 text-white shadow-md">
@@ -39,16 +92,8 @@ export default function Navbar({ locale }: { locale: string }) {
         <span>AzEUConnect</span>
       </Link>
 
-      {/* Navigation Links */}
       <div className="hidden md:flex space-x-2">
-        {[
-          { href: "company-formation", label: t("companyFormation") },
-          { href: "services", label: t("services") },
-          { href: "pricing", label: t("pricing") },
-          { href: "about", label: t("aboutUs") },
-          { href: "blog", label: t("blog") },
-          { href: "contact", label: t("contact") },
-        ].map(({ href, label }) => {
+        {navLinks.map(({ href, label }) => {
           const isActive = pathname === `/${locale}/${href}`;
           return (
             <Link
@@ -63,7 +108,6 @@ export default function Navbar({ locale }: { locale: string }) {
         })}
       </div>
 
-      {/* Language Selector & Auth Buttons */}
       <div className="flex space-x-2 items-center">
         <Select onValueChange={handleLanguageChange} defaultValue={locale}>
           <SelectTrigger className="w-36 bg-white text-blue-700 cursor-pointer">
@@ -83,12 +127,6 @@ export default function Navbar({ locale }: { locale: string }) {
           </Button>
         ) : session ? (
           <>
-            <Button
-              className="bg-gray-700 text-white font-bold hover:bg-gray-800 cursor-pointer"
-              asChild
-            >
-              <Link href={`/${locale}/dashboard`}>{t("dashboard")}</Link>
-            </Button>
             <Button
               variant="destructive"
               className="cursor-pointer"
