@@ -1,0 +1,31 @@
+{
+  "heroTitle": "Avropada Biznesinizi Asanlıqla Başlayın",
+  "heroDescription": "Şirkət qeydiyyatı, vergi uyğunluğu və biznes bankçılığı – hamısı bir yerdə.",
+  "getStarted": "Başlayın",
+  "pricingTitle": "Qiymət Planları",
+  "services": {
+    "companyFormation": "Şirkət Qeydiyyatı",
+    "companyFormationDesc": "Biznesinizi istənilən Aİ ölkəsində asanlıqla qeydiyyatdan keçirin.",
+    "legalTax": "Hüquqi və Vergi Uyğunluğu",
+    "legalTaxDesc": "Biznesinizin Aİ qaydalarına uyğun olduğundan əmin olun.",
+    "banking": "Biznes Bankçılığı",
+    "bankingDesc": "Biznes hesablarınızı asanlıqla açın və idarə edin.",
+    "virtualOffice": "Virtual Ofis Xidməti",
+    "virtualOfficeDesc": "Biznes ünvanı və poçt xidmətləri əldə edin.",
+    "trademark": "Ticarət Markasının Qeydiyyatı",
+    "trademarkDesc": "Brendinizi Avropa bazarında qoruyun.",
+    "aiLegalChat": "AI Dəstəyi ilə Hüquqi Məlumat",
+    "aiLegalChatDesc": "Bizneslə bağlı suallarınıza anında cavab alın."
+  },
+  "pricing": {
+    "basic": "Əsas",
+    "basicPrice": "$29/ay",
+    "basicDesc": "Startaplar üçün əsas funksiyalar.",
+    "pro": "Pro",
+    "proPrice": "$99/ay",
+    "proDesc": "Böyüyən bizneslər üçün inkişaf etmiş funksiyalar.",
+    "enterprise": "Enterprise",
+    "enterprisePrice": "Xüsusi",
+    "enterpriseDesc": "Böyük bizneslər üçün fərdiləşdirilmiş həllər."
+  }
+}

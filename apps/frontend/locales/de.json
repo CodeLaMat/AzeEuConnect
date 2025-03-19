@@ -1,0 +1,31 @@
+{
+  "heroTitle": "Starten Sie Ihr Unternehmen in der EU mühelos",
+  "heroDescription": "Unternehmensgründung, Steuerkonformität und Geschäftsbanken – alles an einem Ort.",
+  "getStarted": "Loslegen",
+  "pricingTitle": "Preispläne",
+  "services": {
+    "companyFormation": "Firmengründung",
+    "companyFormationDesc": "Registrieren Sie Ihr Unternehmen einfach in jedem EU-Land.",
+    "legalTax": "Rechtliche & Steuerliche Compliance",
+    "legalTaxDesc": "Stellen Sie sicher, dass Ihr Unternehmen den EU-Vorschriften entspricht.",
+    "banking": "Geschäftsbanking",
+    "bankingDesc": "Eröffnen und verwalten Sie Geschäftskonten mühelos.",
+    "virtualOffice": "Virtuelle Büroservices",
+    "virtualOfficeDesc": "Erhalten Sie eine Geschäftsadresse und Postdienstleistungen.",
+    "trademark": "Markeneintragung",
+    "trademarkDesc": "Schützen Sie Ihre Marke auf dem europäischen Markt.",
+    "aiLegalChat": "KI-gestützter Rechtschat",
+    "aiLegalChatDesc": "Erhalten Sie sofort Antworten auf geschäftsbezogene Fragen."
+  },
+  "pricing": {
+    "basic": "Basic",
+    "basicPrice": "$29/Monat",
+    "basicDesc": "Wesentliche Funktionen für Startups.",
+    "pro": "Pro",
+    "proPrice": "$99/Monat",
+    "proDesc": "Erweiterte Funktionen für wachsende Unternehmen.",
+    "enterprise": "Enterprise",
+    "enterprisePrice": "Individuell",
+    "enterpriseDesc": "Maßgeschneiderte Lösungen für große Unternehmen."
+  }
+}
