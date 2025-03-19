@@ -122,6 +122,27 @@
       "uploaded": "Uploaded on {date}",
       "viewAll": "View All"
     },
+    "documents": {
+      "title": "Documents",
+      "upload": {
+        "title": "Upload Documents",
+        "description": "Upload necessary business documents for review.",
+        "button": "Upload File"
+      },
+      "status": {
+        "title": "Document Status",
+        "documentReview": "Document Review",
+        "verification": "Verification",
+        "completed": "Completed",
+        "inProgress": "In Progress",
+        "approved": "Approved",
+        "pending": "Pending"
+      },
+      "recentDocuments": {
+        "title": "Recent Documents",
+        "uploaded": "Uploaded on {date}"
+      }
+    },
     "companyFormation": {
       "title": "Company Formation",
       "registrationProgress": "Registration Progress",
@@ -136,6 +157,77 @@
         "completed": "Completed",
         "inProgress": "In Progress",
         "notStarted": "Not Started"
+      }
+    },
+    "taxAccounting": {
+      "title": "Tax & Accounting",
+      "taxStatus": {
+        "title": "Tax Filing Status",
+        "inProgress": "In Progress",
+        "progress": "{completed} of {total} steps completed"
+      },
+      "services": {
+        "title": "Tax & Accounting Services",
+        "taxConsulting": "Tax Consulting",
+        "taxConsultingDesc": "Get expert advice on tax optimization and compliance.",
+        "vatFiling": "VAT Filing",
+        "vatFilingDesc": "Submit your VAT returns with professional support."
+      },
+      "filings": {
+        "title": "Recent Tax Filings",
+        "date": "Filing Date: {date}",
+        "completed": "Completed",
+        "pending": "Pending"
+      }
+    },
+    "banking": {
+      "title": "Banking",
+      "setup": {
+        "title": "Bank Account Setup Progress",
+        "inProgress": "In Progress",
+        "progress": "{completed} of {total} steps completed"
+      },
+      "services": {
+        "title": "Banking Services",
+        "businessAccounts": "Business Bank Accounts",
+        "businessAccountsDesc": "Open and manage business bank accounts seamlessly.",
+        "corporateCards": "Corporate Cards",
+        "corporateCardsDesc": "Get corporate cards for your business transactions."
+      },
+      "transactions": {
+        "title": "Recent Transactions",
+        "date": "Transaction Date: {date}",
+        "completed": "Completed",
+        "pending": "Pending"
+      }
+    },
+    "support": {
+      "title": "Support Center",
+      "contact": {
+        "title": "Contact Support",
+        "description": "Need help? Reach out to our support team via phone or email.",
+        "phone": "Call Us",
+        "email": "Email Us"
+      },
+      "liveChat": {
+        "title": "Live Chat",
+        "description": "Chat with our support team in real time for instant assistance.",
+        "startChat": "Start Chat"
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "faq1": {
+          "question": "How do I update my company details?",
+          "answer": "You can update your company details under the 'Company Formation' section."
+        },
+        "faq2": {
+          "question": "What payment methods do you accept?",
+          "answer": "We accept credit cards, PayPal, and bank transfers."
+        },
+        "faq3": {
+          "question": "How long does the registration process take?",
+          "answer": "The process usually takes between 2 to 6 weeks, depending on the country."
+        }
       }
     }
   },

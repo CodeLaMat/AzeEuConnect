@@ -18,7 +18,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const t = useTranslations("dashboard");
-  const { locale } = useParams(); // Get current locale
+  const { locale } = useParams();
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -65,7 +65,6 @@ export default function DashboardLayout({
         </nav>
       </aside>
 
-      {/* Dynamic Content Area */}
       <main className="flex-1 p-8">{children}</main>
     </div>
   );
