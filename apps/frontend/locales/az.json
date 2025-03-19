@@ -8,57 +8,136 @@
     "contact": "Əlaqə",
     "dashboard": "İdarə Paneli",
     "logIn": "Daxil Ol",
-    "signUp": "Qeydiyyat",
+    "signUp": "Qeydiyyatdan Keç",
     "logout": "Çıxış",
     "selectLanguage": "Dil Seçin"
   },
+
+  "companyFormation": {
+    "title": "Avropada Biznesinizi Başlayın",
+    "description": "Biz sizə şirkətinizi tez və asan qeydiyyatdan keçirməkdə kömək edirik.",
+    "stepsTitle": "Şirkətinizi Qeydiyyatdan Keçirmək Addımları",
+    "steps": {
+      "step1": "Doğru hüquqi formanı seçin (GmbH, UG, Ltd və s.)",
+      "step2": "Lazımi hüquqi sənədləri hazırlayın",
+      "step3": "Biznes reyestrinə müraciət edin",
+      "step4": "Vergi şəxsiyyəti alın və biznes bank hesabı açın",
+      "step5": "Fəaliyyətə başlayın və yerli qaydalara uyğun olun"
+    },
+    "benefitsTitle": "Niyə Avropada Biznes Başlamaq?",
+    "benefits": {
+      "benefit1": "Böyük Avropa bazarına çıxış",
+      "benefit2": "Hüquqi qorunma və sabit biznes mühiti",
+      "benefit3": "Bəzi Avropa ölkələrində aşağı korporativ vergilər",
+      "benefit4": "Beynəlxalq bankçılıq və maliyyəyə asan giriş"
+    },
+    "documentsTitle": "Lazımi Sənədlər",
+    "documents": {
+      "document1": "Keçərli pasport və ya şəxsiyyət vəsiqəsi",
+      "document2": "Ünvan təsdiqi (kommunal qəbz, bank çıxarışı)",
+      "document3": "Şirkət nizamnaməsi və təsis sənədləri",
+      "document4": "Pay sahibləri və direktorların məlumatları"
+    },
+    "ctaText": "Avropada biznesinizi qurmağa hazırsınız?",
+    "getStarted": "İndi Başlayın"
+  },
+
+  "about": {
+    "title": "Haqqımızda",
+    "description": "Şirkətimiz və missiyamız haqqında daha çox öyrənin."
+  },
+
+  "blog": {
+    "title": "Bizim Bloq",
+    "description": "Biznes qeydiyyatı haqqında məqalələr və fikirlər oxuyun."
+  },
+
+  "contact": {
+    "title": "Bizimlə Əlaqə",
+    "description": "Hər hansı sual üçün bizimlə əlaqə saxlayın."
+  },
+
+  "dashboard": {
+    "title": "İdarə Paneliniz",
+    "unauthorized": "Giriş İcazəsi Yoxdur",
+    "pleaseLogin": "İdarə panelinizə daxil olmaq üçün giriş edin.",
+    "welcome": "Xoş gəldiniz, {name}!"
+  },
+
   "heroTitle": "Avropada Biznesinizi Asanlıqla Başlayın",
   "heroDescription": "Şirkət qeydiyyatı, vergi uyğunluğu və biznes bankçılığı – hamısı bir yerdə.",
-  "getStarted": "Başlayın",
-  "pricingTitle": "Qiymət Planları",
+  "getStarted": "İndi Başlayın",
+  "pricingTitle": "Tarif Planları",
+
   "services": {
+    "title": "Xidmətlərimiz",
+    "description": "Təklif etdiyimiz xidmətlər haqqında öyrənin.",
     "companyFormation": "Şirkət Qeydiyyatı",
-    "companyFormationDesc": "Biznesinizi istənilən Aİ ölkəsində asanlıqla qeydiyyatdan keçirin.",
-    "legalTax": "Hüquqi və Vergi Uyğunluğu",
-    "legalTaxDesc": "Biznesinizin Aİ qaydalarına uyğun olduğundan əmin olun.",
+    "companyFormationDesc": "Şirkətinizi asanlıqla qeydiyyatdan keçirin.",
+    "legalTax": "Hüquq və Vergi Uyğunluğu",
+    "legalTaxDesc": "Biznesinizin Avropa qaydalarına uyğun olmasını təmin edin.",
     "banking": "Biznes Bankçılığı",
-    "bankingDesc": "Biznes hesablarınızı asanlıqla açın və idarə edin.",
-    "virtualOffice": "Virtual Ofis Xidməti",
-    "virtualOfficeDesc": "Biznes ünvanı və poçt xidmətləri əldə edin.",
-    "trademark": "Ticarət Markasının Qeydiyyatı",
-    "trademarkDesc": "Brendinizi Avropa bazarında qoruyun.",
-    "aiLegalChat": "AI Dəstəyi ilə Hüquqi Məlumat",
-    "aiLegalChatDesc": "Bizneslə bağlı suallarınıza anında cavab alın."
+    "bankingDesc": "Bank hesablarını asanlıqla açın və idarə edin.",
+    "virtualOffice": "Virtual Ofis Xidmətləri",
+    "virtualOfficeDesc": "Biznes ünvanı və poçt xidməti əldə edin.",
+    "trademark": "Ticarət Nişanının Qeydiyyatı",
+    "trademarkDesc": "Markanızı Avropa bazarında qoruyun.",
+    "aiLegalChat": "Süni İntellekt Dəstək Xidməti",
+    "aiLegalChatDesc": "Bizneslə bağlı suallarınıza dərhal cavab alın."
   },
+
   "pricing": {
-    "basic": "Əsas",
-    "basicPrice": "$29/ay",
-    "basicDesc": "Startaplar üçün əsas funksiyalar.",
-    "pro": "Pro",
-    "proPrice": "$99/ay",
-    "proDesc": "Böyüyən bizneslər üçün inkişaf etmiş funksiyalar.",
-    "enterprise": "Enterprise",
-    "enterprisePrice": "Xüsusi",
-    "enterpriseDesc": "Böyük bizneslər üçün fərdiləşdirilmiş həllər."
+    "title": "Qiymət Planları",
+    "description": "Biznes ehtiyaclarınıza uyğun ən yaxşı planı seçin.",
+    "plans": {
+      "basic": "Əsas",
+      "basicPrice": "$29/ay",
+      "basicDesc": "Yeni başlayanlar üçün əsas xüsusiyyətlər.",
+      "pro": "Peşəkar",
+      "proPrice": "$99/ay",
+      "proDesc": "İnkişaf edən bizneslər üçün qabaqcıl imkanlar.",
+      "enterprise": "Böyük Biznes",
+      "enterprisePrice": "Xüsusi",
+      "enterpriseDesc": "Böyük müəssisələr üçün fərdi həllər."
+    }
   },
+
   "footer": {
-    "companyDescription": "Aİ-də biznes qurmaq və genişləndirmək üçün etibarlı tərəfdaşınız.",
-    "quickLinks": "Tez Keçidlər",
-    "aboutUs": "Haqqımızda",
-    "services": "Xidmətlər",
-    "pricing": "Qiymətlər",
-    "blog": "Bloq",
-    "contact": "Əlaqə",
-    "servicesTitle": "Xidmətlər",
-    "companyFormation": "Şirkət Qeydiyyatı",
-    "legalTax": "Hüquqi və Vergi Məsləhətləri",
-    "banking": "Biznes Bankçılığı",
-    "virtualOffice": "Virtual Ofis",
-    "trademark": "Ticarət Markasının Qeydiyyatı",
-    "contactUs": "Bizimlə Əlaqə",
-    "address": "123 Biznes küçəsi, Berlin, Almaniya",
-    "phone": "+49 123 456 7890",
-    "email": "info@azeuconnect.com",
+    "company": {
+      "name": "AzEUConnect",
+      "description": "Avropa İttifaqında biznes qurmaq və genişləndirmək üçün etibarlı tərəfdaşınız."
+    },
+    "quickLinks": {
+      "title": "Tez keçidlər",
+      "links": {
+        "about": "Haqqımızda",
+        "services": "Xidmətlər",
+        "pricing": "Qiymətlər",
+        "blog": "Bloq",
+        "contact": "Əlaqə"
+      }
+    },
+    "services": {
+      "title": "Xidmətlərimiz",
+      "list": {
+        "company-formation": "Şirkət Qeydiyyatı",
+        "legalTax": "Hüquqi və Vergi Məsləhətləri",
+        "banking": "Biznes Bankçılığı",
+        "virtualOffice": "Virtual Ofis",
+        "trademark": "Ticarət Markasının Qeydiyyatı"
+      }
+    },
+    "contact": {
+      "title": "Bizimlə Əlaqə",
+      "address": "123 Biznes Küçəsi, Berlin, Almaniya",
+      "phone": "+49 123 456 7890",
+      "email": "info@azeuconnect.com",
+      "socials": {
+        "linkedin": "🔗 LinkedIn",
+        "facebook": "📘 Facebook",
+        "instagram": "📷 Instagram"
+      }
+    },
     "rightsReserved": "Bütün hüquqlar qorunur."
   }
 }

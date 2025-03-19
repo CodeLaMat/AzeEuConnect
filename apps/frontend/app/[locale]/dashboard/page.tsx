@@ -2,10 +2,12 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const t = useTranslations("dashboard");
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -17,13 +19,11 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="container mx-auto py-12 px-6">
-      <h2 className="text-3xl font-semibold text-gray-800">
-        Welcome, {session.user?.name}
-      </h2>
-      <p className="text-gray-600 mt-2">
-        Manage your business registrations and documents.
+    <main className="container mx-auto py-10 px-6">
+      <h1 className="text-3xl font-bold">{t("title")}</h1>
+      <p className="mt-4 text-gray-700">
+        {t("welcome", { name: session.user?.name || "Guest" })}
       </p>
-    </div>
+    </main>
   );
 }

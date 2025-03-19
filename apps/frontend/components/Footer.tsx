@@ -2,111 +2,71 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 export default function Footer() {
   const t = useTranslations("footer");
+  const { locale } = useParams(); // Get the current locale dynamically
 
   return (
     <footer className="bg-blue-700 text-white py-10">
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Company Info */}
         <div>
-          <h3 className="text-lg font-bold">AzEUConnect</h3>
-          <p className="mt-2 text-gray-400">{t("companyDescription")}</p>
+          <h3 className="text-lg font-bold">{t("company.name")}</h3>
+          <p className="mt-2 text-gray-400">{t("company.description")}</p>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h4 className="text-lg font-semibold">{t("quickLinks")}</h4>
+          <h4 className="text-lg font-semibold">{t("quickLinks.title")}</h4>
           <ul className="mt-2 space-y-2">
-            <li>
-              <Link href="/about" className="text-gray-400 hover:text-white">
-                {t("aboutUs")}
-              </Link>
-            </li>
-            <li>
-              <Link href="/services" className="text-gray-400 hover:text-white">
-                {t("services")}
-              </Link>
-            </li>
-            <li>
-              <Link href="/pricing" className="text-gray-400 hover:text-white">
-                {t("pricing")}
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog" className="text-gray-400 hover:text-white">
-                {t("blog")}
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="text-gray-400 hover:text-white">
-                {t("contact")}
-              </Link>
-            </li>
+            {Object.entries(t.raw("quickLinks.links")).map(([key, value]) => (
+              <li key={key}>
+                <Link
+                  href={`/${locale}/${key}`}
+                  className="text-gray-400 hover:text-white"
+                >
+                  {value as React.ReactNode}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Services */}
         <div>
-          <h4 className="text-lg font-semibold">{t("servicesTitle")}</h4>
+          <h4 className="text-lg font-semibold">{t("services.title")}</h4>
           <ul className="mt-2 space-y-2">
-            <li>
-              <Link
-                href="/company-formation"
-                className="text-gray-400 hover:text-white"
-              >
-                {t("companyFormation")}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/legal-services"
-                className="text-gray-400 hover:text-white"
-              >
-                {t("legalTax")}
-              </Link>
-            </li>
-            <li>
-              <Link href="/banking" className="text-gray-400 hover:text-white">
-                {t("banking")}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/virtual-office"
-                className="text-gray-400 hover:text-white"
-              >
-                {t("virtualOffice")}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/trademark"
-                className="text-gray-400 hover:text-white"
-              >
-                {t("trademark")}
-              </Link>
-            </li>
+            {Object.entries(t.raw("services.list")).map(([key, value]) => (
+              <li key={key}>
+                <Link
+                  href={`/${locale}/${key}`}
+                  className="text-gray-400 hover:text-white"
+                >
+                  {value as React.ReactNode}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Contact Info */}
         <div>
-          <h4 className="text-lg font-semibold">{t("contactUs")}</h4>
-          <p className="mt-2 text-gray-400">📍 {t("address")}</p>
-          <p className="mt-2 text-gray-400">📞 {t("phone")}</p>
-          <p className="mt-2 text-gray-400">✉️ {t("email")}</p>
+          <h4 className="text-lg font-semibold">{t("contact.title")}</h4>
+          <p className="mt-2 text-gray-400">📍 {t("contact.address")}</p>
+          <p className="mt-2 text-gray-400">📞 {t("contact.phone")}</p>
+          <p className="mt-2 text-gray-400">✉️ {t("contact.email")}</p>
           <div className="mt-4 flex space-x-4">
-            <Link href="#" className="text-gray-400 hover:text-white">
-              🔗 LinkedIn
-            </Link>
-            <Link href="#" className="text-gray-400 hover:text-white">
-              📘 Facebook
-            </Link>
-            <Link href="#" className="text-gray-400 hover:text-white">
-              📷 Instagram
-            </Link>
+            {Object.entries(t.raw("contact.socials")).map(([key, value]) => (
+              <Link
+                key={key}
+                href="#"
+                className="text-gray-400 hover:text-white"
+              >
+                {value as React.ReactNode}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

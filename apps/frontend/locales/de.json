@@ -12,11 +12,60 @@
     "logout": "Abmelden",
     "selectLanguage": "Sprache Wählen"
   },
+  "companyFormation": {
+    "title": "Starten Sie Ihr EU-Unternehmen",
+    "description": "Wir helfen Ihnen, Ihr Unternehmen schnell und einfach zu registrieren.",
+    "stepsTitle": "Schritte zur Unternehmensregistrierung",
+    "steps": {
+      "step1": "Wählen Sie die richtige Rechtsform (GmbH, UG, Ltd usw.)",
+      "step2": "Erstellen Sie die erforderlichen Rechtsdokumente",
+      "step3": "Reichen Sie die Anmeldung beim Handelsregister ein",
+      "step4": "Erhalten Sie eine Steuernummer und eröffnen Sie ein Geschäftskonto",
+      "step5": "Starten Sie Ihr Geschäft und bleiben Sie konform mit lokalen Vorschriften"
+    },
+    "benefitsTitle": "Warum ein Unternehmen in der EU gründen?",
+    "benefits": {
+      "benefit1": "Zugang zu einem großen EU-Markt",
+      "benefit2": "Rechtlicher Schutz und wirtschaftliche Stabilität",
+      "benefit3": "Geringere Unternehmenssteuern in einigen EU-Ländern",
+      "benefit4": "Einfacherer Zugang zu internationalen Bankdienstleistungen und Finanzierungen"
+    },
+    "documentsTitle": "Erforderliche Dokumente",
+    "documents": {
+      "document1": "Gültiger Reisepass oder Personalausweis",
+      "document2": "Adressnachweis (z. B. Stromrechnung, Kontoauszug)",
+      "document3": "Unternehmenssatzung und Gründungsdokumente",
+      "document4": "Informationen zu Gesellschaftern und Geschäftsführern"
+    },
+    "ctaText": "Bereit, Ihr Unternehmen in der EU zu gründen?",
+    "getStarted": "Jetzt Starten"
+  },
+
+  "about": {
+    "title": "Über uns",
+    "description": "Erfahren Sie mehr über unser Unternehmen und unsere Mission."
+  },
+  "blog": {
+    "title": "Unser Blog",
+    "description": "Lesen Sie Artikel und Einblicke zur Firmengründung."
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "description": "Kontaktieren Sie uns für Fragen oder Anfragen."
+  },
+  "dashboard": {
+    "title": "Ihr Dashboard",
+    "unauthorized": "Zugriff verweigert",
+    "pleaseLogin": "Bitte melden Sie sich an, um Ihr Dashboard zu nutzen.",
+    "welcome": "Willkommen, {name}!"
+  },
   "heroTitle": "Starten Sie Ihr Unternehmen in der EU mühelos",
   "heroDescription": "Unternehmensgründung, Steuerkonformität und Geschäftsbanken – alles an einem Ort.",
   "getStarted": "Loslegen",
   "pricingTitle": "Preispläne",
   "services": {
+    "title": "Unsere Dienstleistungen",
+    "description": "Erkunden Sie unser Serviceangebot.",
     "companyFormation": "Firmengründung",
     "companyFormationDesc": "Registrieren Sie Ihr Unternehmen einfach in jedem EU-Land.",
     "legalTax": "Rechtliche & Steuerliche Compliance",
@@ -31,34 +80,56 @@
     "aiLegalChatDesc": "Erhalten Sie sofort Antworten auf geschäftsbezogene Fragen."
   },
   "pricing": {
-    "basic": "Basic",
-    "basicPrice": "$29/Monat",
-    "basicDesc": "Wesentliche Funktionen für Startups.",
-    "pro": "Pro",
-    "proPrice": "$99/Monat",
-    "proDesc": "Erweiterte Funktionen für wachsende Unternehmen.",
-    "enterprise": "Enterprise",
-    "enterprisePrice": "Individuell",
-    "enterpriseDesc": "Maßgeschneiderte Lösungen für große Unternehmen."
+    "title": "Preispläne",
+    "description": "Wählen Sie den besten Plan für Ihre Bedürfnisse.",
+    "plans": {
+      "basic": "Basic",
+      "basicPrice": "$29/Monat",
+      "basicDesc": "Wesentliche Funktionen für Startups.",
+      "pro": "Pro",
+      "proPrice": "$99/Monat",
+      "proDesc": "Erweiterte Funktionen für wachsende Unternehmen.",
+      "enterprise": "Enterprise",
+      "enterprisePrice": "Individuell",
+      "enterpriseDesc": "Maßgeschneiderte Lösungen für große Unternehmen."
+    }
   },
   "footer": {
-    "companyDescription": "Ihr vertrauenswürdiger Partner für Unternehmensgründung und Expansion in der EU.",
-    "quickLinks": "Schnellzugriff",
-    "aboutUs": "Über Uns",
-    "services": "Dienstleistungen",
-    "pricing": "Preise",
-    "blog": "Blog",
-    "contact": "Kontakt",
-    "servicesTitle": "Dienstleistungen",
-    "companyFormation": "Firmengründung",
-    "legalTax": "Rechts- und Steuerberatung",
-    "banking": "Geschäftsbanking",
-    "virtualOffice": "Virtuelles Büro",
-    "trademark": "Markeneintragung",
-    "contactUs": "Kontaktieren Sie uns",
-    "address": "123 Business Street, Berlin, Deutschland",
-    "phone": "+49 123 456 7890",
-    "email": "info@azeuconnect.com",
+    "company": {
+      "name": "AzEUConnect",
+      "description": "Ihr vertrauenswürdiger Partner für Unternehmensgründung und Expansion in der EU."
+    },
+    "quickLinks": {
+      "title": "Schnellzugriff",
+      "links": {
+        "about": "Über uns",
+        "services": "Dienstleistungen",
+        "pricing": "Preise",
+        "blog": "Blog",
+        "contact": "Kontakt"
+      }
+    },
+    "services": {
+      "title": "Unsere Dienstleistungen",
+      "list": {
+        "company-formation": "Unternehmensgründung",
+        "legalTax": "Rechts- und Steuerberatung",
+        "banking": "Geschäftsbanking",
+        "virtualOffice": "Virtuelles Büro",
+        "trademark": "Markenanmeldung"
+      }
+    },
+    "contact": {
+      "title": "Kontaktieren Sie uns",
+      "address": "123 Geschäftsstraße, Berlin, Deutschland",
+      "phone": "+49 123 456 7890",
+      "email": "info@azeuconnect.com",
+      "socials": {
+        "linkedin": "🔗 LinkedIn",
+        "facebook": "📘 Facebook",
+        "instagram": "📷 Instagram"
+      }
+    },
     "rightsReserved": "Alle Rechte vorbehalten."
   }
 }

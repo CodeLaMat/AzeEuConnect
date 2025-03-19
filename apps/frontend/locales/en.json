@@ -12,11 +12,65 @@
     "logout": "Logout",
     "selectLanguage": "Select Language"
   },
+
+  "companyFormation": {
+    "title": "Start Your EU Business",
+    "description": "We help you register your company quickly and easily.",
+    "stepsTitle": "Steps to Register Your Company",
+    "steps": {
+      "step1": "Choose the right legal structure (GmbH, UG, Ltd, etc.)",
+      "step2": "Prepare necessary legal documents",
+      "step3": "Submit the application to the business registry",
+      "step4": "Obtain a tax ID and open a business bank account",
+      "step5": "Start operations and stay compliant with local regulations"
+    },
+    "benefitsTitle": "Why Start a Business in the EU?",
+    "benefits": {
+      "benefit1": "Access to a large EU market",
+      "benefit2": "Legal protections and business stability",
+      "benefit3": "Lower corporate taxes in some EU countries",
+      "benefit4": "Easier access to international banking and funding"
+    },
+    "documentsTitle": "Required Documents",
+    "documents": {
+      "document1": "Valid passport or national ID",
+      "document2": "Proof of address (utility bill, bank statement)",
+      "document3": "Company bylaws and articles of incorporation",
+      "document4": "Shareholder and director details"
+    },
+    "ctaText": "Ready to establish your business in the EU?",
+    "getStarted": "Get Started Today"
+  },
+
+  "about": {
+    "title": "About Us",
+    "description": "Learn more about our company and mission."
+  },
+
+  "blog": {
+    "title": "Our Blog",
+    "description": "Read articles and insights on business formation."
+  },
+
+  "contact": {
+    "title": "Get in Touch",
+    "description": "Reach out to us for any inquiries."
+  },
+
+  "dashboard": {
+    "title": "Your Dashboard",
+    "unauthorized": "Access Denied",
+    "pleaseLogin": "Please log in to access your dashboard.",
+    "welcome": "Welcome, {name}!"
+  },
+
   "heroTitle": "Start Your EU Business Easily",
   "heroDescription": "Company formation, tax compliance, and business banking – all in one place.",
   "getStarted": "Get Started",
   "pricingTitle": "Pricing Plans",
   "services": {
+    "title": "Our Services",
+    "description": "Explore the range of services we offer.",
     "companyFormation": "Company Formation",
     "companyFormationDesc": "Register your business in any EU country easily.",
     "legalTax": "Legal & Tax Compliance",
@@ -30,35 +84,59 @@
     "aiLegalChat": "AI-Powered Legal Chat",
     "aiLegalChatDesc": "Get instant answers to business-related queries."
   },
+
   "pricing": {
-    "basic": "Basic",
-    "basicPrice": "$29/mo",
-    "basicDesc": "Essential features for startups.",
-    "pro": "Pro",
-    "proPrice": "$99/mo",
-    "proDesc": "Advanced features for growing businesses.",
-    "enterprise": "Enterprise",
-    "enterprisePrice": "Custom",
-    "enterpriseDesc": "Tailored solutions for large enterprises."
+    "title": "Pricing Plans",
+    "description": "Choose the best plan that fits your needs.",
+    "plans": {
+      "basic": "Basic",
+      "basicPrice": "$29/mo",
+      "basicDesc": "Essential features for startups.",
+      "pro": "Pro",
+      "proPrice": "$99/mo",
+      "proDesc": "Advanced features for growing businesses.",
+      "enterprise": "Enterprise",
+      "enterprisePrice": "Custom",
+      "enterpriseDesc": "Tailored solutions for large enterprises."
+    }
   },
+
   "footer": {
-    "companyDescription": "Your trusted partner for business formation and expansion in the EU.",
-    "quickLinks": "Quick Links",
-    "aboutUs": "About Us",
-    "services": "Services",
-    "pricing": "Pricing",
-    "blog": "Blog",
-    "contact": "Contact",
-    "servicesTitle": "Services",
-    "companyFormation": "Company Formation",
-    "legalTax": "Legal & Tax Advisory",
-    "banking": "Business Banking",
-    "virtualOffice": "Virtual Office",
-    "trademark": "Trademark Registration",
-    "contactUs": "Contact Us",
-    "address": "123 Business Street, Berlin, Germany",
-    "phone": "+49 123 456 7890",
-    "email": "info@azeuconnect.com",
+    "company": {
+      "name": "AzEUConnect",
+      "description": "Your trusted partner for business formation and expansion in the EU."
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "links": {
+        "about": "About Us",
+        "services": "Services",
+        "pricing": "Pricing",
+        "blog": "Blog",
+        "contact": "Contact"
+      }
+    },
+    "services": {
+      "title": "Our Services",
+      "list": {
+        "company-formation": "Company Formation",
+        "legalTax": "Legal & Tax Advisory",
+        "banking": "Business Banking",
+        "virtualOffice": "Virtual Office",
+        "trademark": "Trademark Registration"
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "address": "123 Business Street, Berlin, Germany",
+      "phone": "+49 123 456 7890",
+      "email": "info@azeuconnect.com",
+      "socials": {
+        "linkedin": "🔗 LinkedIn",
+        "facebook": "📘 Facebook",
+        "instagram": "📷 Instagram"
+      }
+    },
     "rightsReserved": "All rights reserved."
   }
 }

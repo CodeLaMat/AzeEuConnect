@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { locales } from "@/i18n";
 
 export default function Navbar({ locale }: { locale: string }) {
@@ -27,6 +28,7 @@ export default function Navbar({ locale }: { locale: string }) {
 
   return (
     <nav className="flex justify-between items-center px-8 py-4 bg-blue-700 text-white shadow-md">
+      {/* Logo */}
       <Link
         href={`/${locale}`}
         className="text-2xl font-bold flex items-center space-x-2"
@@ -38,34 +40,33 @@ export default function Navbar({ locale }: { locale: string }) {
       </Link>
 
       {/* Navigation Links */}
-      <div className="hidden md:flex space-x-6">
-        <Link
-          href={`/${locale}/company-formation`}
-          className="hover:text-gray-300"
-        >
-          {t("companyFormation")}
-        </Link>
-        <Link href={`/${locale}/services`} className="hover:text-gray-300">
-          {t("services")}
-        </Link>
-        <Link href={`/${locale}/pricing`} className="hover:text-gray-300">
-          {t("pricing")}
-        </Link>
-        <Link href={`/${locale}/about`} className="hover:text-gray-300">
-          {t("aboutUs")}
-        </Link>
-        <Link href={`/${locale}/blog`} className="hover:text-gray-300">
-          {t("blog")}
-        </Link>
-        <Link href={`/${locale}/contact`} className="hover:text-gray-300">
-          {t("contact")}
-        </Link>
+      <div className="hidden md:flex space-x-2">
+        {[
+          { href: "company-formation", label: t("companyFormation") },
+          { href: "services", label: t("services") },
+          { href: "pricing", label: t("pricing") },
+          { href: "about", label: t("aboutUs") },
+          { href: "blog", label: t("blog") },
+          { href: "contact", label: t("contact") },
+        ].map(({ href, label }) => {
+          const isActive = pathname === `/${locale}/${href}`;
+          return (
+            <Link
+              key={href}
+              href={`/${locale}/${href}`}
+              className={`px-4 py-2 rounded-md transition duration-300 ease-in-out 
+                ${isActive ? "bg-white text-blue-700 font-bold" : "hover:bg-blue-600"}`}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </div>
 
       {/* Language Selector & Auth Buttons */}
-      <div className="flex space-x-4 items-center">
+      <div className="flex space-x-2 items-center ">
         <Select onValueChange={handleLanguageChange} defaultValue={locale}>
-          <SelectTrigger className="w-32 bg-white text-blue-700 rounded-md px-2 py-1">
+          <SelectTrigger className="w-36 bg-white text-blue-700 cursor-pointer">
             <SelectValue placeholder={t("selectLanguage")} />
           </SelectTrigger>
           <SelectContent>
@@ -78,33 +79,31 @@ export default function Navbar({ locale }: { locale: string }) {
 
         {session ? (
           <>
-            <Link
-              href="/dashboard"
-              className="px-4 py-2 bg-white text-blue-700 rounded-md"
-            >
-              {t("dashboard")}
-            </Link>
-            <button
+            <Button variant="outline" asChild>
+              <Link href="/dashboard">{t("dashboard")}</Link>
+            </Button>
+            <Button
+              variant="destructive"
+              className=" cursor-pointer"
               onClick={() => signOut()}
-              className="px-4 py-2 bg-red-500 text-white rounded-md"
             >
               {t("logout")}
-            </button>
+            </Button>
           </>
         ) : (
           <>
-            <button
+            <Button
+              className="bg-yellow-500 text-black font-bold hover:bg-yellow-600 cursor-pointer"
               onClick={() => signIn()}
-              className="px-4 py-2 bg-white text-blue-700 rounded-md"
             >
               {t("logIn")}
-            </button>
-            <button
+            </Button>
+            <Button
+              className="bg-green-500 text-white font-bold hover:bg-green-600 cursor-pointer"
               onClick={() => signIn()}
-              className="px-4 py-2 bg-blue-500 text-white border border-white rounded-md"
             >
               {t("signUp")}
-            </button>
+            </Button>
           </>
         )}
       </div>
