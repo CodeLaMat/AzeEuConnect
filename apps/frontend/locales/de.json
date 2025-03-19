@@ -1,4 +1,17 @@
 {
+  "navbar": {
+    "companyFormation": "Firmengründung",
+    "services": "Dienstleistungen",
+    "pricing": "Preise",
+    "aboutUs": "Über Uns",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "dashboard": "Dashboard",
+    "logIn": "Anmelden",
+    "signUp": "Registrieren",
+    "logout": "Abmelden",
+    "selectLanguage": "Sprache Wählen"
+  },
   "heroTitle": "Starten Sie Ihr Unternehmen in der EU mühelos",
   "heroDescription": "Unternehmensgründung, Steuerkonformität und Geschäftsbanken – alles an einem Ort.",
   "getStarted": "Loslegen",
@@ -27,5 +40,25 @@
     "enterprise": "Enterprise",
     "enterprisePrice": "Individuell",
     "enterpriseDesc": "Maßgeschneiderte Lösungen für große Unternehmen."
+  },
+  "footer": {
+    "companyDescription": "Ihr vertrauenswürdiger Partner für Unternehmensgründung und Expansion in der EU.",
+    "quickLinks": "Schnellzugriff",
+    "aboutUs": "Über Uns",
+    "services": "Dienstleistungen",
+    "pricing": "Preise",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "servicesTitle": "Dienstleistungen",
+    "companyFormation": "Firmengründung",
+    "legalTax": "Rechts- und Steuerberatung",
+    "banking": "Geschäftsbanking",
+    "virtualOffice": "Virtuelles Büro",
+    "trademark": "Markeneintragung",
+    "contactUs": "Kontaktieren Sie uns",
+    "address": "123 Business Street, Berlin, Deutschland",
+    "phone": "+49 123 456 7890",
+    "email": "info@azeuconnect.com",
+    "rightsReserved": "Alle Rechte vorbehalten."
   }
 }

@@ -1,4 +1,17 @@
 {
+  "navbar": {
+    "companyFormation": "Регистрация компании",
+    "services": "Услуги",
+    "pricing": "Цены",
+    "aboutUs": "О нас",
+    "blog": "Блог",
+    "contact": "Контакты",
+    "dashboard": "Панель управления",
+    "logIn": "Войти",
+    "signUp": "Регистрация",
+    "logout": "Выход",
+    "selectLanguage": "Выберите язык"
+  },
   "heroTitle": "Начните свой бизнес в ЕС легко",
   "heroDescription": "Регистрация компании, налоговое соответствие и бизнес-банкинг – всё в одном месте.",
   "getStarted": "Начать",
@@ -27,5 +40,25 @@
     "enterprise": "Enterprise",
     "enterprisePrice": "Индивидуально",
     "enterpriseDesc": "Персонализированные решения для крупных компаний."
+  },
+  "footer": {
+    "companyDescription": "Ваш надежный партнер для создания и расширения бизнеса в ЕС.",
+    "quickLinks": "Быстрые ссылки",
+    "aboutUs": "О нас",
+    "services": "Услуги",
+    "pricing": "Цены",
+    "blog": "Блог",
+    "contact": "Контакты",
+    "servicesTitle": "Услуги",
+    "companyFormation": "Регистрация компании",
+    "legalTax": "Юридические и налоговые консультации",
+    "banking": "Бизнес-банкинг",
+    "virtualOffice": "Виртуальный офис",
+    "trademark": "Регистрация торговой марки",
+    "contactUs": "Свяжитесь с нами",
+    "address": "123 Бизнес-стрит, Берлин, Германия",
+    "phone": "+49 123 456 7890",
+    "email": "info@azeuconnect.com",
+    "rightsReserved": "Все права защищены."
   }
 }

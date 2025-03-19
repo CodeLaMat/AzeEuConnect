@@ -1,38 +1,35 @@
-"use client";
-
-import { SessionProvider } from "next-auth/react";
+import { getTranslations } from "@/lib/getTranslations";
 import Navbar from "@/components/Navbar";
-import "@/styles/globals.css";
-import { TranslationProvider } from "@/app/providers";
-import { notFound } from "next/navigation";
-import { locales } from "@/i18n";
-import { use } from "react";
 import Footer from "@/components/Footer";
+import { notFound } from "next/navigation";
+import "@/styles/globals.css";
+import { Providers } from "../providers";
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params: paramsPromise,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = use(paramsPromise);
+  const { locale } = await paramsPromise;
 
-  // Validate the locale from the URL
-  if (!locales.includes(locale as "az" | "en" | "ru" | "de")) {
+  // Validate locale
+  const supportedLocales = ["az", "en", "ru", "de"];
+  if (!supportedLocales.includes(locale)) {
     notFound();
   }
+
+  const messages = await getTranslations(locale);
 
   return (
     <html lang={locale}>
       <body>
-        <SessionProvider>
-          <TranslationProvider locale={locale}>
-            <Navbar locale={locale} />
-            <main>{children}</main>
-            <Footer />
-          </TranslationProvider>
-        </SessionProvider>
+        <Providers locale={locale} messages={messages}>
+          <Navbar locale={locale} />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

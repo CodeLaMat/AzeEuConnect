@@ -1,28 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 import { IntlProvider } from "next-intl";
 
-export function TranslationProvider({
+export function Providers({
   children,
   locale,
+  messages,
 }: {
   children: React.ReactNode;
   locale: string;
+  messages: Record<string, string>;
 }) {
-  const [messages, setMessages] = useState<Record<string, string> | null>(null);
-
-  useEffect(() => {
-    import(`@/locales/${locale}.json`)
-      .then((module) => setMessages(module.default))
-      .catch(() => setMessages(null));
-  }, [locale]);
-
-  if (!messages) return <p>Loading translations...</p>;
-
   return (
-    <IntlProvider locale={locale} messages={messages}>
-      {children}
-    </IntlProvider>
+    <SessionProvider>
+      <IntlProvider locale={locale} messages={messages}>
+        {children}
+      </IntlProvider>
+    </SessionProvider>
   );
 }

@@ -1,4 +1,17 @@
 {
+  "navbar": {
+    "companyFormation": "Şirkət Qeydiyyatı",
+    "services": "Xidmətlər",
+    "pricing": "Qiymətlər",
+    "aboutUs": "Haqqımızda",
+    "blog": "Bloq",
+    "contact": "Əlaqə",
+    "dashboard": "İdarə Paneli",
+    "logIn": "Daxil Ol",
+    "signUp": "Qeydiyyat",
+    "logout": "Çıxış",
+    "selectLanguage": "Dil Seçin"
+  },
   "heroTitle": "Avropada Biznesinizi Asanlıqla Başlayın",
   "heroDescription": "Şirkət qeydiyyatı, vergi uyğunluğu və biznes bankçılığı – hamısı bir yerdə.",
   "getStarted": "Başlayın",
@@ -27,5 +40,25 @@
     "enterprise": "Enterprise",
     "enterprisePrice": "Xüsusi",
     "enterpriseDesc": "Böyük bizneslər üçün fərdiləşdirilmiş həllər."
+  },
+  "footer": {
+    "companyDescription": "Aİ-də biznes qurmaq və genişləndirmək üçün etibarlı tərəfdaşınız.",
+    "quickLinks": "Tez Keçidlər",
+    "aboutUs": "Haqqımızda",
+    "services": "Xidmətlər",
+    "pricing": "Qiymətlər",
+    "blog": "Bloq",
+    "contact": "Əlaqə",
+    "servicesTitle": "Xidmətlər",
+    "companyFormation": "Şirkət Qeydiyyatı",
+    "legalTax": "Hüquqi və Vergi Məsləhətləri",
+    "banking": "Biznes Bankçılığı",
+    "virtualOffice": "Virtual Ofis",
+    "trademark": "Ticarət Markasının Qeydiyyatı",
+    "contactUs": "Bizimlə Əlaqə",
+    "address": "123 Biznes küçəsi, Berlin, Almaniya",
+    "phone": "+49 123 456 7890",
+    "email": "info@azeuconnect.com",
+    "rightsReserved": "Bütün hüquqlar qorunur."
   }
 }

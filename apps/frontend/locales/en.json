@@ -1,4 +1,17 @@
 {
+  "navbar": {
+    "companyFormation": "Company Formation",
+    "services": "Services",
+    "pricing": "Pricing",
+    "aboutUs": "About Us",
+    "blog": "Blog",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "logIn": "Log In",
+    "signUp": "Sign Up",
+    "logout": "Logout",
+    "selectLanguage": "Select Language"
+  },
   "heroTitle": "Start Your EU Business Easily",
   "heroDescription": "Company formation, tax compliance, and business banking – all in one place.",
   "getStarted": "Get Started",
@@ -27,5 +40,25 @@
     "enterprise": "Enterprise",
     "enterprisePrice": "Custom",
     "enterpriseDesc": "Tailored solutions for large enterprises."
+  },
+  "footer": {
+    "companyDescription": "Your trusted partner for business formation and expansion in the EU.",
+    "quickLinks": "Quick Links",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "contact": "Contact",
+    "servicesTitle": "Services",
+    "companyFormation": "Company Formation",
+    "legalTax": "Legal & Tax Advisory",
+    "banking": "Business Banking",
+    "virtualOffice": "Virtual Office",
+    "trademark": "Trademark Registration",
+    "contactUs": "Contact Us",
+    "address": "123 Business Street, Berlin, Germany",
+    "phone": "+49 123 456 7890",
+    "email": "info@azeuconnect.com",
+    "rightsReserved": "All rights reserved."
   }
 }
