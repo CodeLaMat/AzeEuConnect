@@ -12,6 +12,7 @@
     "logout": "Выход",
     "selectLanguage": "Выберите язык",
     "logInWithGoogle": "Войти через Google",
+    "loading": "Загрузка...",
     "auth": {
       "title": "Войти в аккаунт",
       "description": "Войдите с помощью Google или используйте электронную почту и пароль.",
@@ -85,10 +86,53 @@
     "description": "Свяжитесь с нами по любым вопросам."
   },
   "dashboard": {
-    "title": "Ваш Личный Кабинет",
-    "unauthorized": "Доступ запрещен",
-    "pleaseLogin": "Пожалуйста, войдите в систему, чтобы получить доступ к панели.",
-    "welcome": "Добро пожаловать, {name}!"
+    "title": "Панель управления",
+    "sidebar": {
+      "dashboard": "Панель управления",
+      "documents": "Документы",
+      "companyFormation": "Регистрация компании",
+      "taxAccounting": "Налоги и бухгалтерия",
+      "banking": "Банковские услуги",
+      "support": "Поддержка"
+    },
+    "registrationStatus": {
+      "title": "Статус регистрации",
+      "inProgress": "В процессе",
+      "completedSteps": "{completed} из {total} шагов выполнено"
+    },
+    "upcomingTasks": {
+      "title": "Предстоящие задачи",
+      "task1": "Предоставить нотариально заверенные документы ({days} дн.)",
+      "task2": "Подтвердить банковские реквизиты ({days} дн.)",
+      "task3": "Назначить консультацию по налогам ({days} дн.)"
+    },
+    "subscription": {
+      "title": "Подписка",
+      "plan": "Тариф {plan}",
+      "activeUntil": "Активен до {date}",
+      "manage": "Управлять подпиской"
+    },
+    "recentDocuments": {
+      "title": "Недавние документы",
+      "uploaded": "Загружено {date}",
+      "viewAll": "Посмотреть все"
+    },
+    "companyFormation": {
+      "title": "Регистрация компании",
+      "registrationProgress": "Процесс регистрации",
+      "steps": {
+        "documentPreparation": "Подготовка документов",
+        "notarization": "Нотариальное заверение",
+        "bankAccountOpening": "Открытие банковского счета",
+        "commercialRegisterEntry": "Внесение в торговый реестр",
+        "taxRegistration": "Налоговая регистрация"
+      },
+      "status": {
+        "completed": "Завершено",
+        "inProgress": "В процессе",
+        "notStarted": "Не начато"
+      }
+    }
   },
   "heroTitle": "Начните свой бизнес в ЕС легко",
   "heroDescription": "Регистрация компании, налоговое соответствие и бизнес-банкинг – всё в одном месте.",

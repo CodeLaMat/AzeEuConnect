@@ -1,22 +1,34 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter, useParams } from "next/navigation";
 import { FaGoogle } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
 
 export default function SignInPage() {
   const t = useTranslations("navbar");
   const { locale } = useParams();
-
+  const router = useRouter();
+  const { data: session } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Redirect to dashboard if user is already logged in
+  useEffect(() => {
+    if (session) {
+      router.push(`/${locale}/dashboard`);
+    }
+  }, [session, router, locale]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await signIn("credentials", { email, password, callbackUrl: "/" });
+    await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: `/${locale}/dashboard`,
+    });
   };
 
   return (
@@ -30,7 +42,9 @@ export default function SignInPage() {
         {/* Google Login */}
         <Button
           className="flex items-center w-full justify-center mt-4 bg-yellow-500 text-black font-bold hover:bg-yellow-600"
-          onClick={() => signIn("google")}
+          onClick={() =>
+            signIn("google", { callbackUrl: `/${locale}/dashboard` })
+          }
         >
           <FaGoogle className="mr-2" />
           {t("auth.logInWithGoogle")}
@@ -70,12 +84,12 @@ export default function SignInPage() {
 
         <p className="text-center mt-4 text-gray-600">
           {t("auth.noAccount")}{" "}
-          <a
-            href={`/${locale}/signup`}
-            className="text-blue-700 hover:underline"
+          <span
+            onClick={() => router.push(`/${locale}/signup`)}
+            className="text-blue-700 hover:underline cursor-pointer"
           >
             {t("auth.signUp")}
-          </a>
+          </span>
         </p>
       </div>
     </main>

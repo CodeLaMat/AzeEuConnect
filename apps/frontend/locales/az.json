@@ -12,6 +12,7 @@
     "logout": "Çıxış",
     "selectLanguage": "Dil Seçin",
     "logInWithGoogle": "Google ilə daxil olun",
+    "loading": "Yenilənir...",
     "auth": {
       "title": "Hesabınıza daxil olun",
       "description": "Daxil olmaq üçün seçiminizi edin.",
@@ -89,10 +90,53 @@
   },
 
   "dashboard": {
-    "title": "İdarə Paneliniz",
-    "unauthorized": "Giriş İcazəsi Yoxdur",
-    "pleaseLogin": "İdarə panelinizə daxil olmaq üçün giriş edin.",
-    "welcome": "Xoş gəldiniz, {name}!"
+    "title": "İdarə Paneli",
+    "sidebar": {
+      "dashboard": "İdarə Paneli",
+      "documents": "Sənədlər",
+      "companyFormation": "Şirkət Quruluşu",
+      "taxAccounting": "Vergi və Mühasibatlıq",
+      "banking": "Bankçılıq",
+      "support": "Dəstək"
+    },
+    "registrationStatus": {
+      "title": "Qeydiyyat Statusu",
+      "inProgress": "Davam edir",
+      "completedSteps": "{completed} / {total} addım tamamlandı"
+    },
+    "upcomingTasks": {
+      "title": "Gələcək Tapşırıqlar",
+      "task1": "Notarius sənədlərini təqdim edin ({days} gün)",
+      "task2": "Bank hesabı detallarını təsdiqləyin ({days} gün)",
+      "task3": "Vergi məsləhətləşməsi üçün görüş təyin edin ({days} gün)"
+    },
+    "subscription": {
+      "title": "Abunəlik",
+      "plan": "{plan} Paketi",
+      "activeUntil": "{date} tarixinə qədər aktiv",
+      "manage": "Abunəliyi İdarə et"
+    },
+    "recentDocuments": {
+      "title": "Son Sənədlər",
+      "uploaded": "{date} tarixində yüklənib",
+      "viewAll": "Hamısına Bax"
+    },
+    "companyFormation": {
+      "title": "Şirkətin Qeydiyyatı",
+      "registrationProgress": "Qeydiyyatın Gedişatı",
+      "steps": {
+        "documentPreparation": "Sənədlərin Hazırlanması",
+        "notarization": "Notarial Təsdiq",
+        "bankAccountOpening": "Bank Hesabının Açılması",
+        "commercialRegisterEntry": "Kommersiya Reyestrinə Daxil Edilmə",
+        "taxRegistration": "Vergi Qeydiyyatı"
+      },
+      "status": {
+        "completed": "Tamamlandı",
+        "inProgress": "Davam Edir",
+        "notStarted": "Başlamayıb"
+      }
+    }
   },
 
   "heroTitle": "Avropada Biznesinizi Asanlıqla Başlayın",

@@ -12,6 +12,7 @@
     "logout": "Logout",
     "selectLanguage": "Select Language",
     "logInWithGoogle": "Log in with Google",
+    "loading": "Loading...",
     "auth": {
       "title": "Sign In to Your Account",
       "description": "Choose your preferred sign-in method below.",
@@ -90,10 +91,53 @@
   },
 
   "dashboard": {
-    "title": "Your Dashboard",
-    "unauthorized": "Access Denied",
-    "pleaseLogin": "Please log in to access your dashboard.",
-    "welcome": "Welcome, {name}!"
+    "title": "Dashboard",
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "documents": "Documents",
+      "companyFormation": "Company Formation",
+      "taxAccounting": "Tax & Accounting",
+      "banking": "Banking",
+      "support": "Support"
+    },
+    "registrationStatus": {
+      "title": "Registration Status",
+      "inProgress": "In Progress",
+      "completedSteps": "{completed} of {total} steps completed"
+    },
+    "upcomingTasks": {
+      "title": "Upcoming Tasks",
+      "task1": "Submit notarized documents ({days} days)",
+      "task2": "Verify bank account details ({days} days)",
+      "task3": "Schedule tax consultation ({days} days)"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "plan": "{plan} Plan",
+      "activeUntil": "Active until {date}",
+      "manage": "Manage Subscription"
+    },
+    "recentDocuments": {
+      "title": "Recent Documents",
+      "uploaded": "Uploaded on {date}",
+      "viewAll": "View All"
+    },
+    "companyFormation": {
+      "title": "Company Formation",
+      "registrationProgress": "Registration Progress",
+      "steps": {
+        "documentPreparation": "Document Preparation",
+        "notarization": "Notarization",
+        "bankAccountOpening": "Bank Account Opening",
+        "commercialRegisterEntry": "Commercial Register Entry",
+        "taxRegistration": "Tax Registration"
+      },
+      "status": {
+        "completed": "Completed",
+        "inProgress": "In Progress",
+        "notStarted": "Not Started"
+      }
+    }
   },
 
   "heroTitle": "Start Your EU Business Easily",

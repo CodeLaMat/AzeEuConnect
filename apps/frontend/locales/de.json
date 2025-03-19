@@ -12,6 +12,7 @@
     "logout": "Abmelden",
     "selectLanguage": "Sprache Wählen",
     "logInWithGoogle": "Mit Google anmelden",
+    "loading": "Lädt...",
     "auth": {
       "title": "Melden Sie sich an",
       "description": "Melden Sie sich mit Google an oder verwenden Sie E-Mail und Passwort.",
@@ -86,10 +87,53 @@
     "description": "Kontaktieren Sie uns für Fragen oder Anfragen."
   },
   "dashboard": {
-    "title": "Ihr Dashboard",
-    "unauthorized": "Zugriff verweigert",
-    "pleaseLogin": "Bitte melden Sie sich an, um Ihr Dashboard zu nutzen.",
-    "welcome": "Willkommen, {name}!"
+    "title": "Dashboard",
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "documents": "Dokumente",
+      "companyFormation": "Firmengründung",
+      "taxAccounting": "Steuern & Buchhaltung",
+      "banking": "Bankdienstleistungen",
+      "support": "Support"
+    },
+    "registrationStatus": {
+      "title": "Registrierungsstatus",
+      "inProgress": "In Bearbeitung",
+      "completedSteps": "{completed} von {total} Schritten abgeschlossen"
+    },
+    "upcomingTasks": {
+      "title": "Bevorstehende Aufgaben",
+      "task1": "Notariell beglaubigte Dokumente einreichen ({days} Tage)",
+      "task2": "Bankkontodetails bestätigen ({days} Tage)",
+      "task3": "Steuerberatungstermin vereinbaren ({days} Tage)"
+    },
+    "subscription": {
+      "title": "Abonnement",
+      "plan": "{plan} Tarif",
+      "activeUntil": "Aktiv bis {date}",
+      "manage": "Abonnement verwalten"
+    },
+    "recentDocuments": {
+      "title": "Letzte Dokumente",
+      "uploaded": "Hochgeladen am {date}",
+      "viewAll": "Alle anzeigen"
+    },
+    "companyFormation": {
+      "title": "Unternehmensgründung",
+      "registrationProgress": "Registrierungsfortschritt",
+      "steps": {
+        "documentPreparation": "Dokumentenvorbereitung",
+        "notarization": "Notarielle Beglaubigung",
+        "bankAccountOpening": "Eröffnung eines Bankkontos",
+        "commercialRegisterEntry": "Eintragung ins Handelsregister",
+        "taxRegistration": "Steuerregistrierung"
+      },
+      "status": {
+        "completed": "Abgeschlossen",
+        "inProgress": "In Bearbeitung",
+        "notStarted": "Nicht begonnen"
+      }
+    }
   },
   "heroTitle": "Starten Sie Ihr Unternehmen in der EU mühelos",
   "heroDescription": "Unternehmensgründung, Steuerkonformität und Geschäftsbanken – alles an einem Ort.",

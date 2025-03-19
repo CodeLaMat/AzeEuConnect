@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { locales } from "@/i18n";
 
 export default function Navbar({ locale }: { locale: string }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("navbar");
@@ -77,15 +77,22 @@ export default function Navbar({ locale }: { locale: string }) {
           </SelectContent>
         </Select>
 
-        {session ? (
+        {status === "loading" ? (
+          <Button className="bg-gray-500 text-white font-bold" disabled>
+            {t("loading")}
+          </Button>
+        ) : session ? (
           <>
-            <Button variant="outline" asChild>
-              <Link href="/dashboard">{t("dashboard")}</Link>
+            <Button
+              className="bg-gray-700 text-white font-bold hover:bg-gray-800 cursor-pointer"
+              asChild
+            >
+              <Link href={`/${locale}/dashboard`}>{t("dashboard")}</Link>
             </Button>
             <Button
               variant="destructive"
               className="cursor-pointer"
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: `/${locale}/signin` })}
             >
               {t("logout")}
             </Button>
@@ -103,7 +110,7 @@ export default function Navbar({ locale }: { locale: string }) {
               className="bg-green-500 text-white font-bold hover:bg-green-600 cursor-pointer"
               asChild
             >
-              <Link href={`/${locale}/signup`}>{t("signUp")}</Link>
+              <Link href={`/${locale}/signin`}>{t("signUp")}</Link>
             </Button>
           </>
         )}
