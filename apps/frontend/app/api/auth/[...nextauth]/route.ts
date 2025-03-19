@@ -1,8 +1,7 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import type { JWT } from "next-auth/jwt";
-import type { Session, User } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -36,22 +35,8 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
-  callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: User }) {
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    async session({ session, token }: { session: Session; token: JWT }) {
-      if (token?.id) {
-        session.user.id = token.id;
-      }
-      return session;
-    },
-  },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/signin",
     error: "/auth/error",
   },
 };

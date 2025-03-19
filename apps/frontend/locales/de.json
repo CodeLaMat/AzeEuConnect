@@ -10,7 +10,19 @@
     "logIn": "Anmelden",
     "signUp": "Registrieren",
     "logout": "Abmelden",
-    "selectLanguage": "Sprache Wählen"
+    "selectLanguage": "Sprache Wählen",
+    "logInWithGoogle": "Mit Google anmelden",
+    "auth": {
+      "title": "Melden Sie sich an",
+      "description": "Melden Sie sich mit Google an oder verwenden Sie E-Mail und Passwort.",
+      "logInWithGoogle": "Mit Google anmelden",
+      "or": "oder",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+      "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+      "login": "Anmelden",
+      "noAccount": "Noch kein Konto?",
+      "signUp": "Registrieren"
+    }
   },
   "companyFormation": {
     "title": "Starten Sie Ihr EU-Unternehmen",
@@ -43,7 +55,27 @@
 
   "about": {
     "title": "Über uns",
-    "description": "Erfahren Sie mehr über unser Unternehmen und unsere Mission."
+    "description": "Erfahren Sie mehr über unser Unternehmen, unsere Mission und unsere Werte.",
+    "mission": {
+      "title": "Unsere Mission",
+      "description": "Wir wollen die Unternehmensgründung und Expansion in der EU vereinfachen und für alle zugänglich machen."
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "integrity": "Integrität: Wir halten höchste ethische Standards ein.",
+      "transparency": "Transparenz: Offene und ehrliche Kommunikation.",
+      "innovation": "Innovation: Ständige Verbesserung unserer Dienstleistungen.",
+      "customerFocus": "Kundenorientierung: Ihr Erfolg ist unsere Priorität."
+    },
+    "team": {
+      "title": "Unser Team",
+      "description": "Unser Team besteht aus Branchenexperten mit langjähriger Erfahrung in der Unternehmensgründung und Rechtsberatung.",
+      "ceo": "Geschäftsführer",
+      "cfo": "Finanzdirektor",
+      "cto": "Technischer Direktor"
+    },
+    "ctaText": "Bereit, Ihr Unternehmen in der EU zu starten?",
+    "ctaButton": "Jetzt starten"
   },
   "blog": {
     "title": "Unser Blog",
@@ -77,7 +109,9 @@
     "trademark": "Markeneintragung",
     "trademarkDesc": "Schützen Sie Ihre Marke auf dem europäischen Markt.",
     "aiLegalChat": "KI-gestützter Rechtschat",
-    "aiLegalChatDesc": "Erhalten Sie sofort Antworten auf geschäftsbezogene Fragen."
+    "aiLegalChatDesc": "Erhalten Sie sofort Antworten auf geschäftsbezogene Fragen.",
+    "ctaText": "Bereit, Ihr Unternehmen auf die nächste Stufe zu bringen?",
+    "ctaButton": "Jetzt Loslegen"
   },
   "pricing": {
     "title": "Preispläne",

@@ -10,7 +10,19 @@
     "logIn": "Daxil Ol",
     "signUp": "Qeydiyyatdan Keç",
     "logout": "Çıxış",
-    "selectLanguage": "Dil Seçin"
+    "selectLanguage": "Dil Seçin",
+    "logInWithGoogle": "Google ilə daxil olun",
+    "auth": {
+      "title": "Hesabınıza daxil olun",
+      "description": "Daxil olmaq üçün seçiminizi edin.",
+      "logInWithGoogle": "Google ilə davam edin",
+      "or": "və ya",
+      "emailPlaceholder": "E-poçtunuzu daxil edin",
+      "passwordPlaceholder": "Şifrənizi daxil edin",
+      "login": "Daxil olun",
+      "noAccount": "Hesabınız yoxdur?",
+      "signUp": "Qeydiyyatdan keçin"
+    }
   },
 
   "companyFormation": {
@@ -41,10 +53,29 @@
     "ctaText": "Avropada biznesinizi qurmağa hazırsınız?",
     "getStarted": "İndi Başlayın"
   },
-
   "about": {
     "title": "Haqqımızda",
-    "description": "Şirkətimiz və missiyamız haqqında daha çox öyrənin."
+    "description": "Şirkətimiz, missiyamız və dəyərlərimiz haqqında daha çox öyrənin.",
+    "mission": {
+      "title": "Missiyamız",
+      "description": "Biz Avropa İttifaqında biznesin qeydiyyatını və genişlənməsini asanlaşdırmağa çalışırıq, hər kəs üçün əlçatan edirik."
+    },
+    "values": {
+      "title": "Əsas Dəyərlərimiz",
+      "integrity": "Dürüstlük: Ən yüksək etik standartlara riayət edirik.",
+      "transparency": "Şəffaflıq: Açıq və dürüst ünsiyyət qururuq.",
+      "innovation": "İnnovasiya: Xidmətlərimizi daim təkmilləşdiririk.",
+      "customerFocus": "Müştəri yönümlülük: Sizin uğurunuz bizim prioritetimizdir."
+    },
+    "team": {
+      "title": "Komandamız",
+      "description": "Komandamız biznes qeydiyyatı və hüquqi məsləhət sahəsində illərlə təcrübəsi olan mütəxəssislərdən ibarətdir.",
+      "ceo": "İcraçı Direktor",
+      "cfo": "Maliyyə Direktoru",
+      "cto": "Texnologiya Direktoru"
+    },
+    "ctaText": "Avropa İttifaqında biznes qurmağa hazırsınız?",
+    "ctaButton": "İndi Başlayın"
   },
 
   "blog": {
@@ -83,7 +114,9 @@
     "trademark": "Ticarət Nişanının Qeydiyyatı",
     "trademarkDesc": "Markanızı Avropa bazarında qoruyun.",
     "aiLegalChat": "Süni İntellekt Dəstək Xidməti",
-    "aiLegalChatDesc": "Bizneslə bağlı suallarınıza dərhal cavab alın."
+    "aiLegalChatDesc": "Bizneslə bağlı suallarınıza dərhal cavab alın.",
+    "ctaText": "Avropa İttifaqında biznes qurmağa hazırsınız?",
+    "ctaButton": "İndi Başlayın"
   },
 
   "pricing": {
@@ -98,7 +131,9 @@
       "proDesc": "İnkişaf edən bizneslər üçün qabaqcıl imkanlar.",
       "enterprise": "Böyük Biznes",
       "enterprisePrice": "Xüsusi",
-      "enterpriseDesc": "Böyük müəssisələr üçün fərdi həllər."
+      "enterpriseDesc": "Böyük müəssisələr üçün fərdi həllər.",
+      "ctaText": "Biznesinizi növbəti səviyyəyə qaldırmağa hazırsınız?",
+      "ctaButton": "İndi Başlayın"
     }
   },
 
