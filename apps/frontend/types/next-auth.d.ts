@@ -1,22 +1,13 @@
 import { DefaultSession, DefaultUser } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
-/**
- * Extend default NextAuth interfaces to include custom user fields like:
- * - role
- * - membership
- * - firstName
- * - lastName
- * - location
- */
-
 declare module "next-auth" {
   interface User extends DefaultUser {
+    id?: string;
     role?: string;
     firstName?: string;
     lastName?: string;
     location?: string;
-
     membership?: {
       status: string;
       plan: string;
@@ -26,15 +17,21 @@ declare module "next-auth" {
       subscriptionId: string;
       planId: string;
     };
+    profile?: {
+      firstName?: string;
+      lastName?: string;
+      location?: string;
+      image?: string;
+    };
   }
 
   interface Session {
     user?: {
+      id?: string;
       role?: string;
       firstName?: string;
       lastName?: string;
       location?: string;
-
       membership?: {
         status: string;
         plan: string;
@@ -44,17 +41,23 @@ declare module "next-auth" {
         subscriptionId: string;
         planId: string;
       };
+      profile?: {
+        firstName?: string;
+        lastName?: string;
+        location?: string;
+        image?: string;
+      };
     } & DefaultSession["user"];
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
+    id?: string;
     role?: string;
     firstName?: string;
     lastName?: string;
     location?: string;
-
     membership?: {
       status: string;
       plan: string;
@@ -63,6 +66,12 @@ declare module "next-auth/jwt" {
       updatedAt: string;
       subscriptionId: string;
       planId: string;
+    };
+    profile?: {
+      firstName?: string;
+      lastName?: string;
+      location?: string;
+      image?: string;
     };
   }
 }

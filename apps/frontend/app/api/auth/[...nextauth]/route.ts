@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
           name: profile.name,
           firstName: profile.given_name,
           lastName: profile.family_name,
-          // location: Google doesn't typically provide location
+          image: profile.picture,
         };
       },
     }),
@@ -35,7 +35,6 @@ export const authOptions: NextAuthOptions = {
             headers: { "Content-Type": "application/json" },
           }
         );
-
         const user = await res.json();
         if (!res.ok || !user.id) {
           throw new Error("Invalid credentials");
@@ -50,31 +49,57 @@ export const authOptions: NextAuthOptions = {
     error: "/auth/error",
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       if (account?.provider === "google") {
         const userEmail = user.email;
         const existingUser = await prisma.user.findUnique({
           where: { email: userEmail! },
+          include: { profile: true },
         });
 
         if (!existingUser) {
-          await prisma.user.create({
+          const createdUser = await prisma.user.create({
             data: {
               email: userEmail!,
               password: "",
               role: "customer",
-              firstName: (user as any).firstName || null,
-              lastName: (user as any).lastName || null,
+              profile: {
+                create: {
+                  firstName: user.firstName,
+                  lastName: user.lastName,
+                  location: "",
+                  image: (user as any).image,
+                },
+              },
             },
+            include: { profile: true },
           });
+          (user as any).id = createdUser.id;
+          (user as any).profile = createdUser.profile;
         } else {
-          await prisma.user.update({
-            where: { email: userEmail! },
-            data: {
-              firstName: (user as any).firstName || existingUser.firstName,
-              lastName: (user as any).lastName || existingUser.lastName,
-            },
-          });
+          let updatedProfile;
+          if (existingUser.profile) {
+            updatedProfile = await prisma.profile.update({
+              where: { userId: existingUser.id },
+              data: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                image: (user as any).image,
+              },
+            });
+          } else {
+            updatedProfile = await prisma.profile.create({
+              data: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                image: (user as any).image,
+                location: "",
+                user: { connect: { id: existingUser.id } },
+              },
+            });
+          }
+          (user as any).id = existingUser.id;
+          (user as any).profile = updatedProfile;
         }
       }
       return true;
@@ -82,14 +107,18 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ token, user }) {
       if (user) {
+        token.id = (user as any).id;
         token.role = (user as any).role || "customer";
+        token.profile = (user as any).profile || null;
       }
       return token;
     },
 
     async session({ session, token }) {
       if (session.user) {
+        session.user.id = token.id as string;
         session.user.role = token.role as string;
+        session.user.profile = token.profile;
       }
       return session;
     },

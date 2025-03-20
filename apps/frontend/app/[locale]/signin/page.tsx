@@ -1,21 +1,30 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { signIn, useSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
 import { FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+
+// Redux bits:
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store/store";
+import { setUserData } from "@/app/store/userSlice";
 
 export default function SignInPage() {
   const t = useTranslations("navbar");
   const { locale } = useParams();
   const router = useRouter();
   const { data: session } = useSession();
+
+  // Redux
+  const dispatch = useDispatch<AppDispatch>();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Redirect to dashboard if user is already logged in
+  // If the user is already logged in, go to dashboard
   useEffect(() => {
     if (session) {
       router.push(`/${locale}/dashboard`);
@@ -24,11 +33,30 @@ export default function SignInPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await signIn("credentials", {
+
+    const result = await signIn("credentials", {
       email,
       password,
-      callbackUrl: `/${locale}/dashboard`,
+      redirect: false,
     });
+
+    if (result?.ok) {
+      const updatedSession = await getSession();
+      if (updatedSession?.user) {
+        dispatch(
+          setUserData({
+            id: updatedSession.user.id || "",
+            email: updatedSession.user.email || "",
+            role: updatedSession.user.role || "customer",
+            profile: updatedSession.user.profile,
+          })
+        );
+      }
+
+      router.push(`/${locale}/dashboard`);
+    } else {
+      console.error("Sign-in failed: ", result?.error);
+    }
   };
 
   return (
@@ -39,12 +67,28 @@ export default function SignInPage() {
         </h1>
         <p className="text-center text-gray-600">{t("auth.description")}</p>
 
-        {/* Google Login */}
         <Button
-          className="flex items-center w-full justify-center mt-4 bg-yellow-500 text-black font-bold hover:bg-yellow-600"
-          onClick={() =>
-            signIn("google", { callbackUrl: `/${locale}/dashboard` })
-          }
+          className="flex items-center w-full justify-center mt-4 bg-yellow-500 text-black font-bold hover:bg-yellow-600 cursor-pointer"
+          onClick={async () => {
+            const result = await signIn("google", {
+              callbackUrl: `/${locale}/dashboard`,
+              redirect: false,
+            });
+            if (result?.ok) {
+              const updatedSession = await getSession();
+              if (updatedSession?.user) {
+                dispatch(
+                  setUserData({
+                    id: updatedSession.user.id || "",
+                    email: updatedSession.user.email || "",
+                    role: updatedSession.user.role || "customer",
+                    profile: updatedSession.user.profile,
+                  })
+                );
+              }
+              router.push(`/${locale}/dashboard`);
+            }
+          }}
         >
           <FaGoogle className="mr-2" />
           {t("auth.logInWithGoogle")}
@@ -56,7 +100,6 @@ export default function SignInPage() {
           <hr className="flex-grow border-gray-300" />
         </div>
 
-        {/* Email & Password Login */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
@@ -76,7 +119,7 @@ export default function SignInPage() {
           />
           <Button
             type="submit"
-            className="w-full bg-blue-600 text-white hover:bg-blue-700"
+            className="w-full bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
           >
             {t("auth.login")}
           </Button>

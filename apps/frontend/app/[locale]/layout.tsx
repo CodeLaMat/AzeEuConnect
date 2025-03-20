@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { notFound } from "next/navigation";
 import "@/styles/globals.css";
 import { Providers } from "../providers";
+import UserHydrator from "@/components/UserHydration";
 
 export default async function LocaleLayout({
   children,
@@ -26,6 +27,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body>
         <Providers locale={locale} messages={messages}>
+          <UserHydrator />
           <Navbar locale={locale} />
           <main>{children}</main>
           <Footer />

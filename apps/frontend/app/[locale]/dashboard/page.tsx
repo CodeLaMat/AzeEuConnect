@@ -2,14 +2,20 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/app/store/store";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { FaFileAlt, FaTasks } from "react-icons/fa";
+import { FaFileAlt } from "react-icons/fa";
 
 export default function Dashboard() {
   const t = useTranslations("dashboard");
 
+  const user = useSelector((state: RootState) => state.user);
+
   const [progress] = useState(60);
+
+  console.log("User: ", user);
 
   const tasks = [
     { key: "task1", days: 3, color: "text-red-500" },
@@ -24,6 +30,17 @@ export default function Dashboard() {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">{t("title")}</h1>
+
+      {/* Display User Info */}
+      <section className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 className="text-xl font-bold">
+          Welcome, {user.profile?.firstName || "User"}{" "}
+          {user.profile?.lastName || ""}
+        </h2>
+        <p>Email: {user.email}</p>
+        <p>Role: {user.role}</p>
+        {user.profile?.location && <p>Location: {user.profile.location}</p>}
+      </section>
 
       {/* Registration Status */}
       <section className="bg-white p-6 rounded-lg shadow-md mb-6">
