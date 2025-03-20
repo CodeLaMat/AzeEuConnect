@@ -10,7 +10,6 @@ import { FaFileAlt } from "react-icons/fa";
 
 export default function Dashboard() {
   const t = useTranslations("dashboard");
-
   const user = useSelector((state: RootState) => state.user);
 
   const [progress] = useState(60);

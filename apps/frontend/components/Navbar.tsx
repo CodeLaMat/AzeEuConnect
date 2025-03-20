@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter, usePathname, useParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/app/store/store";
 import {
@@ -23,24 +23,29 @@ export default function Navbar({ locale }: { locale: string }) {
   const pathname = usePathname();
   const t = useTranslations("navbar");
 
-  const handleLanguageChange = (newLocale: string) => {
-    if (!locales.includes(newLocale as "az" | "en" | "ru" | "de")) return;
-    const newPath = `/${newLocale}${pathname.slice(3)}`;
-    router.push(newPath);
-  };
-
+  // Redux user
   const user = useSelector((state: RootState) => state.user);
   const userRole = user.role;
 
+  // Language switch
+  const handleLanguageChange = (newLocale: string) => {
+    if (!locales.includes(newLocale as "az" | "en" | "ru" | "de")) return;
+
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/;`;
+    const pathParts = pathname.split("/");
+    pathParts[1] = newLocale;
+    const newPath = pathParts.join("/");
+
+    router.replace(newPath);
+  };
+
+  // Build nav links
   function getNavLinks(role?: string) {
     if (!role) {
       return [
-        { href: "company-formation", label: t("companyFormation") },
         { href: "services", label: t("services") },
         { href: "pricing", label: t("pricing") },
         { href: "about", label: t("aboutUs") },
-        { href: "blog", label: t("blog") },
-        { href: "contact", label: t("contact") },
       ];
     }
 
@@ -51,12 +56,15 @@ export default function Navbar({ locale }: { locale: string }) {
           { href: "users", label: t("manageUsers") },
           { href: "services", label: t("services") },
           { href: "pricing", label: t("pricing") },
+          { href: "about", label: t("aboutUs") },
         ];
       case "consultant":
         return [
           { href: "consultant-dashboard", label: t("consultantDashboard") },
           { href: "clients", label: t("clients") },
           { href: "services", label: t("services") },
+          { href: "pricing", label: t("pricing") },
+          { href: "about", label: t("aboutUs") },
         ];
       case "customer":
         return [
@@ -65,21 +73,19 @@ export default function Navbar({ locale }: { locale: string }) {
           { href: "documents", label: t("documents") },
           { href: "services", label: t("services") },
           { href: "pricing", label: t("pricing") },
+          { href: "about", label: t("aboutUs") },
         ];
       default:
         return [
-          { href: "company-formation", label: t("companyFormation") },
           { href: "services", label: t("services") },
           { href: "pricing", label: t("pricing") },
           { href: "about", label: t("aboutUs") },
-          { href: "blog", label: t("blog") },
-          { href: "contact", label: t("contact") },
         ];
     }
   }
-
   const navLinks = getNavLinks(userRole);
 
+  // Account menu
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -93,8 +99,11 @@ export default function Navbar({ locale }: { locale: string }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Dropdown for "About Us"
+  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
+
   return (
-    <nav className="flex justify-between items-center px-8 py-4 bg-blue-700 text-white shadow-md">
+    <nav className="relative flex justify-between items-center px-8 py-4 bg-blue-700 text-white shadow-md">
       {/* Logo */}
       <Link
         href={`/${locale}`}
@@ -106,9 +115,135 @@ export default function Navbar({ locale }: { locale: string }) {
         <span>AzEUConnect</span>
       </Link>
 
-      {/* Nav Links */}
-      <div className="hidden md:flex space-x-2">
+      {/* Navigation Links */}
+      <div className="hidden md:flex space-x-2 items-center">
         {navLinks.map(({ href, label }) => {
+          // If it's about
+          if (href === "about") {
+            return (
+              <div
+                key={href}
+                className=" cursor-pointer "
+                onMouseEnter={() => setShowAboutDropdown(true)}
+              >
+                <Link
+                  href={`/${locale}/${href}`}
+                  className=" px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-blue-600"
+                >
+                  {label}
+                </Link>
+                {/* The multi-column dropdown for "About Us" */}
+                {showAboutDropdown && (
+                  <div
+                    className="absolute left-0 top-full w-screen bg-white text-black shadow-lg z-50 "
+                    onMouseEnter={() => setShowAboutDropdown(true)}
+                    onMouseLeave={() => setShowAboutDropdown(false)}
+                  >
+                    <div className="max-w-7xl mx-auto px-8 py-6 grid grid-cols-2 gap-8">
+                      {/* Column 1 */}
+                      <div>
+                        <h3 className="uppercase font-bold text-sm mb-2">
+                          Company
+                        </h3>
+                        <ul className="space-y-1">
+                          <li>
+                            <Link
+                              href={`/${locale}/who-we-are`}
+                              className="hover:underline"
+                            >
+                              Who we are
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/career`}
+                              className="hover:underline"
+                            >
+                              Career
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/partners`}
+                              className="hover:underline"
+                            >
+                              Partners
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/customer-stories`}
+                              className="hover:underline"
+                            >
+                              Customer Stories
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/testimonials`}
+                              className="hover:underline"
+                            >
+                              Testimonials
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/contact`}
+                              className="hover:underline"
+                            >
+                              Contact
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* Column 2 */}
+                      <div>
+                        <h3 className="uppercase font-bold text-sm mb-2">
+                          Press
+                        </h3>
+                        <ul className="space-y-1">
+                          <li>
+                            <Link
+                              href={`/${locale}/media-publications`}
+                              className="hover:underline"
+                            >
+                              Media &amp; Publications
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/advertise`}
+                              className="hover:underline"
+                            >
+                              Advertise on AzEUConnect
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/blog`}
+                              className="hover:underline"
+                            >
+                              Blog
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              href={`/${locale}/news`}
+                              className="hover:underline"
+                            >
+                              News
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          // Normal link
           const isActive = pathname === `/${locale}/${href}`;
           return (
             <Link
@@ -126,7 +261,7 @@ export default function Navbar({ locale }: { locale: string }) {
         })}
       </div>
 
-      {/* Right Side: Language + Account */}
+      {/* Language + Account */}
       <div className="flex space-x-4 items-center">
         <Select onValueChange={handleLanguageChange} defaultValue={locale}>
           <SelectTrigger className="w-36 bg-white text-blue-700 cursor-pointer">
@@ -181,7 +316,6 @@ export default function Navbar({ locale }: { locale: string }) {
                 </div>
                 <hr className="my-2" />
 
-                {/* Menu Links with Translations */}
                 <Link
                   href={`/${locale}/account-settings`}
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
@@ -209,7 +343,6 @@ export default function Navbar({ locale }: { locale: string }) {
 
                 <hr className="my-2" />
 
-                {/* Logout */}
                 <button
                   onClick={() => signOut({ callbackUrl: `/${locale}/signin` })}
                   className="w-full text-left px-2 py-1 text-gray-700 hover:bg-gray-100 rounded cursor-pointer"
