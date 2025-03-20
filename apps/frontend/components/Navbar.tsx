@@ -148,7 +148,7 @@ export default function Navbar({ locale }: { locale: string }) {
               className="bg-green-500 text-white font-bold hover:bg-green-600 cursor-pointer"
               asChild
             >
-              <Link href={`/${locale}/signin`}>{t("signUp")}</Link>
+              <Link href={`/${locale}/signup`}>{t("signUp")}</Link>
             </Button>
           </>
         )}

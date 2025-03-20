@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { RequestHandler } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
@@ -8,7 +8,6 @@ export const registerUser: RequestHandler = async (req, res, next) => {
   try {
     const { email, password, role, firstName, lastName, location } = req.body;
 
-    // Check if user already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       res.status(409).json({ message: "User already exists" });
@@ -20,6 +19,8 @@ export const registerUser: RequestHandler = async (req, res, next) => {
     const newUser = await prisma.user.create({
       data: {
         email,
+        firstName: firstName,
+        lastName: lastName,
         password: hashedPassword,
         role: role || "customer",
         profile: {
@@ -60,7 +61,6 @@ export const loginUser: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    // Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       res.status(401).json({ message: "Invalid credentials" });

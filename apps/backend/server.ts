@@ -12,6 +12,6 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
-app.use("/api/users", userRouter);
+app.use("/api/auth", userRouter);
 
 app.listen(5001, () => console.log("🚀 Server running on port 5001"));
