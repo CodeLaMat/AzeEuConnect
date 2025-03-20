@@ -11,13 +11,14 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       profile(profile) {
+        // Return fields including image from Google
         return {
           id: profile.sub,
           email: profile.email,
           name: profile.name,
           firstName: profile.given_name,
           lastName: profile.family_name,
-          image: profile.picture,
+          image: profile.picture, // Use profile.picture for image URL
         };
       },
     }),
@@ -77,9 +78,8 @@ export const authOptions: NextAuthOptions = {
           (user as any).id = createdUser.id;
           (user as any).profile = createdUser.profile;
         } else {
-          let updatedProfile;
           if (existingUser.profile) {
-            updatedProfile = await prisma.profile.update({
+            const updatedProfile = await prisma.profile.update({
               where: { userId: existingUser.id },
               data: {
                 firstName: user.firstName,
@@ -87,19 +87,20 @@ export const authOptions: NextAuthOptions = {
                 image: (user as any).image,
               },
             });
+            (user as any).profile = updatedProfile;
           } else {
-            updatedProfile = await prisma.profile.create({
+            const newProfile = await prisma.profile.create({
               data: {
                 firstName: user.firstName,
                 lastName: user.lastName,
-                image: (user as any).image,
                 location: "",
+                image: (user as any).image,
                 user: { connect: { id: existingUser.id } },
               },
             });
+            (user as any).profile = newProfile;
           }
           (user as any).id = existingUser.id;
-          (user as any).profile = updatedProfile;
         }
       }
       return true;

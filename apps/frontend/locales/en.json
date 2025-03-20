@@ -1,6 +1,7 @@
 {
   "navbar": {
     "companyFormation": "Company Formation",
+    "homePage": "Home",
     "services": "Services",
     "pricing": "Pricing",
     "aboutUs": "About Us",
@@ -33,7 +34,8 @@
       "drafts": "Drafts",
       "helpCenter": "Help Center",
       "logout": "Logout",
-      "noLocation": "No location specified"
+      "noLocation": "No location specified",
+      "dashboard": "Dashboard"
     }
   },
 

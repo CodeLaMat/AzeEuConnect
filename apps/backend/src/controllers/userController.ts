@@ -19,8 +19,6 @@ export const registerUser: RequestHandler = async (req, res, next) => {
     const newUser = await prisma.user.create({
       data: {
         email,
-        firstName: firstName,
-        lastName: lastName,
         password: hashedPassword,
         role: role || "customer",
         profile: {
@@ -38,7 +36,7 @@ export const registerUser: RequestHandler = async (req, res, next) => {
       id: newUser.id,
       email: newUser.email,
       role: newUser.role,
-      profile: newUser.profile,
+      profile: (newUser as any).profile,
     });
     return;
   } catch (error) {

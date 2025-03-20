@@ -43,6 +43,7 @@ export default function Navbar({ locale }: { locale: string }) {
   function getNavLinks(role?: string) {
     if (!role) {
       return [
+        { href: "/", label: t("homePage") },
         { href: "services", label: t("services") },
         { href: "pricing", label: t("pricing") },
         { href: "about", label: t("aboutUs") },
@@ -52,7 +53,7 @@ export default function Navbar({ locale }: { locale: string }) {
     switch (role) {
       case "admin":
         return [
-          { href: "admin-dashboard", label: t("adminDashboard") },
+          { href: "/", label: t("homePage") },
           { href: "users", label: t("manageUsers") },
           { href: "services", label: t("services") },
           { href: "pricing", label: t("pricing") },
@@ -60,7 +61,7 @@ export default function Navbar({ locale }: { locale: string }) {
         ];
       case "consultant":
         return [
-          { href: "consultant-dashboard", label: t("consultantDashboard") },
+          { href: "", label: t("homePage") },
           { href: "clients", label: t("clients") },
           { href: "services", label: t("services") },
           { href: "pricing", label: t("pricing") },
@@ -68,7 +69,7 @@ export default function Navbar({ locale }: { locale: string }) {
         ];
       case "customer":
         return [
-          { href: "dashboard", label: t("dashboard") },
+          { href: "/", label: t("homePage") },
           { href: "company-formation", label: t("companyFormation") },
           { href: "documents", label: t("documents") },
           { href: "services", label: t("services") },
@@ -77,6 +78,7 @@ export default function Navbar({ locale }: { locale: string }) {
         ];
       default:
         return [
+          { href: "/", label: t("homePage") },
           { href: "services", label: t("services") },
           { href: "pricing", label: t("pricing") },
           { href: "about", label: t("aboutUs") },
@@ -315,6 +317,18 @@ export default function Navbar({ locale }: { locale: string }) {
                   </div>
                 </div>
                 <hr className="my-2" />
+                <Link
+                  href={
+                    userRole === "customer"
+                      ? `/${locale}/dashboard`
+                      : userRole === "admin"
+                        ? `/${locale}/admin-dashboard`
+                        : `/${locale}/consultant-dashboard`
+                  }
+                  className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
+                >
+                  {t("account.dashboard")}
+                </Link>
 
                 <Link
                   href={`/${locale}/account-settings`}
