@@ -24,6 +24,14 @@
       "login": "Log In",
       "noAccount": "Don't have an account?",
       "signUp": "Sign Up"
+    },
+    "account": {
+      "personalSettings": "Personal Settings",
+      "bookmarks": "Bookmarks",
+      "drafts": "Drafts",
+      "helpCenter": "Help Center",
+      "logout": "Logout",
+      "noLocation": "No location specified"
     }
   },
 

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/app/store/store";
 import {
@@ -30,10 +30,8 @@ export default function Navbar({ locale }: { locale: string }) {
   };
 
   const user = useSelector((state: RootState) => state.user);
-
   const userRole = user.role;
 
-  // Nav links
   function getNavLinks(role?: string) {
     if (!role) {
       return [
@@ -85,7 +83,6 @@ export default function Navbar({ locale }: { locale: string }) {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Close menu if user clicks outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -117,12 +114,11 @@ export default function Navbar({ locale }: { locale: string }) {
             <Link
               key={href}
               href={`/${locale}/${href}`}
-              className={`px-4 py-2 rounded-md transition duration-300 ease-in-out 
-                ${
-                  isActive
-                    ? "bg-white text-blue-700 font-bold"
-                    : "hover:bg-blue-600"
-                }`}
+              className={`px-4 py-2 rounded-md transition duration-300 ease-in-out ${
+                isActive
+                  ? "bg-white text-blue-700 font-bold"
+                  : "hover:bg-blue-600"
+              }`}
             >
               {label}
             </Link>
@@ -132,7 +128,6 @@ export default function Navbar({ locale }: { locale: string }) {
 
       {/* Right Side: Language + Account */}
       <div className="flex space-x-4 items-center">
-        {/* Language Selector */}
         <Select onValueChange={handleLanguageChange} defaultValue={locale}>
           <SelectTrigger className="w-36 bg-white text-blue-700 cursor-pointer">
             <SelectValue placeholder={t("selectLanguage")} />
@@ -168,7 +163,7 @@ export default function Navbar({ locale }: { locale: string }) {
                 <div className="flex items-center space-x-2 mb-3">
                   <img
                     src={
-                      session.user?.image || "/media/images/profile_icon.svg"
+                      user.profile?.image || "/media/images/profile_icon.svg"
                     }
                     alt="Profile"
                     className="w-10 h-10 rounded-full"
@@ -180,36 +175,36 @@ export default function Navbar({ locale }: { locale: string }) {
                     </span>
                     <span className="text-sm text-gray-500">
                       {session.user?.role || "Member"} •{" "}
-                      {user.profile?.location}
+                      {user.profile?.location || t("account.noLocation")}
                     </span>
                   </div>
                 </div>
                 <hr className="my-2" />
 
-                {/* Menu Links */}
+                {/* Menu Links with Translations */}
                 <Link
                   href={`/${locale}/account-settings`}
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
                 >
-                  Personal Settings
+                  {t("account.personalSettings")}
                 </Link>
                 <Link
                   href={`/${locale}/bookmarks`}
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
                 >
-                  Bookmarks
+                  {t("account.bookmarks")}
                 </Link>
                 <Link
                   href={`/${locale}/drafts`}
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
                 >
-                  Drafts
+                  {t("account.drafts")}
                 </Link>
                 <Link
                   href={`/${locale}/help`}
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
                 >
-                  Help Center
+                  {t("account.helpCenter")}
                 </Link>
 
                 <hr className="my-2" />
@@ -219,13 +214,12 @@ export default function Navbar({ locale }: { locale: string }) {
                   onClick={() => signOut({ callbackUrl: `/${locale}/signin` })}
                   className="w-full text-left px-2 py-1 text-gray-700 hover:bg-gray-100 rounded cursor-pointer"
                 >
-                  Logout
+                  {t("account.logout")}
                 </button>
               </div>
             )}
           </div>
         ) : (
-          // Not logged in: Show Sign In / Sign Up
           <>
             <Button
               className="bg-yellow-500 text-black font-bold hover:bg-yellow-600 cursor-pointer"
