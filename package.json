@@ -1,5 +1,5 @@
 {
-  "name": "azeeu",
+  "name": "AzeEu",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -9,6 +9,7 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@prisma/client": "6.5.0",
     "prettier": "^3.5.3",
     "prisma": "6.5.0",
     "turbo": "^2.4.4",
@@ -23,7 +24,6 @@
     "packages/*"
   ],
   "dependencies": {
-    "@prisma/client": "6.5.0",
     "bcrypt": "5.1.1",
     "cors": "2.8.5",
     "dotenv": "16.4.7",

@@ -3,13 +3,19 @@
 import { FormEvent, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { z } from "zod";
+import { availableCountries, getTimezoneByCountry } from "@/lib/timezone";
 
+// ✅ Schema Validation
 const registerSchema = z
   .object({
     firstName: z.string().min(3, "First Name is required"),
     lastName: z.string().min(3, "Last Name is required"),
     email: z.string().email("Invalid email address"),
+    phone: z.string().min(7, "Phone number is required"),
     location: z.string().min(3, "Location (Country) is required"),
+    nationality: z.string().min(3, "Nationality is required"),
+    timezone: z.string().min(3, "Timezone is required"),
+    preferredLanguage: z.enum(["AZ", "EN", "DE", "FR", "NL"]),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string(),
   })
@@ -22,35 +28,45 @@ export default function RegisterPage() {
   const router = useRouter();
   const { locale } = useParams();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [location, setLocation] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    location: "",
+    nationality: "",
+    timezone: "UTC",
+    preferredLanguage: "AZ",
+    password: "",
+    confirmPassword: "",
+  });
 
   // UI states
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // ✅ Handle form input change
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === "location" && { timezone: getTimezoneByCountry(value) }),
+    }));
+  };
+
+  // ✅ Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
-    const formData = {
-      firstName,
-      lastName,
-      email,
-      location,
-      password,
-      confirmPassword,
-    };
-
     const result = registerSchema.safeParse(formData);
     if (!result.success) {
-      const zodError = result.error.errors[0];
-      setError(zodError.message);
+      setError(result.error.errors[0].message);
       setLoading(false);
       return;
     }
@@ -61,13 +77,7 @@ export default function RegisterPage() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            password,
-            location,
-          }),
+          body: JSON.stringify(formData),
         }
       );
 
@@ -100,92 +110,123 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* FIRST NAME */}
-          <div>
-            <label htmlFor="firstName" className="block mb-1 font-medium">
-              First Name
-            </label>
-            <input
-              id="firstName"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              placeholder="John"
-            />
-          </div>
+          <InputField
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="John"
+          />
 
           {/* LAST NAME */}
-          <div>
-            <label htmlFor="lastName" className="block mb-1 font-medium">
-              Last Name
-            </label>
-            <input
-              id="lastName"
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              placeholder="Doe"
-            />
-          </div>
+          <InputField
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Doe"
+          />
 
           {/* EMAIL */}
-          <div>
-            <label htmlFor="email" className="block mb-1 font-medium">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              placeholder="johndoe@example.com"
-            />
-          </div>
+          <InputField
+            label="Email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="johndoe@example.com"
+          />
+
+          {/* PHONE */}
+          <InputField
+            label="Phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="+994 50 123 4567"
+          />
 
           {/* LOCATION */}
           <div>
             <label htmlFor="location" className="block mb-1 font-medium">
               Country
             </label>
-            <input
+            <select
               id="location"
-              type="text"
-              placeholder="e.g. Azerbaijan"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
               className="w-full px-3 py-2 border rounded"
-            />
+            >
+              <option value="">Select a country</option>
+              {availableCountries.map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* NATIONALITY */}
+          <InputField
+            label="Nationality"
+            name="nationality"
+            value={formData.nationality}
+            onChange={handleChange}
+            placeholder="Azerbaijani"
+          />
+
+          {/* TIMEZONE */}
+          {/* TIMEZONE (READ-ONLY) */}
+          <InputField
+            label="Timezone"
+            name="timezone"
+            value={formData.timezone}
+            onChange={handleChange}
+            placeholder="Auto-filled based on country"
+            type="text"
+          />
+
+          {/* PREFERRED LANGUAGE */}
+          <div>
+            <label
+              htmlFor="preferredLanguage"
+              className="block mb-1 font-medium"
+            >
+              Preferred Language
+            </label>
+            <select
+              id="preferredLanguage"
+              name="preferredLanguage"
+              value={formData.preferredLanguage}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded"
+            >
+              <option value="AZ">Azerbaijani</option>
+              <option value="EN">English</option>
+              <option value="DE">German</option>
+              <option value="FR">French</option>
+              <option value="NL">Dutch</option>
+            </select>
           </div>
 
           {/* PASSWORD */}
-          <div>
-            <label htmlFor="password" className="block mb-1 font-medium">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-            />
-          </div>
+          <InputField
+            label="Password"
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
 
           {/* CONFIRM PASSWORD */}
-          <div>
-            <label htmlFor="confirmPassword" className="block mb-1 font-medium">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-            />
-          </div>
+          <InputField
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
 
           {/* SUBMIT BUTTON */}
           <button
@@ -210,3 +251,35 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+// ✅ Reusable InputField Component
+const InputField = ({
+  label,
+  name,
+  type = "text",
+  value,
+  onChange,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+}) => (
+  <div>
+    <label htmlFor={name} className="block mb-1 font-medium">
+      {label}
+    </label>
+    <input
+      id={name}
+      name={name}
+      type={type}
+      value={value}
+      onChange={onChange}
+      className="w-full px-3 py-2 border rounded"
+      placeholder={placeholder}
+    />
+  </div>
+);

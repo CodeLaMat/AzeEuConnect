@@ -1,0 +1,19 @@
+{
+  "name": "@packages/db",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "types": "index.ts",
+  "dependencies": {
+    "prisma": "^6.5.0",
+    "@prisma/client": "^6.5.0"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma",
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "scripts": {
+    "migrate": "prisma migrate dev --schema=./prisma/schema.prisma",
+    "generate": "prisma generate --schema=./prisma/schema.prisma",
+    "seed": "prisma db seed"
+  }
+}

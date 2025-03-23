@@ -1,0 +1,298 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String        @id @default(uuid())
+  email            String        @unique
+  password         String
+  role             UserRole      @default(USER)
+  emailVerified    Boolean       @default(false)
+  twoFactorEnabled Boolean       @default(false)
+  lastLogin        DateTime?
+  accountStatus    AccountStatus @default(ACTIVE)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  appointments   Appointment[]
+  companyDetails Company?
+  documents      Document[]
+  notifications  Notification[]
+  profile        Profile?
+  services       Services?
+  subscription   Subscription?
+  supportTickets SupportTicket[]
+
+  // 👇 Required for NextAuth
+  accounts Account[]
+  sessions Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Profile {
+  id                String    @id @default(uuid())
+  firstName         String?
+  lastName          String?
+  location          String?
+  phone             String?
+  image             String?
+  gender            Gender?
+  nationality       String?
+  timezone          String?   @default("UTC")
+  preferredLanguage Language? @default(AZ)
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id])
+}
+
+model Company {
+  id                    String             @id @default(uuid())
+  businessName          String
+  businessType          BusinessType
+  businessCategory      BusinessCategory
+  registrationStatus    RegistrationStatus @default(PENDING)
+  businessAddress       String?
+  vatNumber             String?
+  taxId                 String?
+  companySize           CompanySize?
+  countryOfRegistration String?
+  formationDate         DateTime?
+  lastUpdated           DateTime?
+  userId                String             @unique
+  user                  User               @relation(fields: [userId], references: [id])
+}
+
+model Subscription {
+  id              String           @id @default(uuid())
+  plan            SubscriptionPlan @default(BASIC)
+  paymentStatus   PaymentStatus    @default(ACTIVE)
+  paymentMethod   PaymentMethod?
+  nextBillingDate DateTime?
+  discountApplied Boolean          @default(false)
+  referralCode    String?
+  userId          String           @unique
+  user            User             @relation(fields: [userId], references: [id])
+}
+
+model Services {
+  id                    String         @id @default(uuid())
+  companyFormation      ServiceStatus?
+  taxAndAccounting      ServiceStatus?
+  legalConsultation     ServiceStatus?
+  bankingSetup          ServiceStatus?
+  virtualOffice         ServiceStatus?
+  trademarkRegistration ServiceStatus?
+  regulatoryCompliance  ServiceStatus?
+  businessExpansion     ServiceStatus?
+  userId                String         @unique
+  user                  User           @relation(fields: [userId], references: [id])
+}
+
+model Document {
+  id           String         @id @default(uuid())
+  documentType DocumentType
+  fileUrl      String
+  status       DocumentStatus @default(UPLOADED)
+  uploadedAt   DateTime       @default(now())
+  verifiedBy   String?
+  userId       String
+  user         User           @relation(fields: [userId], references: [id])
+}
+
+model Appointment {
+  id            String            @id @default(uuid())
+  consultantId  String
+  serviceType   ServiceType
+  scheduledDate DateTime
+  status        AppointmentStatus @default(PENDING)
+  userId        String
+  user          User              @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  type      NotificationType
+  message   String
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+}
+
+model SupportTicket {
+  id          String                @id @default(uuid())
+  subject     String
+  description String
+  priority    SupportTicketPriority
+  status      SupportTicketStatus   @default(OPEN)
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  userId      String
+  user        User                  @relation(fields: [userId], references: [id])
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  CONSULTANT
+  SUPPORT_AGENT
+  REGULATORY_OFFICER
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Language {
+  AZ
+  EN
+  DE
+  RU
+}
+
+enum BusinessType {
+  GMBH
+  UG
+  SARL
+  BV
+  LTD
+  AG
+}
+
+enum BusinessCategory {
+  TECH
+  FINANCE
+  RETAIL
+  MANUFACTURING
+  OTHER
+}
+
+enum RegistrationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum CompanySize {
+  SOLE_PROPRIETOR
+  SMALL_BUSINESS
+  MEDIUM_BUSINESS
+  LARGE_BUSINESS
+}
+
+enum SubscriptionPlan {
+  BASIC
+  PRO
+  ENTERPRISE
+}
+
+enum PaymentStatus {
+  ACTIVE
+  PENDING
+  CANCELLED
+}
+
+enum PaymentMethod {
+  STRIPE
+  PAYPAL
+  SEPA
+  KLARNA
+}
+
+enum ServiceStatus {
+  REQUESTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum DocumentType {
+  ARTICLES_OF_INCORPORATION
+  BUSINESS_LICENSE
+  TAX_CERTIFICATE
+  BANKING_AGREEMENT
+}
+
+enum DocumentStatus {
+  UPLOADED
+  VERIFIED
+  REJECTED
+}
+
+enum ServiceType {
+  LEGAL_CONSULTATION
+  TAX_ADVISORY
+  BANKING_SETUP
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum NotificationType {
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum SupportTicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum SupportTicketStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}

@@ -7,56 +7,146 @@ import { FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-// Redux bits:
+// Redux
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/app/store/store";
-import { setUserData } from "@/app/store/userSlice";
+import { AppDispatch } from "@/store/store";
+import { setUserData } from "@/store/userSlice";
+import { roleToDashboard } from "@/lib/utils";
 
 export default function SignInPage() {
   const t = useTranslations("navbar");
   const { locale } = useParams();
   const router = useRouter();
-  const { data: session } = useSession();
-
-  // Redux
+  const { data: session, status } = useSession();
   const dispatch = useDispatch<AppDispatch>();
+  // Form State
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  // If the user is already logged in, go to dashboard
+  // ✅ Redirect if session exists and user is authenticated
   useEffect(() => {
-    if (session) {
-      router.push(`/${locale}/dashboard`);
-    }
-  }, [session, router, locale]);
+    const redirectToCorrectDashboard = async () => {
+      if (session && status === "authenticated") {
+        const updatedSession = await getSession();
+        const role = updatedSession?.user?.role?.toUpperCase();
 
+        const dashboardPath =
+          roleToDashboard[role as keyof typeof roleToDashboard];
+
+        if (dashboardPath) {
+          router.push(`/${locale}/${dashboardPath}`);
+        } else {
+          router.push(`/${locale}/unauthorized`);
+        }
+      }
+    };
+
+    redirectToCorrectDashboard();
+  }, [session, status, router, locale]);
+
+  // ✅ Handle form input change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // ✅ Handle login with credentials
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
 
-    if (result?.ok) {
-      const updatedSession = await getSession();
-      if (updatedSession?.user) {
-        dispatch(
-          setUserData({
-            id: updatedSession.user.id || "",
-            email: updatedSession.user.email || "",
-            role: updatedSession.user.role || "customer",
-            profile: updatedSession.user.profile,
-          })
-        );
+      if (result?.ok) {
+        console.log("✅ Login successful:", result);
+
+        let updatedSession = await getSession();
+        let retries = 5;
+
+        // Wait until user role is available
+        while (!updatedSession?.user?.role && retries > 0) {
+          await new Promise((res) => setTimeout(res, 500));
+          updatedSession = await getSession();
+          retries--;
+        }
+
+        if (updatedSession?.user?.role) {
+          const role = updatedSession.user.role.toUpperCase();
+
+          // Dispatch Redux user
+          dispatch(
+            setUserData({
+              id: updatedSession.user.id || "",
+              email: updatedSession.user.email || "",
+              role,
+              profile: updatedSession.user.profile || {},
+            })
+          );
+        } else {
+          setError("Login succeeded, but user role is missing.");
+        }
+      } else {
+        setError("Invalid email or password.");
       }
-
-      router.push(`/${locale}/dashboard`);
-    } else {
-      console.error("Sign-in failed: ", result?.error);
+    } catch (error) {
+      console.error("❌ Unexpected error:", error);
+      setError("Something went wrong. Please try again later.");
     }
+
+    setLoading(false);
+  };
+
+  // ✅ Handle Google Sign-In
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const result = await signIn("google", { redirect: false });
+
+      if (result?.ok) {
+        let updatedSession = await getSession();
+        let retries = 5;
+
+        while (!updatedSession?.user?.role && retries > 0) {
+          await new Promise((res) => setTimeout(res, 500));
+          updatedSession = await getSession();
+          retries--;
+        }
+
+        if (updatedSession?.user?.role) {
+          const role = updatedSession.user.role.toUpperCase();
+          const dashboardPath = roleToDashboard[role] || "unauthorized";
+
+          dispatch(
+            setUserData({
+              id: updatedSession.user.id || "",
+              email: updatedSession.user.email ?? "",
+              role,
+              profile: updatedSession.user.profile ?? {},
+            })
+          );
+        } else {
+          setError("Login succeeded, but user role is missing.");
+        }
+      } else {
+        setError("Google authentication failed.");
+      }
+    } catch (error) {
+      console.error("❌ Google Sign-In error:", error);
+      setError("Something went wrong during Google sign-in.");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -67,28 +157,11 @@ export default function SignInPage() {
         </h1>
         <p className="text-center text-gray-600">{t("auth.description")}</p>
 
+        {/* Google Login */}
         <Button
           className="flex items-center w-full justify-center mt-4 bg-yellow-500 text-black font-bold hover:bg-yellow-600 cursor-pointer"
-          onClick={async () => {
-            const result = await signIn("google", {
-              callbackUrl: `/${locale}/dashboard`,
-              redirect: false,
-            });
-            if (result?.ok) {
-              const updatedSession = await getSession();
-              if (updatedSession?.user) {
-                dispatch(
-                  setUserData({
-                    id: updatedSession.user.id || "",
-                    email: updatedSession.user.email || "",
-                    role: updatedSession.user.role || "customer",
-                    profile: updatedSession.user.profile,
-                  })
-                );
-              }
-              router.push(`/${locale}/dashboard`);
-            }
-          }}
+          onClick={handleGoogleSignIn}
+          disabled={loading}
         >
           <FaGoogle className="mr-2" />
           {t("auth.logInWithGoogle")}
@@ -100,28 +173,39 @@ export default function SignInPage() {
           <hr className="flex-grow border-gray-300" />
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-100 text-red-700 p-2 rounded mb-4 text-sm">
+            {error}
+          </div>
+        )}
+
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
+            name="email"
             placeholder={t("auth.emailPlaceholder")}
             className="w-full px-4 py-2 border rounded-md"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             required
           />
           <input
             type="password"
+            name="password"
             placeholder={t("auth.passwordPlaceholder")}
             className="w-full px-4 py-2 border rounded-md"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             required
           />
           <Button
             type="submit"
             className="w-full bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+            disabled={loading}
           >
-            {t("auth.login")}
+            {loading ? "Logging in..." : t("auth.login")}
           </Button>
         </form>
 

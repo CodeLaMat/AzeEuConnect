@@ -1,13 +1,28 @@
 import { DefaultSession, DefaultUser } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { UserRole } from "@prisma/client"; // ✅ Import UserRole enum
 
 declare module "next-auth" {
   interface User extends DefaultUser {
     id?: string;
-    role?: string;
-    firstName?: string;
-    lastName?: string;
+    role?: UserRole; // ✅ Use Prisma Enum
+    email?: string;
+    phone?: string;
     location?: string;
+    nationality?: string;
+    image?: string;
+    timezone?: string;
+    preferredLanguage?: string;
+    profile?: {
+      firstName?: string;
+      lastName?: string;
+      location?: string;
+      image?: string;
+      phone?: string;
+      nationality?: string;
+      timezone?: string;
+      preferredLanguage?: string;
+    };
     membership?: {
       status: string;
       plan: string;
@@ -17,21 +32,31 @@ declare module "next-auth" {
       subscriptionId: string;
       planId: string;
     };
-    profile?: {
-      firstName?: string;
-      lastName?: string;
-      location?: string;
-      image?: string;
-    };
   }
 
   interface Session {
     user?: {
       id?: string;
-      role?: string;
+      role?: UserRole; // ✅ Use Prisma Enum
+      email?: string;
+      phone?: string;
       firstName?: string;
       lastName?: string;
       location?: string;
+      image?: string;
+      nationality?: string;
+      timezone?: string;
+      preferredLanguage?: string;
+      profile?: {
+        firstName?: string;
+        lastName?: string;
+        location?: string;
+        image?: string;
+        phone?: string;
+        nationality?: string;
+        timezone?: string;
+        preferredLanguage?: string;
+      };
       membership?: {
         status: string;
         plan: string;
@@ -41,12 +66,6 @@ declare module "next-auth" {
         subscriptionId: string;
         planId: string;
       };
-      profile?: {
-        firstName?: string;
-        lastName?: string;
-        location?: string;
-        image?: string;
-      };
     } & DefaultSession["user"];
   }
 }
@@ -54,10 +73,26 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     id?: string;
-    role?: string;
+    role?: UserRole; // ✅ Use Prisma Enum
+    email?: string;
+    phone?: string;
     firstName?: string;
     lastName?: string;
     location?: string;
+    image?: string;
+    nationality?: string;
+    timezone?: string;
+    preferredLanguage?: string;
+    profile?: {
+      firstName?: string;
+      lastName?: string;
+      location?: string;
+      image?: string;
+      phone?: string;
+      nationality?: string;
+      timezone?: string;
+      preferredLanguage?: string;
+    };
     membership?: {
       status: string;
       plan: string;
@@ -66,12 +101,6 @@ declare module "next-auth/jwt" {
       updatedAt: string;
       subscriptionId: string;
       planId: string;
-    };
-    profile?: {
-      firstName?: string;
-      lastName?: string;
-      location?: string;
-      image?: string;
     };
   }
 }

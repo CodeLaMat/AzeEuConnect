@@ -14,6 +14,6 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // PATCH /api/auth/profile
-router.patch("/profile", updateUserProfile);
+router.patch("/updatepofile", updateUserProfile);
 
 export default router;

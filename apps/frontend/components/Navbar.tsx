@@ -6,7 +6,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/app/store/store";
+import type { RootState } from "@/store/store";
 import {
   Select,
   SelectContent,
@@ -24,7 +24,10 @@ export default function Navbar({ locale }: { locale: string }) {
   const t = useTranslations("navbar");
 
   // Redux user
-  const user = useSelector((state: RootState) => state.user);
+  const user = useSelector((state: RootState) => state.user) as {
+    role: string;
+    profile?: { image?: string; location?: string };
+  };
   const userRole = user.role;
 
   // Language switch
@@ -51,7 +54,7 @@ export default function Navbar({ locale }: { locale: string }) {
     }
 
     switch (role) {
-      case "admin":
+      case "ADMIN":
         return [
           { href: "/", label: t("homePage") },
           { href: "users", label: t("manageUsers") },
@@ -59,7 +62,7 @@ export default function Navbar({ locale }: { locale: string }) {
           { href: "pricing", label: t("pricing") },
           { href: "about", label: t("aboutUs") },
         ];
-      case "consultant":
+      case "CONSULTANT":
         return [
           { href: "", label: t("homePage") },
           { href: "clients", label: t("clients") },
@@ -67,11 +70,9 @@ export default function Navbar({ locale }: { locale: string }) {
           { href: "pricing", label: t("pricing") },
           { href: "about", label: t("aboutUs") },
         ];
-      case "customer":
+      case "USER":
         return [
           { href: "/", label: t("homePage") },
-          { href: "company-formation", label: t("companyFormation") },
-          { href: "documents", label: t("documents") },
           { href: "services", label: t("services") },
           { href: "pricing", label: t("pricing") },
           { href: "about", label: t("aboutUs") },
@@ -214,6 +215,14 @@ export default function Navbar({ locale }: { locale: string }) {
                           </li>
                           <li>
                             <Link
+                              href={`/${locale}/documents`}
+                              className="hover:underline"
+                            >
+                              Legal Database
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
                               href={`/${locale}/advertise`}
                               className="hover:underline"
                             >
@@ -319,11 +328,19 @@ export default function Navbar({ locale }: { locale: string }) {
                 <hr className="my-2" />
                 <Link
                   href={
-                    userRole === "customer"
+                    userRole === "USER"
                       ? `/${locale}/dashboard`
-                      : userRole === "admin"
+                      : userRole === "ADMIN"
                         ? `/${locale}/admin-dashboard`
-                        : `/${locale}/consultant-dashboard`
+                        : userRole === "CONSULTANT"
+                          ? `/${locale}/consultant-dashboard`
+                          : userRole === "SUPPORT_AGENT"
+                            ? `/${locale}/support-dashboard`
+                            : userRole === "LEGAL_ADVISOR"
+                              ? `/${locale}/legal-dashboard`
+                              : userRole === "REGULATORY_OFFICER"
+                                ? `/${locale}/regulatory-dashboard`
+                                : `/${locale}/unauthorized`
                   }
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
                 >
