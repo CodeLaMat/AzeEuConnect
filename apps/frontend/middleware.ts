@@ -13,6 +13,30 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  const supportedLocales = ["az", "en", "ru", "de"];
+
+  // Check token for profile preferred language
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  if (token?.profile?.preferredLanguage) {
+    const preferredLocale = token.profile.preferredLanguage.toLowerCase();
+    if (
+      supportedLocales.includes(preferredLocale) &&
+      preferredLocale !== locale
+    ) {
+      const newUrl = req.nextUrl.clone();
+      newUrl.pathname = newUrl.pathname.replace(
+        `/${locale}`,
+        `/${preferredLocale}`
+      );
+      return NextResponse.redirect(newUrl);
+    }
+  }
+
+  // Validate locale from URL
+  if (!locale || !supportedLocales.includes(locale)) {
+    return NextResponse.next();
+  }
+
   const routeType = segments[2];
 
   // ✅ Define role-based access per dashboard

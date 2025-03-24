@@ -31,16 +31,38 @@ export default function SignInPage() {
   useEffect(() => {
     const redirectToCorrectDashboard = async () => {
       if (session && status === "authenticated") {
-        const updatedSession = await getSession();
-        const role = updatedSession?.user?.role?.toUpperCase();
+        let updatedSession = await getSession();
+        let retries = 5;
 
-        const dashboardPath =
-          roleToDashboard[role as keyof typeof roleToDashboard];
+        // Wait until the user role is available
+        while (!updatedSession?.user?.role && retries > 0) {
+          await new Promise((res) => setTimeout(res, 500));
+          updatedSession = await getSession();
+          retries--;
+        }
 
-        if (dashboardPath) {
-          router.push(`/${locale}/${dashboardPath}`);
+        if (updatedSession?.user?.role) {
+          // Check if a preferred language exists in the user's profile.
+          const preferredLocale =
+            updatedSession.user.profile?.preferredLanguage?.toLowerCase();
+          const supportedLocales = ["az", "en", "ru", "de"];
+          // Use the preferred locale if available and supported; otherwise use the URL locale.
+          const finalLocale =
+            preferredLocale && supportedLocales.includes(preferredLocale)
+              ? preferredLocale
+              : locale;
+
+          const role = updatedSession.user.role.toUpperCase();
+          const dashboardPath =
+            roleToDashboard[role as keyof typeof roleToDashboard];
+
+          if (dashboardPath) {
+            router.push(`/${finalLocale}/${dashboardPath}`);
+          } else {
+            router.push(`/${finalLocale}/unauthorized`);
+          }
         } else {
-          router.push(`/${locale}/unauthorized`);
+          setError("Login succeeded, but user role is missing.");
         }
       }
     };
@@ -125,7 +147,6 @@ export default function SignInPage() {
 
         if (updatedSession?.user?.role) {
           const role = updatedSession.user.role.toUpperCase();
-          const dashboardPath = roleToDashboard[role] || "unauthorized";
 
           dispatch(
             setUserData({
@@ -200,6 +221,17 @@ export default function SignInPage() {
             onChange={handleChange}
             required
           />
+
+          {/* Forgot password link */}
+          <div className="text-right">
+            <span
+              onClick={() => router.push(`/${locale}/forgot-password`)}
+              className="text-sm text-blue-600 hover:underline cursor-pointer"
+            >
+              {t("auth.forgotPassword") || "Forgot your password?"}
+            </span>
+          </div>
+
           <Button
             type="submit"
             className="w-full bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"

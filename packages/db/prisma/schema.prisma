@@ -19,6 +19,9 @@ model User {
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
 
+  resetToken       String?
+  resetTokenExpiry DateTime?
+
   appointments   Appointment[]
   companyDetails Company?
   documents      Document[]
@@ -27,6 +30,10 @@ model User {
   services       Services?
   subscription   Subscription?
   supportTickets SupportTicket[]
+
+  serviceListings ServiceListing[]
+  reviews         Review[]
+  orders          Order[]
 
   // 👇 Required for NextAuth
   accounts Account[]
@@ -170,6 +177,50 @@ model SupportTicket {
   user        User                  @relation(fields: [userId], references: [id])
 }
 
+model ServiceListing {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  category    String
+  country     String
+  price       Float
+  rating      Float     @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  ownerId     String
+  owner       User      @relation(fields: [ownerId], references: [id])
+
+  reviews     Review[]
+  orders      Order[]
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int      @default(5)
+  comment   String
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  serviceId String
+  service   ServiceListing @relation(fields: [serviceId], references: [id])
+}
+
+model Order {
+  id        String      @id @default(uuid())
+  status    OrderStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  buyerId   String
+  buyer     User        @relation(fields: [buyerId], references: [id])
+
+  serviceId String
+  service   ServiceListing @relation(fields: [serviceId], references: [id])
+}
+
 enum UserRole {
   ADMIN
   USER
@@ -295,4 +346,11 @@ enum SupportTicketStatus {
   OPEN
   IN_PROGRESS
   CLOSED
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }

@@ -14,11 +14,12 @@ app.use(helmet());
 
 app.use("/api/auth", userRouter);
 
-// ✅ Gracefully handle Prisma disconnection when the server shuts down
 process.on("SIGINT", async () => {
   console.log("Shutting down server...");
   await prisma.$disconnect();
   process.exit(0);
 });
 
-app.listen(5001, () => console.log("🚀 Server running on port 5001"));
+app.listen(process.env.PORT, () =>
+  console.log("🚀 Server running on port 5001")
+);

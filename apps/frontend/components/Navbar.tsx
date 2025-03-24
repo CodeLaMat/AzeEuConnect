@@ -23,6 +23,8 @@ export default function Navbar({ locale }: { locale: string }) {
   const pathname = usePathname();
   const t = useTranslations("navbar");
 
+  console.log("Sessions:", session, status);
+
   // Redux user
   const user = useSelector((state: RootState) => state.user) as {
     role: string;

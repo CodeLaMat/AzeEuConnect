@@ -3,6 +3,8 @@ import {
   registerUser,
   loginUser,
   updateUserProfile,
+  requestPasswordReset,
+  resetPassword,
 } from "../controllers/userController";
 
 const router = Router();
@@ -14,6 +16,12 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // PATCH /api/auth/profile
-router.patch("/updatepofile", updateUserProfile);
+router.patch("/updateprofile", updateUserProfile);
+
+// POST /api/auth/reset-password
+router.post("/reset-password", resetPassword);
+
+// POST /api/auth/request-password-reset
+router.post("/request-password-reset", requestPasswordReset);
 
 export default router;

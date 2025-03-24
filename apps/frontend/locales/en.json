@@ -25,6 +25,7 @@
       "or": "or",
       "emailPlaceholder": "Enter your email",
       "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot your password?",
       "login": "Log In",
       "noAccount": "Don't have an account?",
       "signUp": "Sign Up"

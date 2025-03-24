@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import "@/styles/globals.css";
 import { Providers } from "../providers";
 import UserHydrator from "@/components/UserHydration";
+import { defaultLocale, locales } from "@/i18n";
 
 export default async function LocaleLayout({
   children,
@@ -15,16 +16,14 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await paramsPromise;
 
-  // Validate locale
-  const supportedLocales = ["az", "en", "ru", "de"];
-  if (!supportedLocales.includes(locale)) {
-    notFound();
+  if (!locales.includes(locale as any)) {
+    return notFound();
   }
 
   const messages = await getTranslations(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale || defaultLocale}>
       <body>
         <Providers locale={locale} messages={messages}>
           <UserHydrator />
