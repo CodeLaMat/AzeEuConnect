@@ -1,3 +1,4 @@
+import { Company, Review, Subscription, UserRole } from "@prisma/client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Profile {
@@ -11,18 +12,34 @@ interface Profile {
   preferredLanguage?: string;
 }
 
-interface UserState {
-  id: string | null;
+interface ServiceSubscription {
+  id: string;
+  serviceId: string;
+  subscriberId: string;
+  status: "ACTIVE" | "CANCELLED" | "EXPIRED";
+  startDate: string;
+  endDate?: string;
+  createdAt: string;
+}
+
+export interface UserState {
+  id: string;
   email: string;
-  role: string;
-  profile: Profile | null;
+  role: UserRole;
+  profile?: Profile;
+  subscription?: Subscription;
+  companyDetails?: Company;
+  serviceSubscriptions?: ServiceSubscription[];
+  reviews?: Review[];
 }
 
 const initialState: UserState = {
-  id: null,
+  id: "",
   email: "",
-  role: "USER",
-  profile: null,
+  role: "USER" as UserRole,
+  profile: {},
+  subscription: undefined,
+  serviceSubscriptions: [],
 };
 
 export const userSlice = createSlice({
@@ -34,8 +51,10 @@ export const userSlice = createSlice({
       action: PayloadAction<{
         id: string;
         email: string;
-        role: string;
+        role: UserRole;
         profile?: Profile;
+        membership?: Subscription;
+        serviceSubscriptions?: ServiceSubscription[];
       }>
     ) => {
       state.id = action.payload.id;
@@ -51,12 +70,16 @@ export const userSlice = createSlice({
         timezone: action.payload.profile?.timezone || "UTC",
         preferredLanguage: action.payload.profile?.preferredLanguage || "AZ",
       };
+      state.subscription = action.payload.membership;
+      state.serviceSubscriptions = action.payload.serviceSubscriptions ?? [];
     },
     clearUserData: (state) => {
-      state.id = null;
+      state.id = "";
       state.email = "";
-      state.role = "";
-      state.profile = null;
+      state.role = "USER";
+      state.profile = {};
+      state.subscription = undefined;
+      state.serviceSubscriptions = [];
     },
   },
 });

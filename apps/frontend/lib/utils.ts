@@ -7,9 +7,10 @@ export function cn(...inputs: ClassValue[]) {
 
 export const roleToDashboard: Record<string, string> = {
   ADMIN: "admin-dashboard",
-  CONSULTANT: "consultant-dashboard",
-  SUPPORT_AGENT: "support-dashboard",
-  LEGAL_ADVISOR: "legal-dashboard",
-  REGULATORY_OFFICER: "regulatory-dashboard",
   USER: "dashboard",
+  CONSULTANT: "consultant-dashboard",
+  SERVICE_PROVIDER: "provider-dashboard",
+  MODERATOR: "moderator-dashboard",
+  SUPPORT_AGENT: "support-dashboard",
+  REGULATORY_OFFICER: "regulatory-dashboard",
 };

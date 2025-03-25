@@ -29,6 +29,7 @@ model User {
   profile        Profile?
   services       Services?
   subscription   Subscription?
+  serviceSubscriptions ServiceSubscription[]
   supportTickets SupportTicket[]
 
   serviceListings ServiceListing[]
@@ -134,6 +135,26 @@ model Services {
   user                  User           @relation(fields: [userId], references: [id])
 }
 
+model ServiceSubscription {
+  id           String   @id @default(uuid())
+  subscriberId String
+  serviceId    String
+  status       ServiceSubscriptionStatus @default(ACTIVE)
+  startDate    DateTime  @default(now())
+  endDate      DateTime?
+  createdAt    DateTime  @default(now())
+
+  subscriber   User             @relation(fields: [subscriberId], references: [id])
+  service      ServiceListing   @relation(fields: [serviceId], references: [id])
+}
+
+
+enum ServiceSubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+}
+
 model Document {
   id           String         @id @default(uuid())
   documentType DocumentType
@@ -191,6 +212,8 @@ model ServiceListing {
   ownerId     String
   owner       User      @relation(fields: [ownerId], references: [id])
 
+  subscriptions ServiceSubscription[]
+
   reviews     Review[]
   orders      Order[]
 }
@@ -225,6 +248,8 @@ enum UserRole {
   ADMIN
   USER
   CONSULTANT
+  SERVICE_PROVIDER
+  MODERATOR
   SUPPORT_AGENT
   REGULATORY_OFFICER
 }

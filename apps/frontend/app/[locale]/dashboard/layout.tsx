@@ -10,6 +10,7 @@ import {
   FaWallet,
   FaHeadset,
   FaCheckCircle,
+  FaUser,
 } from "react-icons/fa";
 
 export default function DashboardLayout({
@@ -56,6 +57,13 @@ export default function DashboardLayout({
           >
             <FaTasks className="mr-2" /> {t("sidebar.banking")}
           </Link>
+          <Link
+            href={`/${locale}/dashboard/profile`}
+            className="flex items-center p-2 text-gray-600 hover:text-blue-700"
+          >
+            <FaUser className="mr-2" /> {t("sidebar.profile")}
+          </Link>
+
           <Link
             href={`/${locale}/dashboard/support`}
             className="flex items-center p-2 text-gray-600 hover:text-blue-700"

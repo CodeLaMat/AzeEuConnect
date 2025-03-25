@@ -136,6 +136,7 @@
     "title": "Dashboard",
     "sidebar": {
       "dashboard": "Dashboard",
+      "profile": "Profile",
       "documents": "Documents",
       "companyFormation": "Company Formation",
       "taxAccounting": "Tax & Accounting",
@@ -241,6 +242,16 @@
         "date": "Transaction Date: {date}",
         "completed": "Completed",
         "pending": "Pending"
+      }
+    },
+    "profile": {
+      "title": "Profile",
+      "personalInfo": {
+        "title": "Personal Information",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone Number",
+        "address": "Address"
       }
     },
     "support": {
