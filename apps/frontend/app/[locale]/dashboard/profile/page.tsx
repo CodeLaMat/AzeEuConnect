@@ -8,7 +8,7 @@ export default function ProfilePage() {
   const user = useSelector((state: RootState) => state.user);
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       <UserProfileCard user={user} />
     </div>
   );

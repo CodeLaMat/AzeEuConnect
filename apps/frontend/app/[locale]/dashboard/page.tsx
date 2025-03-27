@@ -11,6 +11,7 @@ import { FaFileAlt } from "react-icons/fa";
 export default function Dashboard() {
   const t = useTranslations("dashboard");
   const user = useSelector((state: RootState) => state.user);
+  const profile = useSelector((state: RootState) => state.profile);
 
   const [progress] = useState(60);
 
@@ -33,12 +34,11 @@ export default function Dashboard() {
       {/* Display User Info */}
       <section className="bg-white p-6 rounded-lg shadow-md mb-6">
         <h2 className="text-xl font-bold">
-          Welcome, {user.profile?.firstName || "User"}{" "}
-          {user.profile?.lastName || ""}
+          Welcome, {profile?.firstName || "User"} {profile?.lastName || ""}
         </h2>
         <p>Email: {user.email}</p>
         <p>Role: {user.role}</p>
-        {user.profile?.location && <p>Location: {user.profile.location}</p>}
+        {profile?.location && <p>Location: {profile.location}</p>}
       </section>
 
       {/* Registration Status */}
