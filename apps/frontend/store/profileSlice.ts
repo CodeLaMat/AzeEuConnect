@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Subscription, Company, Review } from "@prisma/client";
+import { getSession } from "next-auth/react"; // ✅ Use this instead of getToken
 
 export interface ProfileState {
   firstName?: string;
@@ -27,17 +28,27 @@ const initialState: ProfileState = {
   serviceSubscriptions: [],
 };
 
+// ✅ Fetch Profile with Bearer token
 export const fetchUserProfile = createAsyncThunk(
   "profile/fetchUserProfile",
-
   async (userId: string, { rejectWithValue }) => {
     try {
+      const session = await getSession();
+      const token = (session as any)?.jwtToken;
+
+      console.error("❌ Token verification", token);
+      console.log("🌍 Backend URL:", process.env.NEXT_PUBLIC_BACKEND_URL);
+
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/profile/${userId}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/profile/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Failed to fetch");
 
       return data;
@@ -47,20 +58,26 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
+// ✅ Update Profile with token
 export const updateUserProfile = createAsyncThunk(
   "profile/updateUserProfile",
   async (formData: FormData, { rejectWithValue }) => {
     try {
+      const session = await getSession();
+      const token = (session as any)?.jwtToken;
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/profile/updateprofile`,
         {
           method: "PATCH",
           body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       const data = await res.json();
-
       if (!res.ok) {
         throw new Error(data.message || "Profile update failed");
       }

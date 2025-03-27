@@ -5,6 +5,7 @@ import {
 } from "../controllers/userController";
 import multer from "multer";
 import { authorizeMiddleware } from "../middleware/authorize";
+import { authenticateUser } from "../middleware/authenticateUser";
 
 //!!TODO: Add the authorize middleware to the routes that need RBAC
 
@@ -18,14 +19,16 @@ const upload = multer({
 // GET /api/profile/:userId"
 router.get(
   "/profile/:userId",
+  authenticateUser,
   authorizeMiddleware("MANAGE_PROFILE"),
   getUserProfile
 );
 // PATCH /api/profile/updateprofile
 router.patch(
   "/profile/updateprofile",
-  upload.single("image"),
+  authenticateUser,
   authorizeMiddleware("MANAGE_PROFILE"),
+  upload.single("image"),
   updateUserProfile
 );
 

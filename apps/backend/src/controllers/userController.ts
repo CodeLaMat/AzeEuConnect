@@ -265,11 +265,8 @@ export const updateUserProfile: RequestHandler = async (req, res, next) => {
       updateData.image = null;
     }
 
-    console.log("🔍 Update Profile Data:", image);
-
     if (file) {
       updateData.image = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
-      console.log("🔍 File uploaded:", updateData.image);
     } else if (req.body.image === "") {
       updateData.image = null;
       console.log("🔍 Setting empty image:", updateData.image);

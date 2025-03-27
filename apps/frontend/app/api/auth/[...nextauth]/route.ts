@@ -2,6 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma, UserRole } from "@packages/db";
+import jwt from "jsonwebtoken";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -114,34 +115,33 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
     async jwt({ token, user }) {
-      console.log("💾 jwt callback - token:", token, "user:", user);
-
       const customUser = (user as any)?.custom || user;
 
       if (customUser) {
         token.id = customUser.id;
         token.email = customUser.email;
         token.role = customUser.role;
-        token.image = customUser.image;
-
-        token.profile = customUser.profile ?? undefined;
-        token.phone = customUser.phone ?? undefined;
-        token.location = customUser.location ?? undefined;
-        token.nationality = customUser.nationality ?? undefined;
-        token.timezone = customUser.timezone ?? undefined;
         token.preferredLanguage = customUser.preferredLanguage ?? undefined;
-
         token.firstName = customUser.firstName;
         token.lastName = customUser.lastName;
         token.membership = customUser.membership ?? undefined;
+
+        // ✅ Generate signed JWT for backend auth
+        token.jwtToken = jwt.sign(
+          {
+            id: customUser.id,
+            email: customUser.email,
+            role: customUser.role,
+          },
+          process.env.NEXTAUTH_SECRET!,
+          { expiresIn: "1h" }
+        );
       }
 
       return token;
     },
 
     async session({ session, token }) {
-      console.log("📦 session callback - token:", token);
-
       if (token) {
         session.user = {
           id: token.id,
@@ -158,8 +158,9 @@ export const authOptions: NextAuthOptions = {
           profile: token.profile,
           membership: token.membership,
         };
+
+        (session as any).jwtToken = token.jwtToken;
       }
-      console.log("📦 session callback - final session.user:", session.user);
 
       return session;
     },

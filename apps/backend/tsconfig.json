@@ -3,6 +3,11 @@
     "module": "commonjs",
     "target": "ES2022",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "typeRoots": ["types", "./node_modules/@types"]
   }
 }
