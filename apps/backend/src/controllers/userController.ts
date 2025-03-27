@@ -87,8 +87,6 @@ export const loginUser: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    console.log("🔍 Logging in user:", email, password);
-
     // Convert email to lowercase to prevent case-sensitive mismatches
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
@@ -230,11 +228,7 @@ export const resetPassword: RequestHandler = async (req, res, next) => {
 /**
  * Update User Profile
  */
-export const updateUserProfile: RequestHandler = async (
-  req,
-  res,
-  next
-): Promise<void> => {
+export const updateUserProfile: RequestHandler = async (req, res, next) => {
   try {
     const {
       userId,
@@ -247,25 +241,43 @@ export const updateUserProfile: RequestHandler = async (
       preferredLanguage,
     } = req.body;
 
+    const file = req.file;
+
+    const { image } = req.body;
+
     // Check if user exists
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
+    const updateData: any = {
+      firstName,
+      lastName,
+      location,
+      phone,
+      nationality,
+      timezone,
+      preferredLanguage,
+    };
 
-    // Update profile
+    if (image === "") {
+      updateData.image = null;
+    }
+
+    console.log("🔍 Update Profile Data:", image);
+
+    if (file) {
+      updateData.image = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
+      console.log("🔍 File uploaded:", updateData.image);
+    } else if (req.body.image === "") {
+      updateData.image = null;
+      console.log("🔍 Setting empty image:", updateData.image);
+    }
+
     const updatedProfile = await prisma.profile.update({
       where: { userId },
-      data: {
-        firstName: firstName ?? undefined,
-        lastName: lastName ?? undefined,
-        location: location ?? undefined,
-        phone: phone ?? undefined,
-        nationality: nationality ?? undefined,
-        timezone: timezone ?? undefined,
-        preferredLanguage: preferredLanguage ?? undefined,
-      },
+      data: updateData,
     });
 
     res.status(200).json({
@@ -274,7 +286,32 @@ export const updateUserProfile: RequestHandler = async (
     });
   } catch (error) {
     console.error("Profile Update Error:", error);
-    res.status(500).json({ message: "Profile update failed" });
     next(error);
+  }
+};
+
+export const getUserProfile: RequestHandler = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        profile: true,
+        subscription: true,
+        companyDetails: true,
+        serviceSubscriptions: true,
+        reviews: true,
+      },
+    });
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
   }
 };

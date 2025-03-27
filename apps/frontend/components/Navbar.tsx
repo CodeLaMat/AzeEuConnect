@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { locales } from "@/i18n";
+import { authorize, Action } from "@/lib/rbac";
 
 export default function Navbar({ locale }: { locale: string }) {
   const { data: session, status } = useSession();
@@ -23,13 +24,12 @@ export default function Navbar({ locale }: { locale: string }) {
   const pathname = usePathname();
   const t = useTranslations("navbar");
 
-  console.log("Sessions:", session, status);
-
   // Redux user
   const user = useSelector((state: RootState) => state.user) as {
     role: string;
-    profile?: { image?: string; location?: string };
   };
+  const profile = useSelector((state: RootState) => state.profile);
+
   const userRole = user.role;
 
   // Language switch
@@ -46,47 +46,31 @@ export default function Navbar({ locale }: { locale: string }) {
 
   // Build nav links
   function getNavLinks(role?: string) {
-    if (!role) {
-      return [
-        { href: "/", label: t("homePage") },
-        { href: "services", label: t("services") },
-        { href: "pricing", label: t("pricing") },
-        { href: "about", label: t("aboutUs") },
-      ];
-    }
+    const navItems: { href: string; label: string; action?: Action }[] = [
+      { href: "/", label: t("homePage") },
+      { href: "services", label: t("services"), action: "VIEW_SERVICES" },
+      { href: "users", label: t("manageUsers"), action: "READ_USERS" },
+      { href: "pricing", label: t("pricing") },
+      { href: "about", label: t("aboutUs") },
+      { href: "clients", label: t("clients"), action: "VIEW_CLIENTS" },
+    ];
 
-    switch (role) {
-      case "ADMIN":
-        return [
-          { href: "/", label: t("homePage") },
-          { href: "users", label: t("manageUsers") },
-          { href: "services", label: t("services") },
-          { href: "pricing", label: t("pricing") },
-          { href: "about", label: t("aboutUs") },
-        ];
-      case "CONSULTANT":
-        return [
-          { href: "", label: t("homePage") },
-          { href: "clients", label: t("clients") },
-          { href: "services", label: t("services") },
-          { href: "pricing", label: t("pricing") },
-          { href: "about", label: t("aboutUs") },
-        ];
-      case "USER":
-        return [
-          { href: "/", label: t("homePage") },
-          { href: "services", label: t("services") },
-          { href: "pricing", label: t("pricing") },
-          { href: "about", label: t("aboutUs") },
-        ];
-      default:
-        return [
-          { href: "/", label: t("homePage") },
-          { href: "services", label: t("services") },
-          { href: "pricing", label: t("pricing") },
-          { href: "about", label: t("aboutUs") },
-        ];
-    }
+    return navItems.filter(({ action }) =>
+      action ? authorize(role || "", action) : true
+    );
+  }
+
+  function getDashboardRoute(role: string, locale: string): string {
+    const map: Record<string, string> = {
+      ADMIN: "admin-dashboard",
+      USER: "dashboard",
+      CONSULTANT: "consultant-dashboard",
+      SUPPORT_AGENT: "support-dashboard",
+      LEGAL_ADVISOR: "legal-dashboard",
+      REGULATORY_OFFICER: "regulatory-dashboard",
+    };
+
+    return `/${locale}/${map[role] || "unauthorized"}`;
   }
   const navLinks = getNavLinks(userRole);
 
@@ -299,7 +283,7 @@ export default function Navbar({ locale }: { locale: string }) {
               onClick={() => setShowAccountMenu(!showAccountMenu)}
             >
               <img
-                src={user.profile?.image || "/media/images/profile_icon.svg"}
+                src={profile?.image || "/media/images/profile_icon.svg"}
                 alt="Profile"
                 className="w-8 h-8 rounded-full"
               />
@@ -310,51 +294,29 @@ export default function Navbar({ locale }: { locale: string }) {
               <div className="absolute right-0 mt-2 w-64 bg-white text-black shadow-lg p-4 rounded-md z-50">
                 <div className="flex items-center space-x-2 mb-3">
                   <img
-                    src={
-                      user.profile?.image || "/media/images/profile_icon.svg"
-                    }
+                    src={profile?.image || "/media/images/profile_icon.svg"}
                     alt="Profile"
                     className="w-10 h-10 rounded-full"
                   />
                   <div className="flex flex-col">
                     <span className="font-bold">
-                      {session.user?.firstName || session.user?.name || "User"}{" "}
+                      {session.user?.firstName || session.user?.name || "User"}
                       {session.user?.lastName || ""}
                     </span>
                     <span className="text-sm text-gray-500">
                       {session.user?.role || "Member"} •{" "}
-                      {user.profile?.location || t("account.noLocation")}
+                      {profile?.location || t("account.noLocation")}
                     </span>
                   </div>
                 </div>
                 <hr className="my-2" />
                 <Link
-                  href={
-                    userRole === "USER"
-                      ? `/${locale}/dashboard`
-                      : userRole === "ADMIN"
-                        ? `/${locale}/admin-dashboard`
-                        : userRole === "CONSULTANT"
-                          ? `/${locale}/consultant-dashboard`
-                          : userRole === "SUPPORT_AGENT"
-                            ? `/${locale}/support-dashboard`
-                            : userRole === "LEGAL_ADVISOR"
-                              ? `/${locale}/legal-dashboard`
-                              : userRole === "REGULATORY_OFFICER"
-                                ? `/${locale}/regulatory-dashboard`
-                                : `/${locale}/unauthorized`
-                  }
+                  href={getDashboardRoute(userRole, locale)}
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
                 >
                   {t("account.dashboard")}
                 </Link>
 
-                <Link
-                  href={`/${locale}/account-settings`}
-                  className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
-                >
-                  {t("account.personalSettings")}
-                </Link>
                 <Link
                   href={`/${locale}/bookmarks`}
                   className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"

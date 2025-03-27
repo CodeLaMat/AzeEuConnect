@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "@/store/store";
+import { updateUserProfile, fetchUserProfile } from "@/store/profileSlice";
 import { UserState } from "@/store/userSlice";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import Image from "next/image";
 import { availableCountries, getTimezoneByCountry } from "@/lib/timezone";
 import { useRef } from "react";
@@ -25,43 +29,89 @@ interface Props {
 }
 
 export default function UserProfileCard({ user }: Props) {
-  const profile = user?.profile;
-  const subscription = user?.subscription;
-  const company = user?.companyDetails;
-  const serviceSubscriptions = user?.serviceSubscriptions || [];
-  const reviews = user?.reviews || [];
+  const dispatch = useDispatch<AppDispatch>();
+  const profile = useSelector((state: RootState) => state.profile);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(profile?.image || "");
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   const [isEditing, setIsEditing] = useState(false);
+
+  console.log("PROFILE", profile);
+
   const [formData, setFormData] = useState({
-    firstName: profile?.firstName || "",
-    lastName: profile?.lastName || "",
-    phone: profile?.phone || "",
-    location: profile?.location || "",
-    nationality: profile?.nationality || "",
-    timezone: profile?.timezone || "UTC",
-    preferredLanguage: profile?.preferredLanguage || "AZ",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    location: "",
+    nationality: "",
+    timezone: "UTC",
+    preferredLanguage: "AZ",
   });
+
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (user.id) {
+      dispatch(fetchUserProfile(user.id));
+    }
+  }, [dispatch, user.id]);
+
+  useEffect(() => {
+    if (profile) {
+      setFormData({
+        firstName: profile.firstName || "",
+        lastName: profile.lastName || "",
+        phone: profile.phone || "",
+        location: profile.location || "",
+        nationality: profile.nationality || "",
+        timezone: profile.timezone || "UTC",
+        preferredLanguage: profile.preferredLanguage || "AZ",
+      });
+
+      setImagePreview(profile.image ?? "");
+    }
+  }, [profile]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+
+    if (file.size > maxSizeInBytes) {
+      toast.error("Image too large", {
+        description: "Please upload an image smaller than 5MB.",
+      });
+      return;
     }
+
+    setImageFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
     fileInputRef.current?.click();
   };
 
   const handleRemoveImage = () => {
-    setImagePreview("");
+    // Use window.confirm explicitly
+    const confirmRemoval =
+      typeof window !== "undefined" &&
+      window.confirm("Are you sure you want to remove your profile photo?");
+    if (confirmRemoval) {
+      setImageFile(null);
+      setImagePreview("");
+      toast("Image removed", {
+        description: "You can upload a new one before saving.",
+      });
+    }
   };
 
   const handleChange = (
@@ -77,30 +127,57 @@ export default function UserProfileCard({ user }: Props) {
     }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const result = profileSchema.safeParse(formData);
+    setError("");
+    console.log("SUBMITTED", formData);
 
+    const result = profileSchema.safeParse(formData);
     if (!result.success) {
-      setError(result.error.errors[0].message);
+      const message = result.error.errors[0].message;
+      setError(message);
+      toast.error("Validation Error", { description: message });
       return;
     }
 
-    console.log("Saving profile:", result.data);
-    setIsEditing(false);
-    setError("");
+    const payload = new FormData();
+    payload.append("userId", user.id);
+    Object.entries(result.data).forEach(([key, value]) => {
+      payload.append(key, value);
+    });
+    if (imageFile) {
+      payload.append("image", imageFile);
+    } else {
+      payload.append("image", "");
+    }
+
+    try {
+      await dispatch(updateUserProfile(payload)).unwrap();
+      setIsEditing(false);
+      toast.success("Profile updated", {
+        description: "Your profile was saved successfully.",
+      });
+    } catch (err: any) {
+      const message = typeof err === "string" ? err : "Something went wrong";
+      setError(message);
+      toast.error("Update Failed", { description: message });
+    }
   };
 
   const handleCancel = () => {
-    setFormData({
-      firstName: profile?.firstName || "",
-      lastName: profile?.lastName || "",
-      phone: profile?.phone || "",
-      location: profile?.location || "",
-      nationality: profile?.nationality || "",
-      timezone: profile?.timezone || "UTC",
-      preferredLanguage: profile?.preferredLanguage || "AZ",
-    });
+    if (profile) {
+      setFormData({
+        firstName: profile.firstName || "",
+        lastName: profile.lastName || "",
+        phone: profile.phone || "",
+        location: profile.location || "",
+        nationality: profile.nationality || "",
+        timezone: profile.timezone || "UTC",
+        preferredLanguage: profile.preferredLanguage || "AZ",
+      });
+      setImagePreview(profile.image || "");
+    }
+    setImageFile(null);
     setIsEditing(false);
     setError("");
   };
@@ -121,45 +198,48 @@ export default function UserProfileCard({ user }: Props) {
         </Badge>
       </div>
 
-      {profile?.image && (
-        <div className="flex items-center gap-4">
-          <div className="relative w-20 h-20">
-            <Image
-              src={imagePreview || "/default-avatar.png"}
-              alt="Profile"
-              width={80}
-              height={80}
-              className="rounded-full object-cover border border-gray-300"
-            />
-            {isEditing && (
-              <>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageChange}
-                />
-                <button
-                  type="button"
-                  onClick={handleImageClick}
-                  className="absolute bottom-0 right-0 p-1 bg-blue-600 text-white text-xs rounded-full hover:bg-blue-700"
-                >
-                  ✎
-                </button>
-              </>
-            )}
-          </div>
-          {isEditing && imagePreview && (
-            <button
-              onClick={handleRemoveImage}
-              className="text-xs text-red-500 underline"
-            >
-              Remove Photo
-            </button>
+      <div className="flex items-center gap-4">
+        <div className="relative w-20 h-20">
+          <Image
+            src={imagePreview || "/media/images/profile_icon.svg"}
+            alt="Profile"
+            unoptimized
+            width={80}
+            height={80}
+            className="rounded-full object-cover border border-gray-300"
+          />
+          {isEditing && (
+            <>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageChange}
+              />
+              <button
+                type="button"
+                onClick={handleImageClick}
+                className="absolute bottom-0 right-0 p-1 bg-blue-600 text-white text-xs rounded-full hover:bg-blue-700"
+              >
+                ✎
+              </button>
+            </>
           )}
         </div>
-      )}
+        {isEditing && imagePreview && (
+          <button
+            onClick={handleRemoveImage}
+            className="text-xs text-red-500 underline"
+          >
+            Remove Photo
+          </button>
+        )}
+        <p className="text-xs text-gray-500 mt-2">
+          Max image size: <strong>5MB</strong>. PNG, JPG, and JPEG are
+          supported.
+        </p>
+      </div>
 
       <form
         onSubmit={handleSubmit}
@@ -237,62 +317,6 @@ export default function UserProfileCard({ user }: Props) {
       </form>
 
       {error && <p className="text-sm text-red-500">{error}</p>}
-
-      {subscription && (
-        <div className="pt-6">
-          <h3 className="font-semibold text-lg">Platform Membership</h3>
-          <p className="text-sm text-gray-700">
-            Plan: {subscription.plan} <br />
-            Status: {subscription.paymentStatus} <br />
-            Next billing date:{" "}
-            {subscription.nextBillingDate
-              ? subscription.nextBillingDate.toString()
-              : "-"}
-          </p>
-        </div>
-      )}
-
-      {company && (
-        <div className="pt-6">
-          <h3 className="font-semibold text-lg">Company Info</h3>
-          <p className="text-sm text-gray-700">
-            Business Name: {company.businessName} <br />
-            Type: {company.businessType} <br />
-            Category: {company.businessCategory} <br />
-            Registration Status: {company.registrationStatus}
-          </p>
-        </div>
-      )}
-
-      {serviceSubscriptions.length > 0 && (
-        <div className="pt-6">
-          <h3 className="font-semibold text-lg">Service Subscriptions</h3>
-          <ul className="list-disc list-inside text-sm text-gray-700">
-            {serviceSubscriptions.map((s) => (
-              <li key={s.id}>
-                Service ID: {s.serviceId}, Status: {s.status}, Start:{" "}
-                {s.startDate}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {reviews.length > 0 && (
-        <div className="pt-6">
-          <h3 className="font-semibold text-lg">Your Reviews</h3>
-          <ul className="space-y-2">
-            {reviews.map((review) => (
-              <li
-                key={review.id}
-                className="text-sm text-gray-700 border rounded p-2"
-              >
-                ⭐ {review.rating} - {review.comment}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
 
       <div className="pt-4 space-x-3">
         {isEditing ? (

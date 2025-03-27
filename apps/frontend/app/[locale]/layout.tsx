@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 import { Providers } from "../providers";
 import UserHydrator from "@/components/UserHydration";
 import { defaultLocale, locales } from "@/i18n";
+import { Toaster } from "@/components/ui/sonner";
 
 export default async function LocaleLayout({
   children,
@@ -29,6 +30,7 @@ export default async function LocaleLayout({
           <UserHydrator />
           <Navbar locale={locale} />
           <main>{children}</main>
+          <Toaster richColors position="top-right" />
           <Footer />
         </Providers>
       </body>

@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { setUserData, clearUserData } from "@/store/userSlice";
+import { setUserIdentity, clearUserIdentity } from "@/store/userSlice";
+import { fetchUserProfile } from "@/store/profileSlice";
 
 export default function UserHydrator() {
   const { data: session } = useSession();
@@ -13,18 +14,17 @@ export default function UserHydrator() {
   useEffect(() => {
     if (session?.user?.id && session.user.role) {
       dispatch(
-        setUserData({
+        setUserIdentity({
           id: session.user.id,
           email: session.user.email ?? "",
           role: session.user.role,
-          profile:
-            typeof session.user.profile === "object"
-              ? session.user.profile
-              : undefined,
         })
       );
+
+      // Fetch full profile info after setting identity
+      dispatch(fetchUserProfile(session.user.id));
     } else if (!session?.user) {
-      dispatch(clearUserData());
+      dispatch(clearUserIdentity());
     }
   }, [session, dispatch]);
 

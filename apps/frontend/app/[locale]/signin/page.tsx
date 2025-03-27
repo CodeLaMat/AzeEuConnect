@@ -10,8 +10,10 @@ import { Button } from "@/components/ui/button";
 // Redux
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { setUserData } from "@/store/userSlice";
+import { setUserIdentity } from "@/store/userSlice";
+import { fetchUserProfile } from "@/store/profileSlice";
 import { roleToDashboard } from "@/lib/utils";
+import { UserRole } from "@prisma/client";
 
 export default function SignInPage() {
   const t = useTranslations("navbar");
@@ -19,11 +21,7 @@ export default function SignInPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const dispatch = useDispatch<AppDispatch>();
-  // Form State
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -89,8 +87,6 @@ export default function SignInPage() {
       });
 
       if (result?.ok) {
-        console.log("✅ Login successful:", result);
-
         let updatedSession = await getSession();
         let retries = 5;
 
@@ -106,13 +102,13 @@ export default function SignInPage() {
 
           // Dispatch Redux user
           dispatch(
-            setUserData({
+            setUserIdentity({
               id: updatedSession.user.id || "",
               email: updatedSession.user.email || "",
-              role,
-              profile: updatedSession.user.profile || {},
+              role: role as UserRole,
             })
           );
+          dispatch(fetchUserProfile(updatedSession.user.id || ""));
         } else {
           setError("Login succeeded, but user role is missing.");
         }
@@ -147,15 +143,14 @@ export default function SignInPage() {
 
         if (updatedSession?.user?.role) {
           const role = updatedSession.user.role.toUpperCase();
-
           dispatch(
-            setUserData({
+            setUserIdentity({
               id: updatedSession.user.id || "",
-              email: updatedSession.user.email ?? "",
-              role,
-              profile: updatedSession.user.profile ?? {},
+              email: updatedSession.user.email || "",
+              role: role as UserRole,
             })
           );
+          dispatch(fetchUserProfile(updatedSession.user.id || ""));
         } else {
           setError("Login succeeded, but user role is missing.");
         }
