@@ -5,12 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const roleToDashboard: Record<string, string> = {
-  ADMIN: "admin-dashboard",
-  USER: "dashboard",
-  CONSULTANT: "consultant-dashboard",
-  SERVICE_PROVIDER: "provider-dashboard",
-  MODERATOR: "moderator-dashboard",
-  SUPPORT_AGENT: "support-dashboard",
-  REGULATORY_OFFICER: "regulatory-dashboard",
-};
+export const roleToDashboard = "dashboard";
+
+export function getDashboardRoute(_role: string, locale: string): string {
+  return `/dashboard`;
+}
+
+// Not used yet
+export function getDashboardRouteWithRole(
+  role: string,
+  locale: string
+): string {
+  return `/${roleToDashboard}`;
+}

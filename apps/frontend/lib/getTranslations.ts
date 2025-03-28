@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 
+// Load translations from the filesystem
 export async function getTranslations(locale: string) {
   try {
     const filePath = path.join(process.cwd(), "locales", `${locale}.json`);
@@ -11,3 +12,5 @@ export async function getTranslations(locale: string) {
     return null;
   }
 }
+
+export const supportedLocales = ["az", "en", "ru", "de"];

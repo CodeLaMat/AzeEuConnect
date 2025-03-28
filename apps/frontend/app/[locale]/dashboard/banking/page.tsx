@@ -9,7 +9,6 @@ import {
   FaBuilding,
 } from "react-icons/fa";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
 
 export default function BankingPage() {
   const t = useTranslations("dashboard.banking");
@@ -105,9 +104,13 @@ export default function BankingPage() {
                 }`}
               >
                 {txn.status === "completed" ? (
-                  <FaCheckCircle className="inline mr-1" />
+                  <span className="inline mr-1">
+                    <FaCheckCircle />
+                  </span>
                 ) : (
-                  <FaClock className="inline mr-1" />
+                  <span className="inline mr-1">
+                    <FaClock />
+                  </span>
                 )}
                 {t(`transactions.${txn.status}`)}
               </span>

@@ -12,8 +12,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { setUserIdentity } from "@/store/userSlice";
 import { fetchUserProfile } from "@/store/profileSlice";
-import { roleToDashboard } from "@/lib/utils";
+import { getDashboardRoute } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
+import { supportedLocales } from "@/lib/getTranslations";
 
 export default function SignInPage() {
   const t = useTranslations("navbar");
@@ -43,7 +44,6 @@ export default function SignInPage() {
           // Check if a preferred language exists in the user's profile.
           const preferredLocale =
             updatedSession.user.profile?.preferredLanguage?.toLowerCase();
-          const supportedLocales = ["az", "en", "ru", "de"];
           // Use the preferred locale if available and supported; otherwise use the URL locale.
           const finalLocale =
             preferredLocale && supportedLocales.includes(preferredLocale)
@@ -51,9 +51,9 @@ export default function SignInPage() {
               : locale;
 
           const role = updatedSession.user.role.toUpperCase();
-          const dashboardPath =
-            roleToDashboard[role as keyof typeof roleToDashboard];
+          const dashboardPath = getDashboardRoute(role, finalLocale as string);
 
+          router.push(dashboardPath);
           if (dashboardPath) {
             router.push(`/${finalLocale}/${dashboardPath}`);
           } else {
@@ -179,7 +179,9 @@ export default function SignInPage() {
           onClick={handleGoogleSignIn}
           disabled={loading}
         >
-          <FaGoogle className="mr-2" />
+          <span className="mr-2">
+            <FaGoogle />
+          </span>
           {t("auth.logInWithGoogle")}
         </Button>
 

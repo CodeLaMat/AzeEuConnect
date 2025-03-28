@@ -13,6 +13,8 @@ import Image from "next/image";
 import { availableCountries, getTimezoneByCountry } from "@/lib/timezone";
 import { useRef } from "react";
 import { z } from "zod";
+import router from "next/router";
+import { usePathname } from "next/navigation";
 
 const profileSchema = z.object({
   firstName: z.string().min(1, "Required"),
@@ -35,8 +37,11 @@ export default function UserProfileCard({ user }: Props) {
   const [imagePreview, setImagePreview] = useState(profile?.image || "");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [removeImage, setRemoveImage] = useState(false);
+  const [error, setError] = useState("");
 
   console.log("PROFILE", profile);
+  const pathname = usePathname();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -47,8 +52,6 @@ export default function UserProfileCard({ user }: Props) {
     timezone: "UTC",
     preferredLanguage: "AZ",
   });
-
-  const [error, setError] = useState("");
 
   useEffect(() => {
     if (user.id) {
@@ -101,13 +104,13 @@ export default function UserProfileCard({ user }: Props) {
   };
 
   const handleRemoveImage = () => {
-    // Use window.confirm explicitly
     const confirmRemoval =
       typeof window !== "undefined" &&
       window.confirm("Are you sure you want to remove your profile photo?");
     if (confirmRemoval) {
       setImageFile(null);
       setImagePreview("");
+      setRemoveImage(true); // Track removal
       toast("Image removed", {
         description: "You can upload a new one before saving.",
       });
@@ -147,12 +150,13 @@ export default function UserProfileCard({ user }: Props) {
     });
     if (imageFile) {
       payload.append("image", imageFile);
-    } else {
+    } else if (removeImage) {
       payload.append("image", "");
     }
 
     try {
       await dispatch(updateUserProfile(payload)).unwrap();
+
       setIsEditing(false);
       toast.success("Profile updated", {
         description: "Your profile was saved successfully.",

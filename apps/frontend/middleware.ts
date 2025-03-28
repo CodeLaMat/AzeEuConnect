@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { locales } from "./i18n";
+import { protectedSubRoutes } from "./lib/roleBasedLinks";
+import { UserRole } from "@prisma/client";
+import { supportedLocales } from "./lib/getTranslations";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -12,8 +15,6 @@ export async function middleware(req: NextRequest) {
   if (!locale || !locales.includes(locale as "az" | "en" | "ru" | "de")) {
     return NextResponse.next();
   }
-
-  const supportedLocales = ["az", "en", "ru", "de"];
 
   // Check token for profile preferred language
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -39,18 +40,8 @@ export async function middleware(req: NextRequest) {
 
   const routeType = segments[2];
 
-  // ✅ Define role-based access per dashboard
-  const protectedRoutes: Record<string, string[]> = {
-    "admin-dashboard": ["ADMIN"],
-    "consultant-dashboard": ["CONSULTANT", "ADMIN"],
-    "support-dashboard": ["SUPPORT_AGENT", "ADMIN"],
-    "legal-dashboard": ["LEGAL_ADVISOR", "ADMIN"],
-    "regulatory-dashboard": ["REGULATORY_OFFICER", "ADMIN"],
-    dashboard: ["USER", "ADMIN"], // Only USER and ADMIN can access /dashboard
-  };
-
   // ✅ Apply access control if route is protected
-  if (protectedRoutes[routeType]) {
+  if (protectedSubRoutes[routeType]) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
     // 🔒 Not logged in
@@ -69,8 +60,8 @@ export async function middleware(req: NextRequest) {
     }
 
     // 🔒 Role not allowed
-    const allowedRoles = protectedRoutes[routeType];
-    if (!allowedRoles.includes(userRole)) {
+    const allowedRoles = protectedSubRoutes[routeType];
+    if (!allowedRoles.includes(userRole as UserRole)) {
       console.warn(`⚠️ User role "${userRole}" not allowed for "${routeType}"`);
       return NextResponse.redirect(new URL(`/${locale}/unauthorized`, req.url));
     }
@@ -79,14 +70,9 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// ✅ Apply middleware only to dashboard routes
+// ✅ Apply middleware only to protected subroutes
 export const config = {
-  matcher: [
-    "/:locale/dashboard/:path*",
-    "/:locale/admin-dashboard/:path*",
-    "/:locale/consultant-dashboard/:path*",
-    "/:locale/support-dashboard/:path*",
-    "/:locale/legal-dashboard/:path*",
-    "/:locale/regulatory-dashboard/:path*",
-  ],
+  matcher: Object.keys(protectedSubRoutes).flatMap((subRoute) =>
+    locales.map((locale) => `/${locale}/${subRoute}/:path*`)
+  ),
 };

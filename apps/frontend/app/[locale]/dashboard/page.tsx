@@ -83,8 +83,10 @@ export default function Dashboard() {
         <ul className="mt-3 space-y-2">
           {documents.map((doc, idx) => (
             <li key={idx} className="flex items-center text-gray-600">
-              <FaFileAlt className="text-blue-500 mr-2" /> {doc.name} (
-              {t("recentDocuments.uploaded", { date: doc.date })})
+              <span className="text-blue-500 mr-2">
+                <FaFileAlt />
+              </span>{" "}
+              {doc.name} ({t("recentDocuments.uploaded", { date: doc.date })})
             </li>
           ))}
         </ul>

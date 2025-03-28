@@ -21,6 +21,7 @@ export default async function LocaleLayout({
     return notFound();
   }
 
+  // Fetch translations for the given locale and set them in the Redux store.
   const messages = await getTranslations(locale);
 
   return (
