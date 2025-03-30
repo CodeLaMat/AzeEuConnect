@@ -187,19 +187,21 @@ export default function SignInPage() {
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold text-center text-blue-700">
+      <div className="bg-secondary p-8 rounded-lg shadow-md w-96">
+        <h1 className="text-2xl font-bold text-center text-primary">
           {t("auth.title")}
         </h1>
-        <p className="text-center text-gray-600">{t("auth.description")}</p>
+        <p className="text-center text-secondary-foreground">
+          {t("auth.description")}
+        </p>
 
         {/* Google Login */}
         <Button
-          className="flex items-center w-full justify-center mt-4 bg-yellow-500 text-black font-bold hover:bg-yellow-600 cursor-pointer"
+          className="flex items-center w-full justify-center mt-4 bg-yellow-600 text-accent font-bold hover:bg-yellow-600 cursor-pointer"
           onClick={handleGoogleSignIn}
           disabled={loading}
         >
-          <span className="mr-2">
+          <span className="mr-2 text-accent text-2xl">
             <FaGoogle />
           </span>
           {t("auth.logInWithGoogle")}
@@ -243,7 +245,7 @@ export default function SignInPage() {
           <div className="text-right">
             <span
               onClick={() => router.push(`/${locale}/forgot-password`)}
-              className="text-sm text-blue-600 hover:underline cursor-pointer"
+              className="text-sm text-primary hover:underline cursor-pointer"
             >
               {t("auth.forgotPassword") || "Forgot your password?"}
             </span>
@@ -251,14 +253,14 @@ export default function SignInPage() {
 
           <Button
             type="submit"
-            className="w-full bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+            className="w-full bg-primary text-secondaty hover:bg-blue-700 cursor-pointer"
             disabled={loading}
           >
             {loading ? "Logging in..." : t("auth.login")}
           </Button>
         </form>
 
-        <p className="text-center mt-4 text-gray-600">
+        <p className="text-center mt-4 text-primary">
           {t("auth.noAccount")}{" "}
           <span
             onClick={() => router.push(`/${locale}/signup`)}

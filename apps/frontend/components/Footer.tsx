@@ -9,7 +9,7 @@ export default function Footer() {
   const { locale } = useParams(); // Get the current locale dynamically
 
   return (
-    <footer className="bg-blue-700 text-white py-10">
+    <footer className="bg-secondary text-primary py-10">
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Company Info */}
         <div>

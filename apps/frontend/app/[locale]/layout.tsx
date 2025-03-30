@@ -27,7 +27,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale || defaultLocale}>
-      <body>
+      <body className="bg-primary text-secondary">
         <Providers locale={locale} messages={messages}>
           <SessionLoader>
             <UserHydrator />

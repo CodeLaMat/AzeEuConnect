@@ -29,7 +29,7 @@ export default function Navbar({ locale }: { locale: string }) {
     role: string;
   };
 
-  const userRole = user.role;
+  const userRole = user.role as string;
   const navLinks = getNavLinks(userRole, t);
 
   // Language switch
@@ -55,7 +55,7 @@ export default function Navbar({ locale }: { locale: string }) {
   }, []);
 
   return (
-    <nav className="relative flex justify-between items-center px-8 py-4 bg-blue-700 text-white shadow-md">
+    <nav className="relative flex justify-between items-center px-8 py-4 bg-secondary text-primary shadow-md">
       {/* Logo */}
       <Logo locale={locale} />
       {/* Navigation Links */}

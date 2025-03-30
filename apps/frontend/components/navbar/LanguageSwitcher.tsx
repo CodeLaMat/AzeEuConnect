@@ -21,14 +21,14 @@ export default function LanguageSwitcher({
 }: LanguageSwitcherProps) {
   return (
     <Select onValueChange={handleLanguageChange} defaultValue={locale}>
-      <SelectTrigger className="w-36 bg-white text-blue-700 cursor-pointer">
+      <SelectTrigger className="w-30 bg-secondary-foreground text-secondary border-0 cursor-pointer">
         <SelectValue placeholder={t("selectLanguage")} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="az">🇦🇿 Azərbaycan</SelectItem>
-        <SelectItem value="en">🇬🇧 English</SelectItem>
-        <SelectItem value="ru">🇷🇺 Русский</SelectItem>
-        <SelectItem value="de">🇩🇪 Deutsch</SelectItem>
+        <SelectItem value="az">Azərbaycan</SelectItem>
+        <SelectItem value="en">English</SelectItem>
+        <SelectItem value="ru">Русский</SelectItem>
+        <SelectItem value="de">Deutsch</SelectItem>
       </SelectContent>
     </Select>
   );

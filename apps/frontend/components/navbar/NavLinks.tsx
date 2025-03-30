@@ -30,7 +30,7 @@ export default function NavLinks({
             >
               <Link
                 href={`/${locale}/${href}`}
-                className="px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-blue-600"
+                className="px-4 py-2 rounded-md transition duration-300 ease-in-out hover:bg-accent"
               >
                 {label}
               </Link>
@@ -157,8 +157,8 @@ export default function NavLinks({
             href={`/${locale}/${href}`}
             className={`px-4 py-2 rounded-md transition duration-300 ease-in-out ${
               isActive
-                ? "bg-white text-blue-700 font-bold"
-                : "hover:bg-blue-600"
+                ? "bg-secondary-foreground text-secondary font-bold"
+                : "hover:bg-accent"
             }`}
           >
             {label}

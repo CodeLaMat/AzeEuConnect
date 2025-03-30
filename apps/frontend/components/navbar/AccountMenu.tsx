@@ -27,7 +27,8 @@ export default function AccountMenu({
   menuRef,
   t,
 }: AccountMenuProps) {
-  const links = accountMenuLinks[userRole] ?? [];
+  const links =
+    accountMenuLinks[userRole as keyof typeof accountMenuLinks] ?? [];
 
   return (
     <div className="relative" ref={menuRef}>
