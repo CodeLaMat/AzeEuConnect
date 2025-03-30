@@ -7,6 +7,7 @@ import { Providers } from "../providers";
 import UserHydrator from "@/components/UserHydration";
 import { defaultLocale, locales } from "@/i18n";
 import { Toaster } from "@/components/ui/sonner";
+import SessionLoader from "@/components/SessionLoader";
 
 export default async function LocaleLayout({
   children,
@@ -28,11 +29,13 @@ export default async function LocaleLayout({
     <html lang={locale || defaultLocale}>
       <body>
         <Providers locale={locale} messages={messages}>
-          <UserHydrator />
-          <Navbar locale={locale} />
-          <main>{children}</main>
-          <Toaster richColors position="top-right" />
-          <Footer />
+          <SessionLoader>
+            <UserHydrator />
+            <Navbar locale={locale} />
+            <main>{children}</main>
+            <Toaster richColors position="top-right" />
+            <Footer />
+          </SessionLoader>
         </Providers>
       </body>
     </html>
