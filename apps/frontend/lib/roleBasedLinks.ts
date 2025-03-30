@@ -62,8 +62,44 @@ export const roleBasedLinks: Record<
       icon: React.createElement(FaUser),
       labelKey: "sidebar.profile",
     },
+
+    {
+      href: "dashboard/userlist",
+      icon: React.createElement(FaUser),
+      labelKey: "sidebar.userList",
+    },
   ],
   USER: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "sidebar.dashboard",
+    },
+
+    {
+      href: "dashboard/profile",
+      icon: React.createElement(FaUser),
+      labelKey: "sidebar.profile",
+    },
+    {
+      href: "dashboard/support",
+      icon: React.createElement(FaHeadset),
+      labelKey: "sidebar.support",
+    },
+  ],
+  CONSULTANT: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "sidebar.dashboard",
+    },
+    {
+      href: "dashboard/profile",
+      icon: React.createElement(FaUser),
+      labelKey: "sidebar.profile",
+    },
+  ],
+  SERVICE_PROVIDER: [
     {
       href: "dashboard",
       icon: React.createElement(FaCheckCircle),
@@ -98,30 +134,6 @@ export const roleBasedLinks: Record<
       href: "dashboard/support",
       icon: React.createElement(FaHeadset),
       labelKey: "sidebar.support",
-    },
-  ],
-  CONSULTANT: [
-    {
-      href: "dashboard",
-      icon: React.createElement(FaCheckCircle),
-      labelKey: "sidebar.dashboard",
-    },
-    {
-      href: "dashboard/profile",
-      icon: React.createElement(FaUser),
-      labelKey: "sidebar.profile",
-    },
-  ],
-  SERVICE_PROVIDER: [
-    {
-      href: "dashboard",
-      icon: React.createElement(FaCheckCircle),
-      labelKey: "sidebar.dashboard",
-    },
-    {
-      href: "dashboard/profile",
-      icon: React.createElement(FaUser),
-      labelKey: "sidebar.profile",
     },
   ],
   MODERATOR: [
@@ -167,14 +179,182 @@ export const roleBasedLinks: Record<
   ],
 };
 
-// ✅ Define role-based access per dashboard
+/// ✅ Define the navigation links for the account menu
+export const accountMenuLinks: Record<
+  UserRole,
+  { href: string; icon: React.ReactNode; labelKey: string }[]
+> = {
+  ADMIN: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.dashboard",
+    },
+    {
+      href: "bookmarks",
+      icon: React.createElement(FaUser),
+      labelKey: "account.bookmarks",
+    },
+
+    {
+      href: "drafts",
+      icon: React.createElement(FaUser),
+      labelKey: "account.drafts",
+    },
+    {
+      href: "help",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.helpCenter",
+    },
+  ],
+  USER: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.dashboard",
+    },
+    {
+      href: "bookmarks",
+      icon: React.createElement(FaUser),
+      labelKey: "account.bookmarks",
+    },
+
+    {
+      href: "drafts",
+      icon: React.createElement(FaUser),
+      labelKey: "account.drafts",
+    },
+    {
+      href: "help",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.helpCenter",
+    },
+  ],
+  CONSULTANT: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.dashboard",
+    },
+    {
+      href: "bookmarks",
+      icon: React.createElement(FaUser),
+      labelKey: "account.bookmarks",
+    },
+
+    {
+      href: "drafts",
+      icon: React.createElement(FaUser),
+      labelKey: "account.drafts",
+    },
+    {
+      href: "help",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.helpCenter",
+    },
+  ],
+  SERVICE_PROVIDER: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.dashboard",
+    },
+    {
+      href: "bookmarks",
+      icon: React.createElement(FaUser),
+      labelKey: "account.bookmarks",
+    },
+
+    {
+      href: "drafts",
+      icon: React.createElement(FaUser),
+      labelKey: "account.drafts",
+    },
+    {
+      href: "help",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.helpCenter",
+    },
+  ],
+  MODERATOR: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.dashboard",
+    },
+    {
+      href: "bookmarks",
+      icon: React.createElement(FaUser),
+      labelKey: "account.bookmarks",
+    },
+
+    {
+      href: "drafts",
+      icon: React.createElement(FaUser),
+      labelKey: "account.drafts",
+    },
+    {
+      href: "help",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.helpCenter",
+    },
+  ],
+  SUPPORT_AGENT: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.dashboard",
+    },
+    {
+      href: "bookmarks",
+      icon: React.createElement(FaUser),
+      labelKey: "account.bookmarks",
+    },
+
+    {
+      href: "drafts",
+      icon: React.createElement(FaUser),
+      labelKey: "account.drafts",
+    },
+    {
+      href: "help",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.helpCenter",
+    },
+  ],
+  REGULATORY_OFFICER: [
+    {
+      href: "dashboard",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.dashboard",
+    },
+    {
+      href: "bookmarks",
+      icon: React.createElement(FaUser),
+      labelKey: "account.bookmarks",
+    },
+
+    {
+      href: "drafts",
+      icon: React.createElement(FaUser),
+      labelKey: "account.drafts",
+    },
+    {
+      href: "help",
+      icon: React.createElement(FaCheckCircle),
+      labelKey: "account.helpCenter",
+    },
+  ],
+};
+
+// ✅ Define the protected sub-routes and their required roles for sidebar navigation
 export const protectedSubRoutes: Record<string, UserRole[]> = {
-  documents: ["USER"],
-  "company-formation": ["USER"],
-  "tax-accounting": ["USER"],
-  banking: ["USER"],
+  documents: ["SERVICE_PROVIDER"],
+  "company-formation": ["SERVICE_PROVIDER"],
+  "tax-accounting": ["SERVICE_PROVIDER"],
+  banking: ["SERVICE_PROVIDER"],
   profile: [
-    "USER",
+    "SERVICE_PROVIDER",
     "CONSULTANT",
     "ADMIN",
     "MODERATOR",
@@ -182,5 +362,15 @@ export const protectedSubRoutes: Record<string, UserRole[]> = {
     "SUPPORT_AGENT",
     "REGULATORY_OFFICER",
   ],
-  support: ["USER", "SUPPORT_AGENT", "ADMIN"],
+  "manage-users": ["ADMIN"],
+  userlist: ["ADMIN"],
+  support: [
+    "USER",
+    "SUPPORT_AGENT",
+    "ADMIN",
+    "MODERATOR",
+    "SERVICE_PROVIDER",
+    "SUPPORT_AGENT",
+    "REGULATORY_OFFICER",
+  ],
 };

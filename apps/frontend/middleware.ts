@@ -1,15 +1,30 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { locales } from "./i18n";
 import { protectedSubRoutes } from "./lib/roleBasedLinks";
 import { UserRole } from "@prisma/client";
-import { supportedLocales } from "./lib/getTranslations";
+import { supportedLocales } from "./lib/timezone";
+
+const authPagesRegex = /^\/(en|az|de|ru)\/(signin|signup)/;
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const segments = pathname.split("/");
   const locale = segments[1];
+
+  if (authPagesRegex.test(pathname)) {
+    // Check for an existing token (i.e. if the user is already logged in)
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    // If a token exists, redirect them to their dashboard
+    if (token) {
+      const preferredLocale = token.preferredLanguage?.toLowerCase() || "en";
+      // Adjust the dashboard path as needed. Here it's simply '/dashboard'
+      return NextResponse.redirect(
+        new URL(`/${preferredLocale}/dashboard`, req.url)
+      );
+    }
+  }
 
   // ✅ Validate locale
   if (!locale || !locales.includes(locale as "az" | "en" | "ru" | "de")) {
@@ -70,6 +85,7 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
+const locales = ["en", "az", "de", "ru"];
 // ✅ Apply middleware only to protected subroutes
 export const config = {
   matcher: Object.keys(protectedSubRoutes).flatMap((subRoute) =>

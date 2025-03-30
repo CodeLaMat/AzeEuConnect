@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import { prisma } from "@packages/db";
 import userRouter from "./src/routes/userRoutes";
 import profileRouter from "./src/routes/profileRoutes";
+import usersRouter from "./src/routes/allUsersRoutes";
+import roleRouter from "./src/routes/roleRoutes";
 
 dotenv.config();
 const app = express();
@@ -24,6 +26,8 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 app.use("/api/auth", userRouter);
 app.use("/api", profileRouter);
+app.use("/api", usersRouter);
+app.use("/api", roleRouter);
 
 process.on("SIGINT", async () => {
   console.log("Shutting down server...");

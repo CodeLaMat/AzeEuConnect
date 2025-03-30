@@ -4,16 +4,6 @@ import { prisma } from "@packages/db";
 import crypto from "crypto";
 import { sendEmail } from "../lib/sendEmail";
 
-// Ensure role matches Prisma enum UserRole
-enum UserRole {
-  USER = "USER",
-  ADMIN = "ADMIN",
-  CONSULTANT = "CONSULTANT",
-  LEGAL_ADVISOR = "LEGAL_ADVISOR",
-  SUPPORT_AGENT = "SUPPORT_AGENT",
-  REGULATORY_OFFICER = "REGULATORY_OFFICER",
-}
-
 /**
  * Register a new user
  */
@@ -26,7 +16,7 @@ export const registerUser: RequestHandler = async (
     const {
       email,
       password,
-      role,
+      roleName,
       firstName,
       lastName,
       location,
@@ -36,26 +26,31 @@ export const registerUser: RequestHandler = async (
       preferredLanguage,
     } = req.body;
 
-    // Check if the user already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       res.status(409).json({ message: "User already exists" });
       return;
     }
 
-    // Hash password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create new user with profile
+    const role = await prisma.role.findUnique({
+      where: { name: roleName || "USER" },
+    });
+    if (!role) {
+      res.status(400).json({ message: "Role not found" });
+      return;
+    }
+
     const newUser = await prisma.user.create({
       data: {
         email: email.toLowerCase(),
         password: hashedPassword,
-        role: role || UserRole.USER,
+        roleId: role.id,
         profile: {
           create: {
-            firstName: firstName,
-            lastName: lastName,
+            firstName,
+            lastName,
             location: location || "",
             phone: phone || "",
             nationality: nationality || "",
@@ -64,7 +59,7 @@ export const registerUser: RequestHandler = async (
           },
         },
       },
-      include: { profile: true },
+      include: { profile: true, role: true },
     });
 
     res.status(201).json({
@@ -90,7 +85,7 @@ export const loginUser: RequestHandler = async (req, res, next) => {
     // Convert email to lowercase to prevent case-sensitive mismatches
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
-      include: { profile: true },
+      include: { profile: true, role: true },
     });
 
     if (!user) {
@@ -103,31 +98,36 @@ export const loginUser: RequestHandler = async (req, res, next) => {
 
     // Compare hashed passwords
     const isMatch = await bcrypt.compare(password, user.password);
-
     if (!isMatch) {
       console.error("❌ Password mismatch for:", email);
       res.status(401).json({ message: "Invalid credentials" });
       return;
     }
 
+    // Update the lastLogin field to the current date/time
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
+      data: { lastLogin: new Date() },
+      include: { profile: true, role: true },
+    });
+
     const responsePayload = {
-      id: user.id,
-      email: user.email,
-      role: user.role,
-      image: user.profile?.image ?? null,
-      firstName: user.profile?.firstName ?? "",
-      lastName: user.profile?.lastName ?? "",
-      phone: user.profile?.phone ?? "",
-      location: user.profile?.location ?? "",
-      nationality: user.profile?.nationality ?? "",
-      timezone: user.profile?.timezone ?? "UTC",
-      preferredLanguage: user.profile?.preferredLanguage ?? "AZ",
-      profile: user.profile,
+      id: updatedUser.id,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      image: updatedUser.profile?.image ?? null,
+      firstName: updatedUser.profile?.firstName ?? "",
+      lastName: updatedUser.profile?.lastName ?? "",
+      phone: updatedUser.profile?.phone ?? "",
+      location: updatedUser.profile?.location ?? "",
+      nationality: updatedUser.profile?.nationality ?? "",
+      timezone: updatedUser.profile?.timezone ?? "UTC",
+      preferredLanguage: updatedUser.profile?.preferredLanguage ?? "AZ",
+      profile: updatedUser.profile,
       membership: null,
     };
 
     console.log("✅ Returning user response:", responsePayload);
-
     res.status(200).json(responsePayload);
   } catch (error) {
     console.error("❌ Login Error:", error);
@@ -136,11 +136,9 @@ export const loginUser: RequestHandler = async (req, res, next) => {
   }
 };
 
-// Request password reset
 export const requestPasswordReset: RequestHandler = async (req, res, next) => {
   try {
     const { email } = req.body;
-
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
     });
@@ -150,7 +148,7 @@ export const requestPasswordReset: RequestHandler = async (req, res, next) => {
     }
 
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour from now
+    const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000);
 
     await prisma.user.update({
       where: { email: email.toLowerCase() },
@@ -164,16 +162,12 @@ export const requestPasswordReset: RequestHandler = async (req, res, next) => {
 
     const preferredLanguage =
       userWithProfile?.profile?.preferredLanguage || "en";
-
     const resetLink = `http://localhost:3000/${preferredLanguage.toLowerCase()}/reset-password?token=${resetToken}`;
 
     await sendEmail(
       user.email,
       "Password Reset Request",
-      `<p>Hello,</p>
-       <p>You requested to reset your password. Click the link below to set a new one:</p>
-       <a href="${resetLink}">${resetLink}</a>
-       <p>This link will expire in 1 hour.</p>`
+      `<p>Hello,</p><p>You requested to reset your password. Click the link below to set a new one:</p><a href="${resetLink}">${resetLink}</a><p>This link will expire in 1 hour.</p>`
     );
 
     res.status(200).json({ message: "Password reset link sent to your email" });
@@ -184,22 +178,16 @@ export const requestPasswordReset: RequestHandler = async (req, res, next) => {
   }
 };
 
-// Reset password using token
 export const resetPassword: RequestHandler = async (req, res, next) => {
   try {
     const { token, newPassword } = req.body;
-    console.log("🧪 Reset password attempt:", { token, newPassword });
 
     const user = await prisma.user.findFirst({
       where: {
         resetToken: token,
-        resetTokenExpiry: {
-          gt: new Date(),
-        },
+        resetTokenExpiry: { gt: new Date() },
       },
     });
-
-    console.log("🔍 User found for reset?", user);
 
     if (!user) {
       res.status(400).json({ message: "Invalid or expired token" });
@@ -225,9 +213,6 @@ export const resetPassword: RequestHandler = async (req, res, next) => {
   }
 };
 
-/**
- * Update User Profile
- */
 export const updateUserProfile: RequestHandler = async (req, res, next) => {
   try {
     const {
@@ -242,15 +227,14 @@ export const updateUserProfile: RequestHandler = async (req, res, next) => {
     } = req.body;
 
     const file = req.file;
-
     const { image } = req.body;
 
-    // Check if user exists
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
+
     const updateData: any = {
       firstName,
       lastName,
@@ -261,16 +245,9 @@ export const updateUserProfile: RequestHandler = async (req, res, next) => {
       preferredLanguage,
     };
 
-    if (image === "") {
-      updateData.image = null;
-    }
-
-    if (file) {
+    if (image === "") updateData.image = null;
+    if (file)
       updateData.image = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
-    } else if (req.body.image === "") {
-      updateData.image = null;
-      console.log("🔍 Setting empty image:", updateData.image);
-    }
 
     const updatedProfile = await prisma.profile.update({
       where: { userId },
@@ -290,7 +267,6 @@ export const updateUserProfile: RequestHandler = async (req, res, next) => {
 export const getUserProfile: RequestHandler = async (req, res, next) => {
   try {
     const { userId } = req.params;
-
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
@@ -299,6 +275,7 @@ export const getUserProfile: RequestHandler = async (req, res, next) => {
         companyDetails: true,
         serviceSubscriptions: true,
         reviews: true,
+        role: true,
       },
     });
 

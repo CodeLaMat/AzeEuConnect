@@ -1,20 +1,3 @@
-export function authorize(role: string, action: Action): boolean {
-  const allowedActions =
-    RolePermissions[role as keyof typeof RolePermissions] || [];
-  return (
-    allowedActions.includes("ALL") || allowedActions.includes(action as Action)
-  );
-}
-
-export const RolePermissions = {
-  ADMIN: ["ALL"],
-  USER: ["CREATE_ORDER", "VIEW_SERVICES", "WRITE_REVIEW", "MANAGE_PROFILE"],
-  CONSULTANT: ["POST_SERVICE", "MANAGE_APPOINTMENTS", "VIEW_CLIENTS"],
-  SERVICE_PROVIDER: ["POST_SERVICE", "MANAGE_ORDERS", "RESPOND_TO_REVIEWS"],
-  SUPPORT_AGENT: ["MANAGE_TICKETS", "READ_USERS"],
-  REGULATORY_OFFICER: ["VERIFY_COMPANY", "APPROVE_DOCUMENTS"],
-};
-
 export type Action =
   | "ALL"
   | "CREATE_ORDER"
@@ -25,8 +8,89 @@ export type Action =
   | "MANAGE_TICKETS"
   | "MANAGE_ORDERS"
   | "VERIFY_COMPANY"
+  | "MANAGE_COMPANY"
   | "APPROVE_DOCUMENTS"
   | "RESPOND_TO_REVIEWS"
   | "MANAGE_APPOINTMENTS"
   | "READ_USERS"
-  | "VIEW_CLIENTS";
+  | "VIEW_CLIENTS"
+  | "VIEW_SUPPORT_TICKETS"
+  | "MANAGE_CLIENTS"
+  | "VIEW_ORDERS"
+  | "MANAGE_SUBSCRIPTIONS"
+  | "VIEW_SERVICE_LISTINGS"
+  | "MANAGE_SUPPORT_AGENTS"
+  | "MANAGE_DOCUMENTS"
+  | "VIEW_APPOINTMENTS"
+  | "MANAGE_NOTIFICATIONS"
+  | "VIEW_NOTIFICATIONS"
+  | "SEND_MESSAGES"
+  | "SEND_EMAILS"
+  | "MANAGE_MESSAGES"
+  | "MANAGE_USERS"
+  | "VIEW_USERS"
+  | "VIEW_REVIEWS"
+  | "MANAGE_REVIEWS"
+  | "APPROVE_SERVICE";
+
+export const RolePermissions: { [role: string]: Action[] } = {
+  ADMIN: ["ALL"],
+
+  USER: [
+    "CREATE_ORDER",
+    "VIEW_SERVICES",
+    "WRITE_REVIEW",
+    "MANAGE_PROFILE",
+    "VIEW_ORDERS",
+    "VIEW_NOTIFICATIONS",
+    "SEND_MESSAGES",
+    "SEND_EMAILS",
+  ],
+
+  CONSULTANT: [
+    "POST_SERVICE",
+    "MANAGE_APPOINTMENTS",
+    "VIEW_CLIENTS",
+    "MANAGE_PROFILE",
+    "VIEW_APPOINTMENTS",
+    "RESPOND_TO_REVIEWS",
+    "VIEW_NOTIFICATIONS",
+    "VIEW_REVIEWS",
+  ],
+
+  SERVICE_PROVIDER: [
+    "POST_SERVICE",
+    "MANAGE_ORDERS",
+    "RESPOND_TO_REVIEWS",
+    "MANAGE_PROFILE",
+    "VIEW_CLIENTS",
+    "VIEW_SERVICE_LISTINGS",
+    "MANAGE_SUBSCRIPTIONS",
+    "VIEW_ORDERS",
+    "MANAGE_REVIEWS",
+  ],
+
+  SUPPORT_AGENT: [
+    "MANAGE_TICKETS",
+    "READ_USERS",
+    "VIEW_SUPPORT_TICKETS",
+    "MANAGE_NOTIFICATIONS",
+    "VIEW_NOTIFICATIONS",
+    "MANAGE_DOCUMENTS",
+  ],
+
+  REGULATORY_OFFICER: [
+    "VERIFY_COMPANY",
+    "MANAGE_COMPANY",
+    "APPROVE_DOCUMENTS",
+    "APPROVE_SERVICE",
+  ],
+};
+
+export function authorize(role: string, action: Action): boolean {
+  const allowedActions =
+    RolePermissions[role as keyof typeof RolePermissions] || [];
+  return (
+    allowedActions.includes("ALL") || allowedActions.includes(action as Action)
+  );
+}

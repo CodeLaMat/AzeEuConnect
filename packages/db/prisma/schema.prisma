@@ -11,7 +11,8 @@ model User {
   id               String        @id @default(uuid())
   email            String        @unique
   password         String
-  role             UserRole      @default(USER)
+  roleId           String?
+  role             Role?         @relation(fields: [roleId], references: [id])
   emailVerified    Boolean       @default(false)
   twoFactorEnabled Boolean       @default(false)
   lastLogin        DateTime?
@@ -22,15 +23,15 @@ model User {
   resetToken       String?
   resetTokenExpiry DateTime?
 
-  appointments   Appointment[]
-  companyDetails Company?
-  documents      Document[]
-  notifications  Notification[]
-  profile        Profile?
-  services       Services?
-  subscription   Subscription?
+  appointments         Appointment[]
+  companyDetails       Company?
+  documents            Document[]
+  notifications        Notification[]
+  profile              Profile?
+  services             Services?
+  subscription         Subscription?
   serviceSubscriptions ServiceSubscription[]
-  supportTickets SupportTicket[]
+  supportTickets       SupportTicket[]
 
   serviceListings ServiceListing[]
   reviews         Review[]
@@ -136,18 +137,17 @@ model Services {
 }
 
 model ServiceSubscription {
-  id           String   @id @default(uuid())
+  id           String                    @id @default(uuid())
   subscriberId String
   serviceId    String
   status       ServiceSubscriptionStatus @default(ACTIVE)
-  startDate    DateTime  @default(now())
+  startDate    DateTime                  @default(now())
   endDate      DateTime?
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime                  @default(now())
 
-  subscriber   User             @relation(fields: [subscriberId], references: [id])
-  service      ServiceListing   @relation(fields: [serviceId], references: [id])
+  subscriber User           @relation(fields: [subscriberId], references: [id])
+  service    ServiceListing @relation(fields: [serviceId], references: [id])
 }
-
 
 enum ServiceSubscriptionStatus {
   ACTIVE
@@ -205,17 +205,17 @@ model ServiceListing {
   category    String
   country     String
   price       Float
-  rating      Float     @default(0)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  rating      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  ownerId     String
-  owner       User      @relation(fields: [ownerId], references: [id])
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
 
   subscriptions ServiceSubscription[]
 
-  reviews     Review[]
-  orders      Order[]
+  reviews Review[]
+  orders  Order[]
 }
 
 model Review {
@@ -224,8 +224,8 @@ model Review {
   comment   String
   createdAt DateTime @default(now())
 
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   serviceId String
   service   ServiceListing @relation(fields: [serviceId], references: [id])
@@ -237,8 +237,8 @@ model Order {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
-  buyerId   String
-  buyer     User        @relation(fields: [buyerId], references: [id])
+  buyerId String
+  buyer   User   @relation(fields: [buyerId], references: [id])
 
   serviceId String
   service   ServiceListing @relation(fields: [serviceId], references: [id])
@@ -378,4 +378,80 @@ enum OrderStatus {
   IN_PROGRESS
   COMPLETED
   CANCELLED
+}
+
+// Add the Action enum with all the allowed actions
+enum Action {
+  ALL
+  CREATE_ORDER
+  VIEW_SERVICES
+  WRITE_REVIEW
+  POST_SERVICE
+  MANAGE_PROFILE
+  MANAGE_TICKETS
+  MANAGE_ORDERS
+  VERIFY_COMPANY
+  APPROVE_COMPANY
+  MANAGE_COMPANY
+  APPROVE_DOCUMENTS
+  RESPOND_TO_REVIEWS
+  MANAGE_APPOINTMENTS
+  READ_USERS
+  VIEW_CLIENTS
+  VIEW_SUPPORT_TICKETS
+  MANAGE_CLIENTS
+  VIEW_ORDERS
+  MANAGE_SUBSCRIPTIONS
+  VIEW_SERVICE_LISTINGS
+  MANAGE_SUPPORT_AGENTS
+  MANAGE_DOCUMENTS
+  VIEW_APPOINTMENTS
+  MANAGE_NOTIFICATIONS
+  VIEW_NOTIFICATIONS
+  SEND_MESSAGES
+  SEND_EMAILS
+  MANAGE_MESSAGES
+  MANAGE_USERS
+  VIEW_USERS
+  VIEW_REVIEWS
+  MANAGE_REVIEWS
+  POST_REVIEW
+  APPROVE_SERVICE
+  }
+
+// Updated Permission model to use the Action enum
+model Permission {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  action      Action   @default(ALL) // or any default that makes sense
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  roles       RolePermission[]
+}
+
+
+// The Role and RolePermission models remain largely the same
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  permissions RolePermission[]
+  users       User[]
+}
+
+
+model RolePermission {
+  id           String     @id @default(uuid())
+  role         Role       @relation(fields: [roleId], references: [id])
+  roleId       String
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId String
+  // New field to store a friendly display name for the assignment.
+  displayName  String     
+  createdAt    DateTime   @default(now())
+
+  @@unique([roleId, permissionId])
 }

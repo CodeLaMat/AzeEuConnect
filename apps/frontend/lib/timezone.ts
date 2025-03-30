@@ -16,7 +16,9 @@ const countryToTimezone: Record<string, string> = {
 };
 
 export const getTimezoneByCountry = (country: string): string => {
-  return countryToTimezone[country] || "UTC"; // Default to UTC if not found
+  return countryToTimezone[country] || "UTC";
 };
 
 export const availableCountries = Object.keys(countryToTimezone);
+
+export const supportedLocales = ["az", "en", "ru", "de"];

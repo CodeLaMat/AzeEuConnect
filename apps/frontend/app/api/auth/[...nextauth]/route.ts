@@ -1,7 +1,8 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { prisma, UserRole } from "@packages/db";
+import { prisma } from "@packages/db";
+import { UserRole } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
 export const authOptions: NextAuthOptions = {
@@ -43,7 +44,7 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // ✅ Return full user object (not wrapped inside custom)
+        // Return the full user object (not wrapped inside custom)
         return user;
       },
     }),
@@ -63,7 +64,7 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email! },
-          include: { profile: true, subscription: true },
+          include: { profile: true, subscription: true, role: true },
         });
 
         let fullUser = existingUser;
@@ -72,8 +73,10 @@ export const authOptions: NextAuthOptions = {
           fullUser = await prisma.user.create({
             data: {
               email: user.email!,
-              password: "",
-              role: UserRole.USER,
+              password: "", // No password for Google sign-ins
+              role: {
+                connect: { name: "USER" }, // Connect the new user to the default "USER" role
+              },
               profile: {
                 create: {
                   firstName: (user as any).firstName || "",
@@ -84,15 +87,15 @@ export const authOptions: NextAuthOptions = {
                 },
               },
             },
-            include: { profile: true, subscription: true },
+            include: { profile: true, subscription: true, role: true },
           });
         }
 
-        // ✅ Return custom user object via `user` to `jwt()`
+        // Attach a custom property to the user object for later use
         (user as any).custom = {
           id: fullUser?.id,
           email: fullUser?.email,
-          role: fullUser?.role,
+          role: fullUser?.role?.name,
           image: fullUser?.profile?.image,
           firstName: fullUser?.profile?.firstName,
           lastName: fullUser?.profile?.lastName,
@@ -111,22 +114,25 @@ export const authOptions: NextAuthOptions = {
             : undefined,
         };
       }
-
       return true;
     },
+
     async jwt({ token, user }) {
       const customUser = (user as any)?.custom || user;
 
       if (customUser) {
         token.id = customUser.id;
         token.email = customUser.email;
-        token.role = customUser.role;
+        token.role =
+          typeof customUser.role === "object"
+            ? customUser.role.name
+            : customUser.role;
         token.preferredLanguage = customUser.preferredLanguage ?? undefined;
         token.firstName = customUser.firstName;
         token.lastName = customUser.lastName;
         token.membership = customUser.membership ?? undefined;
 
-        // ✅ Generate signed JWT for backend auth
+        // Generate signed JWT for backend auth
         token.jwtToken = jwt.sign(
           {
             id: customUser.id,
@@ -161,7 +167,6 @@ export const authOptions: NextAuthOptions = {
 
         (session as any).jwtToken = token.jwtToken;
       }
-
       return session;
     },
   },

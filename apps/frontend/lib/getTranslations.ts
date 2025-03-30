@@ -12,5 +12,3 @@ export async function getTranslations(locale: string) {
     return null;
   }
 }
-
-export const supportedLocales = ["az", "en", "ru", "de"];

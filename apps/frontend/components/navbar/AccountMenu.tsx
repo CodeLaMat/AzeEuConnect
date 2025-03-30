@@ -4,12 +4,13 @@ import Link from "next/link";
 import { MutableRefObject } from "react";
 import { signOut } from "next-auth/react";
 import { getDashboardRoute } from "@/lib/utils";
+import { accountMenuLinks } from "@/lib/roleBasedLinks";
 
 interface AccountMenuProps {
   locale: string;
   session: any;
   profile: any;
-  userRole: string;
+  userRole: keyof typeof accountMenuLinks;
   showAccountMenu: boolean;
   setShowAccountMenu: (val: boolean) => void;
   menuRef: MutableRefObject<HTMLDivElement | null>;
@@ -26,6 +27,8 @@ export default function AccountMenu({
   menuRef,
   t,
 }: AccountMenuProps) {
+  const links = accountMenuLinks[userRole] ?? [];
+
   return (
     <div className="relative" ref={menuRef}>
       <div
@@ -59,30 +62,15 @@ export default function AccountMenu({
             </div>
           </div>
           <hr className="my-2" />
-          <Link
-            href={getDashboardRoute(userRole, locale)}
-            className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
-          >
-            {t("account.dashboard")}
-          </Link>
-          <Link
-            href={`/${locale}/bookmarks`}
-            className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
-          >
-            {t("account.bookmarks")}
-          </Link>
-          <Link
-            href={`/${locale}/drafts`}
-            className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
-          >
-            {t("account.drafts")}
-          </Link>
-          <Link
-            href={`/${locale}/help`}
-            className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
-          >
-            {t("account.helpCenter")}
-          </Link>
+          {links.map(({ href, labelKey }) => (
+            <Link
+              key={href}
+              href={`/${locale}/${href}`}
+              className="block px-2 py-1 text-gray-700 hover:bg-gray-100 rounded"
+            >
+              {t(labelKey)}
+            </Link>
+          ))}
           <hr className="my-2" />
           <button
             onClick={() => signOut({ callbackUrl: `/${locale}/signin` })}

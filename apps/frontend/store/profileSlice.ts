@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Subscription, Company, Review } from "@prisma/client";
-import { getSession } from "next-auth/react"; // ✅ Use this instead of getToken
+import { getSession } from "next-auth/react";
 
 export interface ProfileState {
   firstName?: string;
@@ -35,9 +35,6 @@ export const fetchUserProfile = createAsyncThunk(
     try {
       const session = await getSession();
       const token = (session as any)?.jwtToken;
-
-      console.error("❌ Token verification", token);
-      console.log("🌍 Backend URL:", process.env.NEXT_PUBLIC_BACKEND_URL);
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/profile/${userId}`,

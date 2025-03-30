@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { getSession, signIn, useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaSpinner } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +14,7 @@ import { setUserIdentity } from "@/store/userSlice";
 import { fetchUserProfile } from "@/store/profileSlice";
 import { getDashboardRoute } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
-import { supportedLocales } from "@/lib/getTranslations";
+import { supportedLocales } from "@/lib/timezone";
 
 export default function SignInPage() {
   const t = useTranslations("navbar");
@@ -24,15 +24,22 @@ export default function SignInPage() {
   const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
   const [error, setError] = useState("");
 
   // ✅ Redirect if session exists and user is authenticated
   useEffect(() => {
     const redirectToCorrectDashboard = async () => {
       if (session && status === "authenticated") {
+        setRedirecting(true); // show the loading screen during redirection
         let updatedSession = await getSession();
-        let retries = 5;
+        console.log(
+          "User role:",
+          updatedSession?.user?.role,
+          typeof updatedSession?.user?.role
+        );
 
+        let retries = 5;
         // Wait until the user role is available
         while (!updatedSession?.user?.role && retries > 0) {
           await new Promise((res) => setTimeout(res, 500));
@@ -41,10 +48,9 @@ export default function SignInPage() {
         }
 
         if (updatedSession?.user?.role) {
-          // Check if a preferred language exists in the user's profile.
+          // Check for the user's preferred language.
           const preferredLocale =
             updatedSession.user.profile?.preferredLanguage?.toLowerCase();
-          // Use the preferred locale if available and supported; otherwise use the URL locale.
           const finalLocale =
             preferredLocale && supportedLocales.includes(preferredLocale)
               ? preferredLocale
@@ -53,7 +59,7 @@ export default function SignInPage() {
           const role = updatedSession.user.role.toUpperCase();
           const dashboardPath = getDashboardRoute(role, finalLocale as string);
 
-          router.push(dashboardPath);
+          // Redirect to the appropriate dashboard or unauthorized page
           if (dashboardPath) {
             router.push(`/${finalLocale}/${dashboardPath}`);
           } else {
@@ -61,6 +67,7 @@ export default function SignInPage() {
           }
         } else {
           setError("Login succeeded, but user role is missing.");
+          setRedirecting(false);
         }
       }
     };
@@ -89,7 +96,6 @@ export default function SignInPage() {
       if (result?.ok) {
         let updatedSession = await getSession();
         let retries = 5;
-
         // Wait until user role is available
         while (!updatedSession?.user?.role && retries > 0) {
           await new Promise((res) => setTimeout(res, 500));
@@ -99,7 +105,6 @@ export default function SignInPage() {
 
         if (updatedSession?.user?.role) {
           const role = updatedSession.user.role.toUpperCase();
-
           // Dispatch Redux user
           dispatch(
             setUserIdentity({
@@ -109,6 +114,7 @@ export default function SignInPage() {
             })
           );
           dispatch(fetchUserProfile(updatedSession.user.id || ""));
+          setRedirecting(true); // trigger loading screen during redirection
         } else {
           setError("Login succeeded, but user role is missing.");
         }
@@ -134,7 +140,6 @@ export default function SignInPage() {
       if (result?.ok) {
         let updatedSession = await getSession();
         let retries = 5;
-
         while (!updatedSession?.user?.role && retries > 0) {
           await new Promise((res) => setTimeout(res, 500));
           updatedSession = await getSession();
@@ -151,6 +156,7 @@ export default function SignInPage() {
             })
           );
           dispatch(fetchUserProfile(updatedSession.user.id || ""));
+          setRedirecting(true);
         } else {
           setError("Login succeeded, but user role is missing.");
         }
@@ -164,6 +170,20 @@ export default function SignInPage() {
 
     setLoading(false);
   };
+
+  // Render a full-screen loading view if redirecting
+  if (redirecting) {
+    return (
+      <main className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="bg-white p-8 rounded-lg shadow-md flex flex-col items-center">
+          <span className="animate-spin text-4xl text-blue-600 mb-4">
+            <FaSpinner />
+          </span>
+          <p className="text-lg font-medium">Redirecting to your dashboard…</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-gray-100">

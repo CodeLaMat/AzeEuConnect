@@ -9,6 +9,7 @@
     "contact": "Contact",
     "clients": "Clients",
     "news": "News",
+    "manageUsers": "Manage Users",
     "announcements": "Announcements",
     "dashboard": "Dashboard",
     "documents": "Documents",
@@ -141,7 +142,8 @@
       "companyFormation": "Company Formation",
       "taxAccounting": "Tax & Accounting",
       "banking": "Banking",
-      "support": "Support"
+      "support": "Support",
+      "userList": "Manage users"
     },
     "registrationStatus": {
       "title": "Registration Status",
@@ -252,6 +254,36 @@
         "email": "Email",
         "phone": "Phone Number",
         "address": "Address"
+      }
+    },
+    "manageUsers": {
+      "title": "Manage Users",
+      "addUser": {
+        "title": "Add New User",
+        "description": "Invite team members to collaborate on your account.",
+        "emailPlaceholder": "Enter email address",
+        "role": "Select Role",
+        "admin": "Admin",
+        "user": "User",
+        "inviteButton": "Send Invite"
+      },
+      "userList": {
+        "title": "User List",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "active": "Active",
+        "inactive": "Inactive",
+        "phone": "Phone",
+        "nationality": "Nationality",
+        "location": "Location",
+        "language": "Language",
+        "dateAdded": "Date Added",
+        "actions": {
+          "edit": "Edit",
+          "remove": "Remove"
+        }
       }
     },
     "support": {

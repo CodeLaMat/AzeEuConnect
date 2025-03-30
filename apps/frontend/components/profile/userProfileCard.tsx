@@ -41,7 +41,6 @@ export default function UserProfileCard({ user }: Props) {
   const [error, setError] = useState("");
 
   console.log("PROFILE", profile);
-  const pathname = usePathname();
 
   const [formData, setFormData] = useState({
     firstName: "",

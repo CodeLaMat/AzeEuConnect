@@ -14,7 +14,6 @@ import LanguageSwitcher from "./navbar/LanguageSwitcher";
 import AuthButtons from "./navbar/AuthButtons";
 import AccountMenu from "./navbar/AccountMenu";
 import { getNavLinks } from "@/lib/roleBasedLinks";
-import Link from "next/link";
 
 export default function Navbar({ locale }: { locale: string }) {
   const { data: session, status } = useSession();

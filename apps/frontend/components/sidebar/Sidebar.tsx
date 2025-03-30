@@ -10,7 +10,8 @@ export default function Sidebar({ role }: { role: string }) {
   const { locale } = useParams();
   const t = useTranslations("dashboard");
 
-  const links = roleBasedLinks[role.toUpperCase()] || [];
+  const userRole = role.toUpperCase() as keyof typeof roleBasedLinks;
+  const links = roleBasedLinks[userRole] || [];
 
   return (
     <aside className="w-64 bg-white p-6 shadow-lg">
