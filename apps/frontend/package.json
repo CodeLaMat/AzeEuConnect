@@ -30,6 +30,7 @@
     "date-fns": "4.1.0",
     "framer-motion": "12.5.0",
     "fs": "0.0.1-security",
+    "ldrs": "1.1.6",
     "lucide-react": "0.483.0",
     "moment-timezone": "0.5.47",
     "motion": "12.5.0",

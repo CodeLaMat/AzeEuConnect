@@ -1,8 +1,8 @@
-// components/SessionLoader.tsx
 "use client";
 
 import { useSession } from "next-auth/react";
-import { FaSpinner } from "react-icons/fa";
+import { Helix } from "ldrs/react";
+import "ldrs/react/Helix.css";
 
 export default function SessionLoader({
   children,
@@ -13,13 +13,8 @@ export default function SessionLoader({
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="flex flex-col items-center">
-          <span className="animate-spin text-4xl text-blue-600 mb-4">
-            <FaSpinner />
-          </span>
-          <p className="text-lg font-medium">Loading session...</p>
-        </div>
+      <div className="flex items-center justify-center h-screen bg-gray-100">
+        <Helix size="45" speed="2.5" color="black" />
       </div>
     );
   }
