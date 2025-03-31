@@ -10,7 +10,7 @@ interface AccountMenuProps {
   locale: string;
   session: any;
   profile: any;
-  userRole: keyof typeof accountMenuLinks;
+  userRole: string;
   showAccountMenu: boolean;
   setShowAccountMenu: (val: boolean) => void;
   menuRef: MutableRefObject<HTMLDivElement | null>;

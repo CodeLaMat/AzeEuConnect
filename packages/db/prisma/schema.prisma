@@ -199,24 +199,38 @@ model SupportTicket {
 }
 
 model ServiceListing {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  category    String
-  country     String
-  price       Float
-  rating      Float    @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String           @id @default(uuid())
+  title          String
+  description    String
+  category       String
+  country        String
+  price          Float?           // Optional fixed price for a simple service
+  rating         Float            @default(0)
+  serviceType    ServiceType
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 
-  ownerId String
-  owner   User   @relation(fields: [ownerId], references: [id])
-
-  subscriptions ServiceSubscription[]
-
-  reviews Review[]
-  orders  Order[]
+  ownerId        String
+  owner          User             @relation(fields: [ownerId], references: [id])
+  
+  packages       ServicePackage[] // Pricing packages if applicable
+  subscriptions  ServiceSubscription[]
+  reviews        Review[]
+  orders         Order[]
 }
+
+model ServicePackage {
+  id               String         @id @default(uuid())
+  name             String         // e.g., "Basic", "Premium", "Enterprise"
+  description      String?        // Optional details about the package
+  price            Float          // Price for this package
+  conditions       String?        // E.g., "Includes consultation for up to 2 hours", etc.
+  serviceListingId String
+  serviceListing   ServiceListing @relation(fields: [serviceListingId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
 
 model Review {
   id        String   @id @default(uuid())
@@ -342,9 +356,49 @@ enum DocumentStatus {
 }
 
 enum ServiceType {
-  LEGAL_CONSULTATION
-  TAX_ADVISORY
-  BANKING_SETUP
+  // Business & Financial Services
+  LEGAL_CONSULTATION        // e.g., legal advice, contract review
+  TAX_ADVISORY              // e.g., tax planning, filings
+  BANKING_SETUP             // e.g., opening business bank accounts
+  COMPANY_FORMATION         // e.g., registering a company
+  FINANCIAL_PLANNING        // e.g., investment advice, retirement planning
+  MARKETING_SERVICES        // e.g., digital marketing, SEO, content creation
+  CONSULTING_SERVICES       // e.g., management consulting, strategy
+  PROCUREMENT_SERVICES      // e.g., sourcing and supply chain management
+  MERGERS_AND_ACQUISITIONS  // e.g., M&A advisory
+
+  // Technology & Creative Services
+  IT_SUPPORT                // e.g., tech support, hardware troubleshooting
+  SOFTWARE_DEVELOPMENT      // e.g., web/mobile app development
+  DESIGN_SERVICES           // e.g., graphic design, UX/UI, branding
+  TECH_SUPPORT              // e.g., helpdesk, network administration
+
+  // Human Resources & Recruitment
+  HUMAN_RESOURCES           // e.g., HR consultancy, employee training
+  RECRUITMENT               // e.g., headhunting, staffing services
+
+  // Real Estate & Home Services
+  REAL_ESTATE_SERVICES      // e.g., property management, real estate consulting
+  HOME_RENOVATION           // e.g., remodeling, interior design
+  REPAIR_SERVICES           // e.g., appliance repair, maintenance
+
+  // Lifestyle, Health & Personal Services
+  HEALTHCARE_SERVICES       // e.g., telemedicine, wellness consultations
+  FITNESS_TRAINING          // e.g., personal training, gym memberships
+  PERSONAL_COACHING         // e.g., life coaching, career counseling
+  BEAUTY_SERVICES           // e.g., hair, makeup, spa treatments
+  LIFESTYLE_CONSULTING      // e.g., wardrobe styling, personal shopping
+  PET_SERVICES              // e.g., pet grooming, training, boarding
+
+  // Travel, Entertainment & Events
+  TRAVEL_PLANNING           // e.g., vacation planning, itinerary creation
+  EVENT_MANAGEMENT          // e.g., wedding planning, corporate events
+  ENTERTAINMENT_SERVICES    // e.g., live performances, DJ services
+  FOOD_CATERING             // e.g., catering services, meal planning
+
+  // Security & Miscellaneous
+  SECURITY_SERVICES         // e.g., personal security, alarm installation
+  LEGAL_DOCUMENT_PREPARATION// e.g., drafting wills, contracts
 }
 
 enum AppointmentStatus {

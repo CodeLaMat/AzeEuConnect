@@ -27,11 +27,7 @@ export const getNavLinks = (
       label: t?.("services") ?? "Services",
       action: "VIEW_SERVICES",
     },
-    {
-      href: "users",
-      label: t?.("manageUsers") ?? "Users",
-      action: "READ_USERS",
-    },
+
     { href: "pricing", label: t?.("pricing") ?? "Pricing" },
     { href: "about", label: t?.("aboutUs") ?? "About Us" },
     {

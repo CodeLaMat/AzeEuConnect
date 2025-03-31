@@ -232,7 +232,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="w-full py-2 bg-secondary text-white font-semibold rounded hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
             {loading ? "Registering..." : "Sign Up"}
           </button>
