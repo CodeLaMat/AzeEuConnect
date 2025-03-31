@@ -345,6 +345,15 @@ export const accountMenuLinks: Record<
 
 // ✅ Define the protected sub-routes and their required roles for sidebar navigation
 export const protectedSubRoutes: Record<string, UserRole[]> = {
+  dashboard: [
+    "USER",
+    "ADMIN",
+    "CONSULTANT",
+    "SERVICE_PROVIDER",
+    "MODERATOR",
+    "SUPPORT_AGENT",
+    "REGULATORY_OFFICER",
+  ],
   documents: ["SERVICE_PROVIDER"],
   "company-formation": ["SERVICE_PROVIDER"],
   "tax-accounting": ["SERVICE_PROVIDER"],

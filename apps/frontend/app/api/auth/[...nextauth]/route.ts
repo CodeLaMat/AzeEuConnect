@@ -140,7 +140,7 @@ export const authOptions: NextAuthOptions = {
             role: customUser.role,
           },
           process.env.NEXTAUTH_SECRET!,
-          { expiresIn: "1h" }
+          { expiresIn: "10m" }
         );
       }
 
