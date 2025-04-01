@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { MutableRefObject } from "react";
 import { signOut } from "next-auth/react";
-import { getDashboardRoute } from "@/lib/utils";
 import { accountMenuLinks } from "@/lib/roleBasedLinks";
 
 interface AccountMenuProps {

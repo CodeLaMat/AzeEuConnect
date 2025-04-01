@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserRole } from "@prisma/client";
-
-export interface UserState {
-  id: string;
-  email: string;
-  role: UserRole;
-}
+import { UserState } from "@/types/types";
 
 const initialState: UserState = {
   id: "",

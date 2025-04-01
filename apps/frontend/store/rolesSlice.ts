@@ -1,3 +1,4 @@
+import { RolesState } from "@/types/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 
@@ -76,15 +77,6 @@ export const createRole = createAsyncThunk(
     }
   }
 );
-
-interface RolesState {
-  roles: {
-    role: { id: string; name: string; description: string };
-    permissions: { id: string; permission: { name: string } }[];
-  }[];
-  loading: boolean;
-  error: string | null;
-}
 
 const initialState: RolesState = {
   roles: [],

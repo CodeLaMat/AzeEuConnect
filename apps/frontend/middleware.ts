@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { protectedSubRoutes } from "./lib/roleBasedLinks";
 import { UserRole } from "@prisma/client";
-import { supportedLocales } from "./lib/timezone";
+import { supportedLocales } from "./lib/options";
 
 const authPagesRegex = /^\/(en|az|de|ru)\/(signin|signup)/;
 

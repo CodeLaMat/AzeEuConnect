@@ -1,21 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Subscription, Company, Review } from "@prisma/client";
 import { getSession } from "next-auth/react";
-
-export interface ProfileState {
-  firstName?: string;
-  lastName?: string;
-  location?: string;
-  image?: string;
-  phone?: string;
-  nationality?: string;
-  timezone?: string;
-  preferredLanguage?: string;
-  subscription?: Subscription;
-  companyDetails?: Company;
-  serviceSubscriptions?: any[];
-  reviews?: Review[];
-}
+import { ProfileState } from "@/types/types";
 
 const initialState: ProfileState = {
   firstName: "",

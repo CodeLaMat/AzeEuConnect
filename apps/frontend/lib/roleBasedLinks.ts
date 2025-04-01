@@ -82,6 +82,11 @@ export const roleBasedLinks: Record<
       icon: React.createElement(FaHeadset),
       labelKey: "sidebar.support",
     },
+    {
+      href: "dashboard/services",
+      icon: React.createElement(FaHeadset),
+      labelKey: "sidebar.services",
+    },
   ],
   CONSULTANT: [
     {
@@ -353,6 +358,14 @@ export const protectedSubRoutes: Record<string, UserRole[]> = {
     "MODERATOR",
     "SUPPORT_AGENT",
     "REGULATORY_OFFICER",
+  ],
+  services: [
+    "USER",
+    "ADMIN",
+    "CONSULTANT",
+    "SERVICE_PROVIDER",
+    "MODERATOR",
+    "SUPPORT_AGENT",
   ],
   documents: ["SERVICE_PROVIDER"],
   "company-formation": ["SERVICE_PROVIDER"],

@@ -14,7 +14,7 @@ import { setUserIdentity } from "@/store/userSlice";
 import { fetchUserProfile } from "@/store/profileSlice";
 import { getDashboardRoute } from "@/lib/utils";
 import { UserRole } from "@prisma/client";
-import { supportedLocales } from "@/lib/timezone";
+import { supportedLocales } from "@/lib/options";
 
 export default function SignInPage() {
   const t = useTranslations("navbar");

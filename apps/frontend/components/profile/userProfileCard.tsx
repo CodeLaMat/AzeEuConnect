@@ -6,15 +6,13 @@ import { Input } from "@/components/ui/input";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
 import { updateUserProfile, fetchUserProfile } from "@/store/profileSlice";
-import { UserState } from "@/store/userSlice";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import Image from "next/image";
-import { availableCountries, getTimezoneByCountry } from "@/lib/timezone";
+import { availableCountries, getTimezoneByCountry } from "@/lib/options";
 import { useRef } from "react";
 import { z } from "zod";
-import router from "next/router";
-import { usePathname } from "next/navigation";
+import { UserState } from "@/types/types";
 
 const profileSchema = z.object({
   firstName: z.string().min(1, "Required"),
@@ -109,7 +107,7 @@ export default function UserProfileCard({ user }: Props) {
     if (confirmRemoval) {
       setImageFile(null);
       setImagePreview("");
-      setRemoveImage(true); // Track removal
+      setRemoveImage(true);
       toast("Image removed", {
         description: "You can upload a new one before saving.",
       });

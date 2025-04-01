@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { z } from "zod";
-import { availableCountries, getTimezoneByCountry } from "@/lib/timezone";
+import { availableCountries, getTimezoneByCountry } from "@/lib/options";
 
 // ✅ Schema Validation
 const registerSchema = z
