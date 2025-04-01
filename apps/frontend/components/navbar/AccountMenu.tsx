@@ -11,7 +11,7 @@ interface AccountMenuProps {
   profile: any;
   userRole: string;
   showAccountMenu: boolean;
-  setShowAccountMenu: (val: boolean) => void;
+  setShowAccountMenuAction: (val: boolean) => void;
   menuRef: MutableRefObject<HTMLDivElement | null>;
   t: (key: string) => string;
 }
@@ -22,7 +22,7 @@ export default function AccountMenu({
   profile,
   userRole,
   showAccountMenu,
-  setShowAccountMenu,
+  setShowAccountMenuAction,
   menuRef,
   t,
 }: AccountMenuProps) {
@@ -33,7 +33,7 @@ export default function AccountMenu({
     <div className="relative" ref={menuRef}>
       <div
         className="cursor-pointer flex items-center space-x-2"
-        onClick={() => setShowAccountMenu(!showAccountMenu)}
+        onClick={() => setShowAccountMenuAction(!showAccountMenu)}
       >
         <img
           src={profile?.image || "/media/images/profile_icon.svg"}

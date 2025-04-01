@@ -85,7 +85,7 @@ export default function Navbar({ locale }: { locale: string }) {
               profile={profile}
               userRole={userRole}
               showAccountMenu={showAccountMenu}
-              setShowAccountMenu={setShowAccountMenu}
+              setShowAccountMenuAction={setShowAccountMenu}
               menuRef={menuRef}
               t={t}
             />
