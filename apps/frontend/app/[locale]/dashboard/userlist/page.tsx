@@ -140,7 +140,7 @@ export default function ManageUsersTable() {
             <TabsList>
               <TabsTrigger value="ALL">All</TabsTrigger>
               <TabsTrigger value="ADMIN">Admin</TabsTrigger>
-              <TabsTrigger value="USER">User</TabsTrigger>
+              <TabsTrigger value="CUSTOMER">Customer</TabsTrigger>
               <TabsTrigger value="CONSULTANT">Consultant</TabsTrigger>
               <TabsTrigger value="SERVICE_PROVIDER">Provider</TabsTrigger>
             </TabsList>

@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserRole } from "@prisma/client";
 import { UserState } from "@/types/types";
 
+// Update this type if not yet changed:
 const initialState: UserState = {
   id: "",
   email: "",
-  role: "USER",
+  role: "CUSTOMER",
+  currentRole: "CUSTOMER",
 };
 
 export const userSlice = createSlice({
@@ -14,16 +16,23 @@ export const userSlice = createSlice({
   reducers: {
     setUserIdentity: (
       state,
-      action: PayloadAction<{ id: string; email: string; role: UserRole }>
+      action: PayloadAction<{
+        id: string;
+        email: string;
+        role: UserRole;
+        currentRole: UserRole;
+      }>
     ) => {
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.role = action.payload.role;
+      state.currentRole = action.payload.currentRole;
     },
     clearUserIdentity: (state) => {
       state.id = "";
       state.email = "";
-      state.role = "USER";
+      state.role = "CUSTOMER";
+      state.currentRole = "CUSTOMER";
     },
   },
 });

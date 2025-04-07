@@ -37,7 +37,8 @@ declare module "next-auth" {
   interface Session {
     user?: {
       id?: string;
-      role?: UserRole; // ✅ Use Prisma Enum
+      role?: UserRole;
+      currentRole?: UserRole;
       email?: string;
       phone?: string;
       firstName?: string;
@@ -73,7 +74,8 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     id?: string;
-    role?: UserRole; // ✅ Use Prisma Enum
+    role?: UserRole;
+    currentRole?: UserRole;
     email?: string;
     phone?: string;
     firstName?: string;

@@ -4,6 +4,7 @@ import {
   loginUser,
   requestPasswordReset,
   resetPassword,
+  switchUserRole,
 } from "../controllers/userController";
 
 //!!TODO: Add the authorize middleware to the routes that need RBAC
@@ -21,5 +22,8 @@ router.post("/reset-password", resetPassword);
 
 // POST /api/auth/request-password-reset
 router.post("/request-password-reset", requestPasswordReset);
+
+// POST /api/auth/switch-role
+router.post("/switch-role", switchUserRole);
 
 export default router;

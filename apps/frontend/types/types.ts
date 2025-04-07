@@ -4,6 +4,7 @@ export interface ManagedUser {
   id: string;
   email: string;
   role: { id: string; name: string };
+  currentRole: UserRole;
   lastLogin: string | null;
   accountStatus: "ACTIVE" | "SUSPENDED" | "BANNED";
   twoFactorEnabled: boolean;
@@ -87,6 +88,7 @@ export interface UserState {
   id: string;
   email: string;
   role: UserRole;
+  currentRole: UserRole;
 }
 
 export interface RolesState {

@@ -65,7 +65,7 @@ export const roleBasedLinks: Record<
       labelKey: "sidebar.userList",
     },
   ],
-  USER: [
+  CUSTOMER: [
     {
       href: "dashboard",
       icon: React.createElement(FaCheckCircle),
@@ -208,7 +208,7 @@ export const accountMenuLinks: Record<
       labelKey: "account.helpCenter",
     },
   ],
-  USER: [
+  CUSTOMER: [
     {
       href: "dashboard",
       icon: React.createElement(FaCheckCircle),
@@ -351,7 +351,7 @@ export const accountMenuLinks: Record<
 // ✅ Define the protected sub-routes and their required roles for sidebar navigation
 export const protectedSubRoutes: Record<string, UserRole[]> = {
   dashboard: [
-    "USER",
+    "CUSTOMER",
     "ADMIN",
     "CONSULTANT",
     "SERVICE_PROVIDER",
@@ -360,7 +360,7 @@ export const protectedSubRoutes: Record<string, UserRole[]> = {
     "REGULATORY_OFFICER",
   ],
   services: [
-    "USER",
+    "CUSTOMER",
     "ADMIN",
     "CONSULTANT",
     "SERVICE_PROVIDER",
@@ -383,7 +383,7 @@ export const protectedSubRoutes: Record<string, UserRole[]> = {
   "manage-users": ["ADMIN"],
   userlist: ["ADMIN"],
   support: [
-    "USER",
+    "CUSTOMER",
     "SUPPORT_AGENT",
     "ADMIN",
     "MODERATOR",

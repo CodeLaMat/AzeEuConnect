@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { MutableRefObject } from "react";
+import { MutableRefObject, useState } from "react";
 import { signOut } from "next-auth/react";
 import { accountMenuLinks } from "@/lib/roleBasedLinks";
+import { useDispatch } from "react-redux";
+import { setUserIdentity } from "@/store/userSlice";
+import { fetchUserProfile } from "@/store/profileSlice";
+import { AppDispatch } from "@/store/store";
 
 interface AccountMenuProps {
   locale: string;
@@ -26,8 +30,34 @@ export default function AccountMenu({
   menuRef,
   t,
 }: AccountMenuProps) {
-  const links =
-    accountMenuLinks[userRole as keyof typeof accountMenuLinks] ?? [];
+  const dispatch = useDispatch<AppDispatch>();
+  const [role, setRole] = useState(userRole);
+  const links = accountMenuLinks[role as keyof typeof accountMenuLinks] ?? [];
+
+  const handleRoleChange = async (newRole: string) => {
+    // Update role in the backend via API
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/switch-role`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: session.user.id, newRole }),
+        }
+      );
+
+      if (res.ok) {
+        // Update the role in Redux store
+        dispatch(setUserIdentity({ ...session.user, role: newRole }));
+        dispatch(fetchUserProfile(session.user.id));
+        setRole(newRole);
+      } else {
+        console.error("Failed to change role");
+      }
+    } catch (error) {
+      console.error("Error switching role:", error);
+    }
+  };
 
   return (
     <div className="relative" ref={menuRef}>
@@ -62,6 +92,25 @@ export default function AccountMenu({
             </div>
           </div>
           <hr className="my-2" />
+
+          {/* Role Switcher */}
+          <div className="mb-3">
+            <label htmlFor="role-switcher" className="block mb-1 font-medium">
+              {t("account.switchRole")}
+            </label>
+            <select
+              id="role-switcher"
+              value={role}
+              onChange={(e) => handleRoleChange(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
+            >
+              <option value="CUSTOMER">CUSTOMER</option>
+              <option value="SERVICE_PROVIDER">Service Provider</option>
+              {/* Add other roles if needed */}
+            </select>
+          </div>
+
+          {/* Navigation Links */}
           {links.map(({ href, labelKey }) => (
             <Link
               key={href}
@@ -71,6 +120,7 @@ export default function AccountMenu({
               {t(labelKey)}
             </Link>
           ))}
+
           <hr className="my-2" />
           <button
             onClick={() => signOut({ callbackUrl: `/${locale}/signin` })}

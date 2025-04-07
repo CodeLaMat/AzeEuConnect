@@ -34,20 +34,20 @@ export default function SignInPage() {
         setRedirecting(true); // show the loading screen during redirection
         let updatedSession = await getSession();
         console.log(
-          "User role:",
-          updatedSession?.user?.role,
-          typeof updatedSession?.user?.role
+          "User currentRole:",
+          updatedSession?.user?.currentRole,
+          typeof updatedSession?.user?.currentRole
         );
 
         let retries = 5;
-        // Wait until the user role is available
-        while (!updatedSession?.user?.role && retries > 0) {
+        // Wait until the user currentRole is available
+        while (!updatedSession?.user?.currentRole && retries > 0) {
           await new Promise((res) => setTimeout(res, 500));
           updatedSession = await getSession();
           retries--;
         }
 
-        if (updatedSession?.user?.role) {
+        if (updatedSession?.user?.currentRole) {
           // Check for the user's preferred language.
           const preferredLocale =
             updatedSession.user.profile?.preferredLanguage?.toLowerCase();
@@ -56,7 +56,7 @@ export default function SignInPage() {
               ? preferredLocale
               : locale;
 
-          const role = updatedSession.user.role.toUpperCase();
+          const role = updatedSession.user.currentRole.toUpperCase();
           const dashboardPath = getDashboardRoute(role, finalLocale as string);
 
           // Redirect to the appropriate dashboard or unauthorized page
@@ -66,7 +66,7 @@ export default function SignInPage() {
             router.push(`/${finalLocale}/unauthorized`);
           }
         } else {
-          setError("Login succeeded, but user role is missing.");
+          setError("Login succeeded, but user currentRole is missing.");
           setRedirecting(false);
         }
       }
@@ -96,27 +96,28 @@ export default function SignInPage() {
       if (result?.ok) {
         let updatedSession = await getSession();
         let retries = 5;
-        // Wait until user role is available
-        while (!updatedSession?.user?.role && retries > 0) {
+        // Wait until user currentRole is available
+        while (!updatedSession?.user?.currentRole && retries > 0) {
           await new Promise((res) => setTimeout(res, 500));
           updatedSession = await getSession();
           retries--;
         }
 
-        if (updatedSession?.user?.role) {
-          const role = updatedSession.user.role.toUpperCase();
+        if (updatedSession?.user?.currentRole) {
+          const role = updatedSession.user.currentRole.toUpperCase();
           // Dispatch Redux user
           dispatch(
             setUserIdentity({
               id: updatedSession.user.id || "",
               email: updatedSession.user.email || "",
               role: role as UserRole,
+              currentRole: role as UserRole,
             })
           );
           dispatch(fetchUserProfile(updatedSession.user.id || ""));
           setRedirecting(true); // trigger loading screen during redirection
         } else {
-          setError("Login succeeded, but user role is missing.");
+          setError("Login succeeded, but user currentRole is missing.");
         }
       } else {
         setError("Invalid email or password.");
@@ -140,25 +141,26 @@ export default function SignInPage() {
       if (result?.ok) {
         let updatedSession = await getSession();
         let retries = 5;
-        while (!updatedSession?.user?.role && retries > 0) {
+        while (!updatedSession?.user?.currentRole && retries > 0) {
           await new Promise((res) => setTimeout(res, 500));
           updatedSession = await getSession();
           retries--;
         }
 
-        if (updatedSession?.user?.role) {
-          const role = updatedSession.user.role.toUpperCase();
+        if (updatedSession?.user?.currentRole) {
+          const role = updatedSession.user.currentRole.toUpperCase();
           dispatch(
             setUserIdentity({
               id: updatedSession.user.id || "",
               email: updatedSession.user.email || "",
               role: role as UserRole,
+              currentRole: role as UserRole,
             })
           );
           dispatch(fetchUserProfile(updatedSession.user.id || ""));
           setRedirecting(true);
         } else {
-          setError("Login succeeded, but user role is missing.");
+          setError("Login succeeded, but user currentRole is missing.");
         }
       } else {
         setError("Google authentication failed.");

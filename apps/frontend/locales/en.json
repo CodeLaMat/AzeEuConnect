@@ -38,7 +38,8 @@
       "helpCenter": "Help Center",
       "logout": "Logout",
       "noLocation": "No location specified",
-      "dashboard": "Dashboard"
+      "dashboard": "Dashboard",
+      "switchRole": "Switch Role"
     }
   },
 

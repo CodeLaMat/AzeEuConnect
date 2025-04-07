@@ -35,7 +35,7 @@ export const registerUser: RequestHandler = async (
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const role = await prisma.role.findUnique({
-      where: { name: roleName || "USER" },
+      where: { name: roleName || "CUSTOMER" },
     });
     if (!role) {
       res.status(400).json({ message: "Role not found" });
@@ -47,6 +47,7 @@ export const registerUser: RequestHandler = async (
         email: email.toLowerCase(),
         password: hashedPassword,
         roleId: role.id,
+        currentRole: role.name,
         profile: {
           create: {
             firstName,
@@ -115,6 +116,7 @@ export const loginUser: RequestHandler = async (req, res, next) => {
       id: updatedUser.id,
       email: updatedUser.email,
       role: updatedUser.role,
+      currentRole: updatedUser.currentRole,
       image: updatedUser.profile?.image ?? null,
       firstName: updatedUser.profile?.firstName ?? "",
       lastName: updatedUser.profile?.lastName ?? "",
@@ -287,5 +289,39 @@ export const getUserProfile: RequestHandler = async (req, res, next) => {
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const switchUserRole: RequestHandler = async (req, res, next) => {
+  try {
+    const { userId, newRole } = req.body;
+
+    if (!["CUSTOMER", "SERVICE_PROVIDER"].includes(newRole)) {
+      res.status(400).json({ message: "Invalid role selected" });
+      return;
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: { currentRole: newRole },
+      include: { profile: true, role: true },
+    });
+
+    res.status(200).json({
+      message: `Switched to ${newRole}`,
+      currentRole: updatedUser.currentRole,
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Switch Role Error:", error);
+    res.status(500).json({ message: "Failed to switch role" });
+    next(error);
   }
 };

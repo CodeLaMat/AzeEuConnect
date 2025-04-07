@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -25,14 +24,14 @@ export default function Navbar({ locale }: { locale: string }) {
   const pathname = usePathname();
   const t = useTranslations("navbar");
   const profile = useSelector((state: RootState) => state.profile);
-  const user = useSelector((state: RootState) => state.user) as {
-    role: string;
-  };
 
-  const userRole = user.role as string;
+  // Accessing currentRole instead of role
+  const userRole = session?.user?.currentRole || "CUSTOMER";
+
+  // Generate the correct navigation links based on currentRole
   const navLinks = getNavLinks(userRole, t);
 
-  // Language switch
+  // Language switch handler
   const handleLanguageChange = (newLocale: string) => {
     if (!locales.includes(newLocale as "az" | "en" | "ru" | "de")) return;
 

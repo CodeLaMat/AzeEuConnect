@@ -75,8 +75,9 @@ export const authOptions: NextAuthOptions = {
               email: user.email!,
               password: "", // No password for Google sign-ins
               role: {
-                connect: { name: "USER" }, // Connect the new user to the default "USER" role
+                connect: { name: "CUSTOMER" }, // Connect the new user to the default "CUSTOMER" role
               },
+              currentRole: "CUSTOMER",
               profile: {
                 create: {
                   firstName: (user as any).firstName || "",
@@ -96,6 +97,7 @@ export const authOptions: NextAuthOptions = {
           id: fullUser?.id,
           email: fullUser?.email,
           role: fullUser?.role?.name,
+          currentRole: fullUser?.currentRole,
           image: fullUser?.profile?.image,
           firstName: fullUser?.profile?.firstName,
           lastName: fullUser?.profile?.lastName,
@@ -127,6 +129,7 @@ export const authOptions: NextAuthOptions = {
           typeof customUser.role === "object"
             ? customUser.role.name
             : customUser.role;
+        token.currentRole = customUser.currentRole;
         token.preferredLanguage = customUser.preferredLanguage ?? undefined;
         token.firstName = customUser.firstName;
         token.lastName = customUser.lastName;
@@ -153,6 +156,7 @@ export const authOptions: NextAuthOptions = {
           id: token.id,
           email: token.email,
           role: token.role,
+          currentRole: token.currentRole,
           image: token.image,
           firstName: token.firstName,
           lastName: token.lastName,

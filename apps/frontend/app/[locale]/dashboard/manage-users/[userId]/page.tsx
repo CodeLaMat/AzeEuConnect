@@ -18,7 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
-import { availableCountries, getTimezoneByCountry } from "@/lib/timezone";
+import { availableCountries, getTimezoneByCountry } from "@/lib/options";
 import { toast } from "sonner";
 
 export default function ManageUserDetailsPage() {
