@@ -39,6 +39,7 @@ model User {
   serviceListings      ServiceListing[]
   reviews              Review[]
   orders               Order[]
+  savedJobs            SavedJob[] 
 
   // Required for NextAuth
   accounts Account[]
@@ -160,6 +161,21 @@ model ServiceSubscription {
   @@index([subscriberId])
   @@index([serviceId])
 }
+
+model SavedJob {
+  id            String        @id @default(uuid())
+  userId        String
+  serviceId     String
+  savedAt       DateTime      @default(now())
+
+  user          User          @relation(fields: [userId], references: [id])
+  service       ServiceListing @relation(fields: [serviceId], references: [id])
+
+  @@index([userId])
+  @@index([serviceId])
+}
+
+
 
 model Document {
   id           String         @id @default(uuid())

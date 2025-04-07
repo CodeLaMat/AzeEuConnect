@@ -7,6 +7,7 @@ import { sendEmail } from "../lib/sendEmail";
 /**
  * Register a new user
  */
+// This function handles user registration by creating a new user in the database
 export const registerUser: RequestHandler = async (
   req,
   res,
@@ -79,6 +80,7 @@ export const registerUser: RequestHandler = async (
 /**
  * User Login
  */
+// This function handles user login by verifying the email and password provided in the request body
 export const loginUser: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -138,6 +140,8 @@ export const loginUser: RequestHandler = async (req, res, next) => {
   }
 };
 
+// Request Password Reset
+// This function handles the password reset request by generating a token and sending an email to the user
 export const requestPasswordReset: RequestHandler = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -180,6 +184,8 @@ export const requestPasswordReset: RequestHandler = async (req, res, next) => {
   }
 };
 
+// Reset Password
+// This function resets the password based on the token and new password provided in the request body
 export const resetPassword: RequestHandler = async (req, res, next) => {
   try {
     const { token, newPassword } = req.body;
@@ -215,6 +221,8 @@ export const resetPassword: RequestHandler = async (req, res, next) => {
   }
 };
 
+// Update User Profile
+// This function updates the user profile based on the userId provided in the request body
 export const updateUserProfile: RequestHandler = async (req, res, next) => {
   try {
     const {
@@ -266,6 +274,8 @@ export const updateUserProfile: RequestHandler = async (req, res, next) => {
   }
 };
 
+//  Get User Profile
+// This function retrieves the user profile based on the userId provided in the request parameters
 export const getUserProfile: RequestHandler = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -292,6 +302,8 @@ export const getUserProfile: RequestHandler = async (req, res, next) => {
   }
 };
 
+// Switch User Role
+// This function allows a user to switch a  role between CUSTOMER and SERVICE_PROVIDER
 export const switchUserRole: RequestHandler = async (req, res, next) => {
   try {
     const { userId, newRole } = req.body;
