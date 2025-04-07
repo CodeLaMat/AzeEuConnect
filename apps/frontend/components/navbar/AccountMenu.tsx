@@ -94,21 +94,27 @@ export default function AccountMenu({
           <hr className="my-2" />
 
           {/* Role Switcher */}
-          <div className="mb-3">
-            <label htmlFor="role-switcher" className="block mb-1 font-medium">
-              {t("account.switchRole")}
-            </label>
-            <select
-              id="role-switcher"
-              value={role}
-              onChange={(e) => handleRoleChange(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-            >
-              <option value="CUSTOMER">CUSTOMER</option>
-              <option value="SERVICE_PROVIDER">Service Provider</option>
-              {/* Add other roles if needed */}
-            </select>
-          </div>
+          {userRole === "CUSTOMER" ||
+            (userRole === "SERVICE_PROVIDER" && (
+              <div className="mb-3">
+                <label
+                  htmlFor="role-switcher"
+                  className="block mb-1 font-medium"
+                >
+                  {t("account.switchRole")}
+                </label>
+                <select
+                  id="role-switcher"
+                  value={role}
+                  onChange={(e) => handleRoleChange(e.target.value)}
+                  className="w-full px-3 py-2 border rounded"
+                >
+                  <option value="CUSTOMER">CUSTOMER</option>
+                  <option value="SERVICE_PROVIDER">Service Provider</option>
+                  {/* Add other roles if needed */}
+                </select>
+              </div>
+            ))}
 
           {/* Navigation Links */}
           {links.map(({ href, labelKey }) => (
