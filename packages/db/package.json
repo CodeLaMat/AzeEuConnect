@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "main": "index.ts",
   "types": "index.ts",
-  "dependencies": {
-    "@prisma/client": "6.6.0",
-    "prisma": "^6.6.0"
-  },
   "prisma": {
     "schema": "prisma/schema.prisma",
     "seed": "ts-node prisma/seed.ts"
@@ -15,5 +11,9 @@
     "migrate": "prisma migrate dev --schema=./prisma/schema.prisma",
     "generate": "prisma generate --schema=./prisma/schema.prisma",
     "seed": "prisma db seed"
+  },
+  "dependencies": {
+    "@prisma/client": "6.6.0",
+    "prisma": "6.6.0"
   }
 }
