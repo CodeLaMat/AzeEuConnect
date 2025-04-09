@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
-import { protectedSubRoutes } from "./lib/roleBasedLinks";
+import { protectedSubRoutes, publicRoutes } from "./lib/roleBasedLinks";
 import { UserRole } from "@prisma/client";
 import { supportedLocales } from "./lib/options";
 import type { JWT } from "next-auth/jwt";
@@ -51,19 +51,20 @@ export async function middleware(req: NextRequest) {
   // If token exists but is expired, clear the auth cookie and redirect to signin.
   if (token?.expiration && token.expiration < Date.now() / 1000) {
     const res = NextResponse.redirect(new URL(`/${locale}/signin`, req.url));
-    // Delete auth cookies. Adjust the cookie name as needed.
+    // Delete auth cookies. Adjust the cookie names as needed.
     res.cookies.delete("next-auth.session-token");
-    // If you use a secure cookie name in production, you might also need to delete:
     res.cookies.delete("__Secure-next-auth.session-token");
     return res;
   }
 
   // If there is no token at all on a protected route, ensure the user is signed out.
   if (!token) {
-    // Optionally, you could also clear cookies here for a clean logout.
-    // For protected pages, redirect them to signin.
-    // This check may be redundant for public pages.
-    if (authPagesRegex.test(pathname) === false) {
+    // We only force a redirect if the requested route is not one of our public pages.
+    // Here we check that the URL is not one of Home, services, pricing, or about[us].
+    const publicRoutes = ["", "services", "pricing", "about", "aboutus"];
+    // segments[2] represents the second part after the locale.
+    const routeType = segments[2] || "";
+    if (!publicRoutes.includes(routeType.toLowerCase())) {
       const res = NextResponse.redirect(new URL(`/${locale}/signin`, req.url));
       res.cookies.delete("next-auth.session-token");
       res.cookies.delete("__Secure-next-auth.session-token");
@@ -101,10 +102,14 @@ export async function middleware(req: NextRequest) {
   }
 
   // ===========================================================
-  // 5. Route-level role protection
+  // 5. Route-level role protection for protected routes only
   // ===========================================================
   const routeType = segments[2];
-  if (protectedSubRoutes[routeType]) {
+  if (
+    routeType &&
+    !publicRoutes.includes(routeType.toLowerCase()) &&
+    protectedSubRoutes[routeType]
+  ) {
     if (!token) {
       return NextResponse.redirect(new URL(`/${locale}/signin`, req.url));
     }
@@ -120,6 +125,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: Object.keys(protectedSubRoutes).flatMap((subRoute) =>
+    // Build matcher strings only for protected sub-routes.
     locales.map((locale) => `/${locale}/${subRoute}/:path*`)
   ),
 };

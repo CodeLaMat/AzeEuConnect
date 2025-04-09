@@ -22,8 +22,8 @@ router.post(
 // Route to get all service listings
 router.get(
   "/services",
-  authenticateUser,
-  authorizeMiddleware(Action.VIEW_SERVICE_LISTINGS),
+  // authenticateUser,
+  // authorizeMiddleware(Action.VIEW_SERVICE_LISTINGS),
   getAllServiceListings
 );
 

@@ -348,6 +348,8 @@ export const accountMenuLinks: Record<
   ],
 };
 
+export const publicRoutes = ["", "services", "pricing", "about"];
+
 // ✅ Define the protected sub-routes and their required roles for sidebar navigation
 export const protectedSubRoutes: Record<string, UserRole[]> = {
   dashboard: [
