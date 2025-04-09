@@ -13,7 +13,7 @@ export default function SessionLoader({
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="flex items-center justify-center h-screen ">
         <Helix size="45" speed="2.5" color="black" />
       </div>
     );

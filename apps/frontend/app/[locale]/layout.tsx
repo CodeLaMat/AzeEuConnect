@@ -27,24 +27,27 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale || defaultLocale}>
-      <body className=" text-secondary flex flex-col justify-center items-center">
+      <body className=" text-secondary flex flex-col items-center">
         <Providers locale={locale} messages={messages}>
           <SessionLoader>
             <UserHydrator />
             <SessionManager />
+
+            {/* Navbar wrapper (optional max width) */}
             <div className="w-full max-w-[80%] px-4">
               <Navbar locale={locale} />
             </div>
-            {/* Main Layout with 3/4 width center content */}
-            <div className="flex justify-center w-full">
-              {/* Left Ad Slot (1/8) */}
-              <aside className="hidden lg:block w-1/8 max-w-[12.5%]"></aside>
 
-              {/* Main Content (3/4 width) */}
-              <main className="w-full px-4">{children}</main>
+            {/* Main Layout with 3/4 content and future ad slots */}
+            <div className="flex w-full justify-center my-6">
+              {/* Left Ad Slot */}
+              <aside className="hidden lg:block w-[10%]"></aside>
 
-              {/* Right Ad Slot (1/8) */}
-              <aside className="hidden lg:block w-1/8 max-w-[12.5%]"></aside>
+              {/* Main Content */}
+              <main className="w-full max-w-[80%] px-4">{children}</main>
+
+              {/* Right Ad Slot */}
+              <aside className="hidden lg:block w-[10%]"></aside>
             </div>
 
             <Toaster richColors position="top-right" />

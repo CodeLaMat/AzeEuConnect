@@ -11,7 +11,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-2/3 h-[60vh] flex items-center justify-center bg-cover bg-center rounded-2xl text-center mt-2.5"
+      className="relative w-full h-[60vh] flex items-center justify-center bg-cover bg-center rounded-2xl text-center mt-2.5"
       style={{
         backgroundImage:
           "url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
