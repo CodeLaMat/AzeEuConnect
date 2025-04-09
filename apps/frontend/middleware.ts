@@ -49,7 +49,11 @@ export async function middleware(req: NextRequest) {
   })) as JWT & { expiration?: number };
 
   // If token exists but is expired, clear the auth cookie and redirect to signin.
-  if (token?.expiration && token.expiration < Date.now() / 1000) {
+  if (
+    token?.expiration &&
+    token.expiration < Date.now() / 1000 &&
+    !authPagesRegex.test(pathname)
+  ) {
     const res = NextResponse.redirect(new URL(`/${locale}/signin`, req.url));
     // Delete auth cookies. Adjust the cookie names as needed.
     res.cookies.delete("next-auth.session-token");
@@ -60,9 +64,6 @@ export async function middleware(req: NextRequest) {
   // If there is no token at all on a protected route, ensure the user is signed out.
   if (!token) {
     // We only force a redirect if the requested route is not one of our public pages.
-    // Here we check that the URL is not one of Home, services, pricing, or about[us].
-    const publicRoutes = ["", "services", "pricing", "about", "aboutus"];
-    // segments[2] represents the second part after the locale.
     const routeType = segments[2] || "";
     if (!publicRoutes.includes(routeType.toLowerCase())) {
       const res = NextResponse.redirect(new URL(`/${locale}/signin`, req.url));
@@ -105,6 +106,7 @@ export async function middleware(req: NextRequest) {
   // 5. Route-level role protection for protected routes only
   // ===========================================================
   const routeType = segments[2];
+  // Define routes that are public regardless of authentication.
   if (
     routeType &&
     !publicRoutes.includes(routeType.toLowerCase()) &&
@@ -124,8 +126,12 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: Object.keys(protectedSubRoutes).flatMap((subRoute) =>
-    // Build matcher strings only for protected sub-routes.
-    locales.map((locale) => `/${locale}/${subRoute}/:path*`)
-  ),
+  matcher: [
+    // Protected sub-routes
+    ...Object.keys(protectedSubRoutes).flatMap((subRoute) =>
+      locales.map((locale) => `/${locale}/${subRoute}/:path*`)
+    ),
+    // BUT EXCLUDE auth pages
+    "/((?!signin|signup).*)",
+  ],
 };

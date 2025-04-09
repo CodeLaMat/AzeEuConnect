@@ -348,7 +348,14 @@ export const accountMenuLinks: Record<
   ],
 };
 
-export const publicRoutes = ["", "services", "pricing", "about"];
+export const publicRoutes = [
+  "",
+  "signin",
+  "signout",
+  "services",
+  "pricing",
+  "about",
+];
 
 // ✅ Define the protected sub-routes and their required roles for sidebar navigation
 export const protectedSubRoutes: Record<string, UserRole[]> = {
