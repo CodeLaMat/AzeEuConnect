@@ -75,10 +75,10 @@ export default function Services() {
               {iconMap[category.value] || <FaEllipsisH />}
             </div>
             <h3 className="text-xl font-semibold">
-              {t(`categoryLabels.${category.label}`)}
+              {t(`categoryLabels.${category.value.toLowerCase()}`)}
             </h3>
             <p className="text-gray-600 mt-2">
-              {t(`categoryDescriptions.${category.label}`)}
+              {t(`categoryDescriptions.${category.value.toLowerCase()}`)}
             </p>
           </motion.div>
         ))}
