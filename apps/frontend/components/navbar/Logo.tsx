@@ -8,10 +8,9 @@ export default function Logo({ locale }: { locale: string }) {
       href={`/${locale}`}
       className="text-2xl font-bold flex items-center space-x-2"
     >
-      <span className="bg-white text-secondary-foreground px-3 py-1 rounded-lg font-bold">
-        EU
+      <span className=" text-secondary px-3 py-1 rounded-lg font-bold">
+        AzEUConnect
       </span>
-      <span>AzEUConnect</span>
     </Link>
   );
 }

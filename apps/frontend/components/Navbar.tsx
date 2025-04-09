@@ -54,7 +54,7 @@ export default function Navbar({ locale }: { locale: string }) {
   }, []);
 
   return (
-    <nav className="relative flex justify-between items-center px-8 py-4 bg-secondary text-primary shadow-md">
+    <nav className="relative flex justify-between items-center px-8 py-4  text-secondary ">
       {/* Logo */}
       <Logo locale={locale} />
       {/* Navigation Links */}

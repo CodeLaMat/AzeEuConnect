@@ -6,10 +6,10 @@ import { useParams } from "next/navigation";
 
 export default function Footer() {
   const t = useTranslations("footer");
-  const { locale } = useParams(); // Get the current locale dynamically
+  const { locale } = useParams();
 
   return (
-    <footer className="bg-secondary text-primary py-10">
+    <footer className="bg-secondary text-primary py-10 mb-4 rounded-2xl">
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Company Info */}
         <div>
