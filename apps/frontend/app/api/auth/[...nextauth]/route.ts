@@ -10,7 +10,6 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       profile(profile) {
-        console.log("🔍 Google profile received:", profile);
         return {
           id: profile.sub,
           email: profile.email,
@@ -71,7 +70,7 @@ export const authOptions: NextAuthOptions = {
           fullUser = await prisma.user.create({
             data: {
               email: user.email!,
-              password: "", // No password for Google sign-ins
+              password: "",
               role: { connect: { name: "CUSTOMER" } },
               currentRole: "CUSTOMER",
               profile: {
@@ -117,30 +116,38 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       const customUser = (user as any)?.custom || user;
 
+      const now = Math.floor(Date.now() / 1000);
+      const refreshThreshold = 2 * 60; // refresh if less than 2 minutes remaining
+
+      // Assign token fields if new login
       if (customUser) {
         token.id = customUser.id;
         token.email = customUser.email;
         token.role = customUser.role?.name || customUser.role;
         token.currentRole = customUser.currentRole;
-        token.preferredLanguage = customUser.preferredLanguage ?? undefined;
         token.firstName = customUser.firstName;
         token.lastName = customUser.lastName;
-        token.membership = customUser.membership ?? undefined;
+        token.membership = customUser.membership;
+        token.profile = customUser.profile;
+      }
 
-        // 🔐 Add a signed token string
-        token.jwtToken = jwt.sign(
+      // Refresh token if about to expire
+      const tokenExpiration = (token.expiration as number) ?? 0;
+
+      if (!token.jwtToken || now >= tokenExpiration - refreshThreshold) {
+        const newJwt = jwt.sign(
           {
-            id: customUser.id,
-            email: customUser.email,
-            role: customUser.role,
+            id: token.id,
+            email: token.email,
+            role: token.role,
           },
           process.env.NEXTAUTH_SECRET!,
           { expiresIn: "10m" }
         );
-      }
 
-      // ⏳ Token expiration logic
-      token.expiration = Math.floor(Date.now() / 1000) + 10 * 60;
+        token.jwtToken = newJwt;
+        token.expiration = now + 10 * 60;
+      }
 
       return token;
     },

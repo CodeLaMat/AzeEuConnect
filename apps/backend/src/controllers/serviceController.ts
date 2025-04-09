@@ -1,21 +1,21 @@
 import { Request, Response } from "express";
 import { prisma } from "@packages/db";
 
-// Controller functions for services
-
 // Create a new service listing
 export const createServiceListing = async (req: Request, res: Response) => {
   try {
-    const { title, description, category, price, serviceType } = req.body;
+    const { title, description, category, subCategory, price, country, image } =
+      req.body;
 
     const newServiceListing = await prisma.serviceListing.create({
       data: {
         title,
         description,
         category,
+        subCategory,
         price,
-        serviceType,
-        country: req.body.country,
+        country,
+        image,
         ownerId:
           req.user?.id ??
           (() => {
@@ -34,7 +34,19 @@ export const createServiceListing = async (req: Request, res: Response) => {
 // Get all service listings
 export const getAllServiceListings = async (req: Request, res: Response) => {
   try {
-    const serviceListings = await prisma.serviceListing.findMany();
+    const serviceListings = await prisma.serviceListing.findMany({
+      include: {
+        packages: true,
+        owner: {
+          select: {
+            id: true,
+            email: true,
+            profile: true,
+          },
+        },
+      },
+    });
+
     res.status(200).json(serviceListings);
   } catch (error) {
     console.error("❌ Failed to fetch service listings:", error);
@@ -46,7 +58,8 @@ export const getAllServiceListings = async (req: Request, res: Response) => {
 export const updateServiceListing = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { title, description, category, price, serviceType } = req.body;
+    const { title, description, category, subCategory, price, country, image } =
+      req.body;
 
     const updatedServiceListing = await prisma.serviceListing.update({
       where: { id },
@@ -54,8 +67,10 @@ export const updateServiceListing = async (req: Request, res: Response) => {
         title,
         description,
         category,
+        subCategory,
         price,
-        serviceType,
+        country,
+        image,
       },
     });
 

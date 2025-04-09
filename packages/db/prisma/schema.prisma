@@ -181,7 +181,7 @@ model Document {
 model Appointment {
   id            String            @id @default(uuid())
   consultantId  String
-  serviceType   ServiceType
+  serviceCategory  ServiceCategory
   scheduledDate DateTime
   status        AppointmentStatus @default(PENDING)
   userId        String
@@ -217,16 +217,17 @@ model ServiceListing {
   title       String
   description String
   category    String
+  subCategory String       // ✅ Add this line
   country     String
   price       Float?
-  currency    Currency    @default(EUR)
-  rating      Float       @default(0)
-  serviceType ServiceType
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @default(now()) @updatedAt
+  currency    Currency     @default(EUR)
+  rating      Float        @default(0)
+  image       String?      // already added based on earlier convo
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
 
-  ownerId String
-  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  owner       User         @relation(fields: [ownerId], references: [id])
 
   packages      ServicePackage[]
   subscriptions ServiceSubscription[]
@@ -237,17 +238,20 @@ model ServiceListing {
   @@index([ownerId])
 }
 
+
 model ServicePackage {
   id               String         @id @default(uuid())
   name             String
   description      String?
   price            Float
   conditions       String?
+  image            String?        // ✅ New
   serviceListingId String
   serviceListing   ServiceListing @relation(fields: [serviceListingId], references: [id])
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @default(now()) @updatedAt
 }
+
 
 model Review {
   id        String   @id @default(uuid())
@@ -465,7 +469,7 @@ enum DocumentStatus {
   REJECTED
 }
 
-enum ServiceType {
+enum ServiceCategory{
   LEGAL_CONSULTATION
   TAX_ADVISORY
   BANKING_SETUP
@@ -497,27 +501,7 @@ enum ServiceType {
   LEGAL_DOCUMENT_PREPARATION
 }
 
-// Define the ServiceTypeGroup model
-model ServiceTypeGroup {
-  id          String    @id @default(uuid())
-  name        String
-  description String?
-  services    Service[] @relation("ServiceGroup") // This defines the relation to Service
-}
 
-// Define the Service model
-model Service {
-  id                 String           @id @default(uuid())
-  title              String
-  description        String
-  price              Float
-  image              String?
-  serviceType        ServiceType
-  serviceTypeGroupId String
-  serviceTypeGroup   ServiceTypeGroup @relation("ServiceGroup", fields: [serviceTypeGroupId], references: [id]) // Reverse relation defined here
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-}
 
 enum AppointmentStatus {
   PENDING

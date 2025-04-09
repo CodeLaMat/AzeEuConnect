@@ -2,7 +2,7 @@ export const serviceCategories = [
   {
     value: "LEGAL",
     label: "Legal",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "LEGAL_CONSULTATION", labelKey: "legalConsultation" },
       { value: "COMPANY_FORMATION", labelKey: "companyFormation" },
       { value: "CONSULTING_SERVICES", labelKey: "consultingServices" },
@@ -17,7 +17,7 @@ export const serviceCategories = [
   {
     value: "FINANCE",
     label: "Finance",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "TAX_ADVISORY", labelKey: "taxAdvisory" },
       { value: "BANKING_SETUP", labelKey: "bankingSetup" },
       { value: "FINANCIAL_PLANNING", labelKey: "financialPlanning" },
@@ -28,7 +28,7 @@ export const serviceCategories = [
   {
     value: "TECH",
     label: "Tech",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "IT_SUPPORT", labelKey: "itSupport" },
       { value: "SOFTWARE_DEVELOPMENT", labelKey: "softwareDevelopment" },
       { value: "DESIGN_SERVICES", labelKey: "designServices" },
@@ -50,7 +50,7 @@ export const serviceCategories = [
   {
     value: "REAL_ESTATE",
     label: "Real Estate",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "REAL_ESTATE_SERVICES", labelKey: "realEstateServices" },
       { value: "HOME_RENOVATION", labelKey: "homeRenovation" },
       { value: "REPAIR_SERVICES", labelKey: "repairServices" },
@@ -63,7 +63,7 @@ export const serviceCategories = [
   {
     value: "HEALTHCARE",
     label: "Healthcare",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "HEALTHCARE_SERVICES", labelKey: "healthcareServices" },
       { value: "FITNESS_TRAINING", labelKey: "fitnessTraining" },
       { value: "PERSONAL_COACHING", labelKey: "personalCoaching" },
@@ -80,7 +80,7 @@ export const serviceCategories = [
   {
     value: "ENTERTAINMENT",
     label: "Entertainment",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "TRAVEL_PLANNING", labelKey: "travelPlanning" },
       { value: "EVENT_MANAGEMENT", labelKey: "eventManagement" },
       { value: "ENTERTAINMENT_SERVICES", labelKey: "entertainmentServices" },
@@ -92,7 +92,7 @@ export const serviceCategories = [
   {
     value: "SECURITY",
     label: "Security",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "SECURITY_SERVICES", labelKey: "securityServices" },
       { value: "POLICE_SERVICES", labelKey: "policeServices" },
       { value: "FIRE_SERVICES", labelKey: "fireServices" },
@@ -104,7 +104,7 @@ export const serviceCategories = [
   {
     value: "FOOD",
     label: "Food",
-    serviceTypes: [
+    serviceserviceSubCategoriesTypes: [
       { value: "FOOD_CATERING", labelKey: "foodCatering" },
       { value: "CATERING_SERVICES", labelKey: "cateringServices" },
       { value: "FOOD_DELIVERY", labelKey: "foodDelivery" },
@@ -117,7 +117,7 @@ export const serviceCategories = [
   {
     value: "TRANSPORTATION",
     label: "Transportation",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "LOGISTICS_SERVICES", labelKey: "logisticsServices" },
       { value: "TRANSPORTATION_SERVICES", labelKey: "transportationServices" },
       { value: "DELIVERY_SERVICES", labelKey: "deliveryServices" },
@@ -129,7 +129,7 @@ export const serviceCategories = [
   {
     value: "EDUCATION",
     label: "Education",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "TUTORING_SERVICES", labelKey: "tutoringServices" },
       { value: "ONLINE_COURSES", labelKey: "onlineCourses" },
       { value: "EDUCATIONAL_ADVISORY", labelKey: "educationalAdvisory" },
@@ -141,7 +141,7 @@ export const serviceCategories = [
   {
     value: "MANUFACTURING",
     label: "Manufacturing",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "MANUFACTURING_SERVICES", labelKey: "manufacturingServices" },
       { value: "PRODUCTION_MANAGEMENT", labelKey: "productionManagement" },
       { value: "QUALITY_CONTROL", labelKey: "qualityControl" },
@@ -152,7 +152,7 @@ export const serviceCategories = [
   {
     value: "SPORTS",
     label: "Sports",
-    serviceTypes: [
+    serviceSubCategories: [
       { value: "SPORTS_COACHING", labelKey: "sportsCoaching" },
 
       { value: "SPORTS_ADVISORY", labelKey: "sportsAdvisory" },
@@ -164,7 +164,7 @@ export const serviceCategories = [
   {
     value: "OTHER",
     label: "Other",
-    serviceTypes: [],
+    serviceSubCategories: [],
   },
 ];
 

@@ -20,6 +20,8 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await paramsPromise;
 
+  console.log("🔑 New Locale in layout:", locale);
+
   if (!locales.includes(locale as any)) {
     return notFound();
   }

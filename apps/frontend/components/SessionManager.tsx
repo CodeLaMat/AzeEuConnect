@@ -1,48 +1,70 @@
 "use client";
 
-import { useSession, getSession, signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useSession, signOut } from "next-auth/react";
+import { useEffect, useState, useCallback } from "react";
 
 export default function SessionManager() {
   const { data: session, status, update } = useSession();
   const [showPopup, setShowPopup] = useState(false);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [lastActivity, setLastActivity] = useState<number>(Date.now());
+
+  const checkExpiration = useCallback(() => {
+    if (status === "authenticated" && session) {
+      const currentTime = Math.floor(Date.now() / 1000);
+      const expiresIn = (session as any)?.expiresIn;
+
+      if (!expiresIn) return;
+
+      const secondsLeft = expiresIn - currentTime;
+      setTimeLeft(secondsLeft);
+
+      if (secondsLeft <= 60 && secondsLeft > 0) {
+        setShowPopup(true);
+      } else if (secondsLeft <= 0) {
+        signOut();
+      } else {
+        setShowPopup(false);
+      }
+
+      // 🔁 Refresh session if user was active and only ~2 min left
+      if (secondsLeft <= 120 && Date.now() - lastActivity < 2 * 60 * 1000) {
+        update();
+        console.log("🔄 Session auto-refreshed due to activity");
+      }
+    }
+  }, [session, status, lastActivity, update]);
 
   useEffect(() => {
     if (status === "authenticated" && session) {
-      const checkExpiration = () => {
-        const currentTime = Math.floor(Date.now() / 1000);
-        const expiresIn = (session as any).expiresIn;
-
-        if (!expiresIn) return;
-
-        const secondsLeft = expiresIn - currentTime;
-        setTimeLeft(secondsLeft);
-
-        if (secondsLeft <= 60 && secondsLeft > 0) {
-          setShowPopup(true);
-        } else if (secondsLeft <= 0) {
-          signOut();
-        } else {
-          setShowPopup(false);
-        }
-      };
-
-      checkExpiration();
       const interval = setInterval(checkExpiration, 1000);
-
       return () => clearInterval(interval);
     }
-  }, [session, status]);
+  }, [checkExpiration, session, status]);
+
+  // 🖱️ Track user activity
+  useEffect(() => {
+    const updateActivity = () => setLastActivity(Date.now());
+
+    window.addEventListener("mousemove", updateActivity);
+    window.addEventListener("keydown", updateActivity);
+    window.addEventListener("click", updateActivity);
+
+    return () => {
+      window.removeEventListener("mousemove", updateActivity);
+      window.removeEventListener("keydown", updateActivity);
+      window.removeEventListener("click", updateActivity);
+    };
+  }, []);
 
   const renewSession = async () => {
     try {
       await update();
-      console.log("✅ Session refreshed:");
+      console.log("✅ Session manually refreshed");
       setShowPopup(false);
       setTimeLeft(null);
     } catch (error) {
-      console.error("Error refreshing session:", error);
+      console.error("⚠️ Error refreshing session:", error);
       signOut();
     }
   };

@@ -8,13 +8,13 @@ import {
   PaymentMethod,
   Language,
   Action,
-  ServiceType,
+  Currency,
+  ServiceCategory,
   OrderStatus,
   ServiceStatus,
 } from "@prisma/client";
 import { prisma } from "../index";
 
-// In-memory mapping for role permissions.
 const RolePermissions: { [role in UserRole]: Action[] } = {
   ADMIN: ["ALL"],
   CUSTOMER: ["CREATE_ORDER", "VIEW_SERVICES", "WRITE_REVIEW", "MANAGE_PROFILE"],
@@ -36,61 +36,38 @@ const RolePermissions: { [role in UserRole]: Action[] } = {
   REGULATORY_OFFICER: ["VERIFY_COMPANY", "APPROVE_DOCUMENTS"],
 };
 
-// List of all unique permissions (actions) required.
 const allPermissions = Array.from(
   new Set(Object.values(RolePermissions).flat())
 );
 
 async function seedRolesAndPermissions() {
-  // 1. Seed default roles.
-  const roles: { name: UserRole }[] = Object.values(UserRole).map((role) => ({
-    name: role,
-  }));
-
-  for (const role of roles) {
+  for (const role of Object.values(UserRole)) {
     await prisma.role.upsert({
-      where: { name: role.name },
+      where: { name: role },
       update: {},
-      create: { name: role.name },
+      create: { name: role },
     });
   }
-  console.log("✅ Default roles seeded");
 
-  // 2. Seed permissions.
-  for (const permissionName of allPermissions) {
+  for (const permission of allPermissions) {
     await prisma.permission.upsert({
-      where: { name: permissionName },
+      where: { name: permission },
       update: {},
-      create: {
-        name: permissionName,
-        action: permissionName as Action,
-      },
+      create: { name: permission, action: permission as Action },
     });
   }
-  console.log("✅ Permissions seeded");
 
-  // 3. Create RolePermission associations.
   for (const roleName in RolePermissions) {
-    const typedRoleName = roleName as UserRole;
-
     const role = await prisma.role.findUnique({
-      where: { name: typedRoleName },
+      where: { name: roleName as UserRole },
     });
-    if (!role) {
-      console.warn(`Role ${roleName} not found!`);
-      continue;
-    }
+    if (!role) continue;
 
-    const permissionsForRole = RolePermissions[typedRoleName];
-    for (const permissionName of permissionsForRole) {
+    for (const permissionName of RolePermissions[roleName as UserRole]) {
       const permission = await prisma.permission.findUnique({
         where: { name: permissionName },
       });
-
-      if (!permission) {
-        console.warn(`Permission ${permissionName} not found!`);
-        continue;
-      }
+      if (!permission) continue;
 
       await prisma.rolePermission.upsert({
         where: {
@@ -101,23 +78,24 @@ async function seedRolesAndPermissions() {
         },
         update: {},
         create: {
-          role: { connect: { id: role.id } },
-          permission: { connect: { id: permission.id } },
-          displayName: permissionName,
+          roleId: role.id,
+          permissionId: permission.id,
+          displayName: permission.name,
         },
       });
     }
   }
-  console.log("✅ RolePermission associations seeded");
+
+  console.log("✅ Roles and permissions seeded.");
 }
 
 async function seedServiceProvider() {
-  const serviceProviderUser = await prisma.user.upsert({
+  const user = await prisma.user.upsert({
     where: { email: "serviceprovider@example.com" },
     update: {},
     create: {
       email: "serviceprovider@example.com",
-      password: "hashedpassword123", // Replace with real bcrypt hash
+      password: "hashedpassword123",
       role: { connect: { name: UserRole.SERVICE_PROVIDER } },
       currentRole: UserRole.SERVICE_PROVIDER,
       profile: {
@@ -147,35 +125,24 @@ async function seedServiceProvider() {
           paymentMethod: PaymentMethod.STRIPE,
         },
       },
-      services: {
-        create: {
-          companyFormation: ServiceStatus.REQUESTED,
-          taxAndAccounting: ServiceStatus.IN_PROGRESS,
-          legalConsultation: ServiceStatus.COMPLETED,
-          bankingSetup: ServiceStatus.REQUESTED,
-          virtualOffice: ServiceStatus.IN_PROGRESS,
-        },
-      },
     },
     include: {
       profile: true,
       companyDetails: true,
       subscription: true,
-      services: true,
     },
   });
 
-  console.log("✅ Seeded service provider user:", serviceProviderUser);
-  return serviceProviderUser; // Returning the user object for further use
+  return user;
 }
 
 async function seedBuyer() {
-  const buyerUser = await prisma.user.upsert({
+  const user = await prisma.user.upsert({
     where: { email: "buyer@example.com" },
     update: {},
     create: {
       email: "buyer@example.com",
-      password: "hashedpassword123", // Replace with real bcrypt hash
+      password: "hashedpassword123",
       role: { connect: { name: UserRole.CUSTOMER } },
       currentRole: UserRole.CUSTOMER,
       profile: {
@@ -189,56 +156,69 @@ async function seedBuyer() {
         },
       },
     },
-    include: {
-      profile: true,
-    },
+    include: { profile: true },
   });
 
-  console.log("✅ Seeded buyer user:", buyerUser);
-  return buyerUser; // Returning the user object for further use
+  return user;
 }
 
-async function seedServiceListing(serviceProviderUserId: string) {
-  const serviceListing = await prisma.serviceListing.create({
-    data: {
-      title: "Consulting Service",
-      description: "Business and financial consulting services.",
-      category: "Consulting",
-      country: "Germany",
-      price: 100.0,
-      serviceType: ServiceType.LEGAL_CONSULTATION,
-      ownerId: serviceProviderUserId, // Use the service provider's user ID
-    },
-  });
+const categories = [
+  { category: "TECH", subCategory: "SOFTWARE_DEVELOPMENT" },
+  { category: "TECH", subCategory: "IT_SUPPORT" },
+  { category: "FINANCE", subCategory: "TAX_ADVISORY" },
+  { category: "LEGAL", subCategory: "COMPANY_FORMATION" },
+  { category: "REAL_ESTATE", subCategory: "REAL_ESTATE_SERVICES" },
+  { category: "HEALTHCARE", subCategory: "HEALTHCARE_SERVICES" },
+  { category: "ENTERTAINMENT", subCategory: "EVENT_MANAGEMENT" },
+  { category: "FOOD", subCategory: "FOOD_CATERING" },
+  { category: "EDUCATION", subCategory: "TUTORING_SERVICES" },
+  { category: "SPORTS", subCategory: "SPORTS_COACHING" },
+];
 
-  console.log("✅ Seeded service listing:", serviceListing);
-  return serviceListing; // Returning the service listing for order creation
-}
+async function seedServiceListings(providerId: string) {
+  for (let i = 0; i < categories.length; i++) {
+    const cat = categories[i];
 
-async function seedOrders(
-  buyerUserId: string,
-  serviceListingId: string,
-  serviceProviderUserId: string
-) {
-  const order = await prisma.order.create({
-    data: {
-      status: OrderStatus.PENDING,
-      buyerId: buyerUserId, // Use the actual buyer user ID
-      providerId: serviceProviderUserId, // Use the service provider's user ID
-      serviceId: serviceListingId, // Use the actual service listing ID
-      amount: 150.0,
-      isPaid: false,
-    },
-  });
+    const listing = await prisma.serviceListing.create({
+      data: {
+        title: `${cat.subCategory.replace(/_/g, " ")} Service`,
+        description: `High-quality ${cat.category.toLowerCase()} service by professionals.`,
+        category: cat.category,
+        subCategory: cat.subCategory,
+        price: 99 + i * 10,
+        currency: Currency.EUR,
+        country: "Germany",
+        image: `https://source.unsplash.com/random/400x300?sig=${i}`,
+        ownerId: providerId,
+      },
+    });
 
-  console.log("✅ Seeded order:", order);
+    await prisma.servicePackage.createMany({
+      data: [
+        {
+          name: "Basic Plan",
+          description: "Basic plan for general services.",
+          price: 49.99,
+          serviceListingId: listing.id,
+        },
+        {
+          name: "Premium Plan",
+          description: "Includes all features.",
+          price: 89.99,
+          serviceListingId: listing.id,
+        },
+      ],
+    });
+
+    console.log(`✅ Seeded service listing: ${listing.title}`);
+  }
 }
 
 async function main() {
-  const serviceProvider = await seedServiceProvider(); // Get the service provider user
-  const buyer = await seedBuyer(); // Get the buyer user
-  const serviceListing = await seedServiceListing(serviceProvider.id); // Pass the service provider's ID to the service listing
-  await seedOrders(buyer.id, serviceListing.id, serviceProvider.id); // Pass both buyer and service provider IDs to create the order
+  await seedRolesAndPermissions();
+  const provider = await seedServiceProvider();
+  const buyer = await seedBuyer();
+  await seedServiceListings(provider.id);
 }
 
 main()

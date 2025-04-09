@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
-import { ServiceState } from "@/types/types"; // Define types accordingly
+import { ServiceState } from "@/types/types";
 
 const initialState: ServiceState = {
   services: [],
@@ -40,14 +40,18 @@ export const createService = createAsyncThunk(
       title,
       description,
       category,
+      subCategory,
       price,
-      serviceType,
+      country,
+      image,
     }: {
       title: string;
       description: string;
       category: string;
+      subCategory: string;
       price: number;
-      serviceType: string;
+      country: string;
+      image?: string;
     },
     { rejectWithValue }
   ) => {
@@ -66,8 +70,10 @@ export const createService = createAsyncThunk(
             title,
             description,
             category,
+            subCategory,
             price,
-            serviceType,
+            country,
+            image,
           }),
         }
       );
@@ -89,15 +95,19 @@ export const updateService = createAsyncThunk(
       title,
       description,
       category,
+      subCategory,
       price,
-      serviceType,
+      country,
+      image,
     }: {
       id: string;
       title: string;
       description: string;
       category: string;
+      subCategory: string;
       price: number;
-      serviceType: string;
+      country: string;
+      image?: string;
     },
     { rejectWithValue }
   ) => {
@@ -116,8 +126,10 @@ export const updateService = createAsyncThunk(
             title,
             description,
             category,
+            subCategory,
             price,
-            serviceType,
+            country,
+            image,
           }),
         }
       );
@@ -148,13 +160,14 @@ export const deleteService = createAsyncThunk(
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to delete service");
-      return id; // Return the id of the deleted service
+      return id;
     } catch (error: any) {
       return rejectWithValue(error.message || "Something went wrong");
     }
   }
 );
 
+// Redux slice
 const servicesSlice = createSlice({
   name: "services",
   initialState,

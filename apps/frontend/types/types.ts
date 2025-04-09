@@ -112,7 +112,7 @@ export interface ServiceFormData {
   description: string;
   category: string;
   country: string;
-  serviceType: string;
+  subCategory: string;
   price?: number;
   currency: string;
   packages: ServicePackage[];
