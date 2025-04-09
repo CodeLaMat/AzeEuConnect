@@ -4,6 +4,11 @@ import { prisma } from "@packages/db";
 import crypto from "crypto";
 import { sendEmail } from "../lib/sendEmail";
 
+const generateSessionToken = (): string => {
+  // Generates a secure random session token
+  return require("crypto").randomBytes(32).toString("hex");
+};
+
 /**
  * Register a new user
  */
@@ -81,57 +86,52 @@ export const registerUser: RequestHandler = async (
  * User Login
  */
 // This function handles user login by verifying the email and password provided in the request body
-export const loginUser: RequestHandler = async (req, res, next) => {
+export const loginUser: RequestHandler = async (
+  req,
+  res,
+  next
+): Promise<void> => {
   try {
     const { email, password } = req.body;
 
-    // Convert email to lowercase to prevent case-sensitive mismatches
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
       include: { profile: true, role: true },
     });
 
     if (!user) {
-      console.error("❌ User not found:", email);
       res.status(401).json({ message: "Invalid credentials" });
       return;
     }
 
-    console.log("🔹 Found User:", user.email);
-
-    // Compare hashed passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.error("❌ Password mismatch for:", email);
       res.status(401).json({ message: "Invalid credentials" });
       return;
     }
 
-    // Update the lastLogin field to the current date/time
-    const updatedUser = await prisma.user.update({
+    await prisma.user.update({
       where: { id: user.id },
       data: { lastLogin: new Date() },
-      include: { profile: true, role: true },
     });
 
     const responsePayload = {
-      id: updatedUser.id,
-      email: updatedUser.email,
-      role: updatedUser.role,
-      currentRole: updatedUser.currentRole,
-      image: updatedUser.profile?.image ?? null,
-      firstName: updatedUser.profile?.firstName ?? "",
-      lastName: updatedUser.profile?.lastName ?? "",
-      phone: updatedUser.profile?.phone ?? "",
-      location: updatedUser.profile?.location ?? "",
-      nationality: updatedUser.profile?.nationality ?? "",
-      timezone: updatedUser.profile?.timezone ?? "UTC",
-      preferredLanguage: updatedUser.profile?.preferredLanguage ?? "AZ",
-      profile: updatedUser.profile,
+      id: user.id,
+      email: user.email,
+      role: user.role?.name,
+      currentRole: user.currentRole,
+      image: user.profile?.image ?? null,
+      firstName: user.profile?.firstName ?? "",
+      lastName: user.profile?.lastName ?? "",
+      phone: user.profile?.phone ?? "",
+      location: user.profile?.location ?? "",
+      nationality: user.profile?.nationality ?? "",
+      timezone: user.profile?.timezone ?? "UTC",
+      preferredLanguage: user.profile?.preferredLanguage ?? "AZ",
+      profile: user.profile,
       membership: null,
     };
 
-    console.log("✅ Returning user response:", responsePayload);
     res.status(200).json(responsePayload);
   } catch (error) {
     console.error("❌ Login Error:", error);

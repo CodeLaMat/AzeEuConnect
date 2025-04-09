@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
+import type { NextRequest } from "next/server";
 import { protectedSubRoutes } from "./lib/roleBasedLinks";
 import { UserRole } from "@prisma/client";
 import { supportedLocales } from "./lib/options";
+import type { JWT } from "next-auth/jwt";
 
+const locales = ["en", "az", "de", "ru"];
 const authPagesRegex = /^\/(en|az|de|ru)\/(signin|signup)/;
 
 export async function middleware(req: NextRequest) {
@@ -12,27 +14,31 @@ export async function middleware(req: NextRequest) {
   const segments = pathname.split("/");
   const locale = segments[1];
 
-  if (authPagesRegex.test(pathname)) {
-    // Check for an existing token (i.e. if the user is already logged in)
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = (await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  })) as JWT & { expiration?: number };
 
-    // If a token exists, redirect them to their dashboard
-    if (token) {
-      const preferredLocale = token.preferredLanguage?.toLowerCase() || "en";
-      // Adjust the dashboard path as needed. Here it's simply '/dashboard'
-      return NextResponse.redirect(
-        new URL(`/${preferredLocale}/dashboard`, req.url)
-      );
-    }
+  // Redirect logged-in users away from signin/signup pages
+  if (authPagesRegex.test(pathname) && token) {
+    const preferredLocale =
+      token.profile?.preferredLanguage?.toLowerCase() || "en";
+    return NextResponse.redirect(
+      new URL(`/${preferredLocale}/dashboard`, req.url)
+    );
   }
 
-  // ✅ Validate locale
+  // Validate locale in URL
   if (!locale || !locales.includes(locale as "az" | "en" | "ru" | "de")) {
     return NextResponse.next();
   }
 
-  // Check token for profile preferred language
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  // Check token expiration
+  if (token?.expiration && token.expiration < Date.now() / 1000) {
+    return NextResponse.redirect(new URL(`/${locale}/signin`, req.url));
+  }
+
+  // Redirect to preferred language version
   if (token?.profile?.preferredLanguage) {
     const preferredLocale = token.profile.preferredLanguage.toLowerCase();
     if (
@@ -48,36 +54,17 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // Validate locale from URL
-  if (!locale || !supportedLocales.includes(locale)) {
-    return NextResponse.next();
-  }
-
+  // Route-level role protection
   const routeType = segments[2];
-
-  // ✅ Apply access control if route is protected
   if (protectedSubRoutes[routeType]) {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-
-    // 🔒 Not logged in
     if (!token) {
       return NextResponse.redirect(new URL(`/${locale}/signin`, req.url));
     }
 
     const userRole = token.role?.toUpperCase();
-
-    // 🔒 No role assigned
-    if (!userRole) {
-      console.warn(
-        "⚠️ User has no role assigned, redirecting to unauthorized..."
-      );
-      return NextResponse.redirect(new URL(`/${locale}/unauthorized`, req.url));
-    }
-
-    // 🔒 Role not allowed
     const allowedRoles = protectedSubRoutes[routeType];
-    if (!allowedRoles.includes(userRole as UserRole)) {
-      console.warn(`⚠️ User role "${userRole}" not allowed for "${routeType}"`);
+
+    if (!userRole || !allowedRoles.includes(userRole as UserRole)) {
       return NextResponse.redirect(new URL(`/${locale}/unauthorized`, req.url));
     }
   }
@@ -85,8 +72,6 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-const locales = ["en", "az", "de", "ru"];
-// ✅ Apply middleware only to protected subroutes
 export const config = {
   matcher: Object.keys(protectedSubRoutes).flatMap((subRoute) =>
     locales.map((locale) => `/${locale}/${subRoute}/:path*`)

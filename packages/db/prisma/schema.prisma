@@ -39,11 +39,10 @@ model User {
   serviceListings      ServiceListing[]
   reviews              Review[]
   orders               Order[]
-  savedJobs            SavedJob[] 
+  savedJobs            SavedJob[]
 
   // Required for NextAuth
   accounts Account[]
-  sessions Session[]
 
   // Custom Relations
   buyerOrders      Order[]              @relation("BuyerOrders")
@@ -69,15 +68,6 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -163,19 +153,17 @@ model ServiceSubscription {
 }
 
 model SavedJob {
-  id            String        @id @default(uuid())
-  userId        String
-  serviceId     String
-  savedAt       DateTime      @default(now())
+  id        String   @id @default(uuid())
+  userId    String
+  serviceId String
+  savedAt   DateTime @default(now())
 
-  user          User          @relation(fields: [userId], references: [id])
-  service       ServiceListing @relation(fields: [serviceId], references: [id])
+  user    User           @relation(fields: [userId], references: [id])
+  service ServiceListing @relation(fields: [serviceId], references: [id])
 
   @@index([userId])
   @@index([serviceId])
 }
-
-
 
 model Document {
   id           String         @id @default(uuid())
@@ -244,6 +232,7 @@ model ServiceListing {
   subscriptions ServiceSubscription[]
   reviews       Review[]
   orders        Order[]
+  SavedJob      SavedJob[]
 
   @@index([ownerId])
 }
@@ -508,6 +497,28 @@ enum ServiceType {
   LEGAL_DOCUMENT_PREPARATION
 }
 
+// Define the ServiceTypeGroup model
+model ServiceTypeGroup {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  services    Service[] @relation("ServiceGroup") // This defines the relation to Service
+}
+
+// Define the Service model
+model Service {
+  id                 String           @id @default(uuid())
+  title              String
+  description        String
+  price              Float
+  image              String?
+  serviceType        ServiceType
+  serviceTypeGroupId String
+  serviceTypeGroup   ServiceTypeGroup @relation("ServiceGroup", fields: [serviceTypeGroupId], references: [id]) // Reverse relation defined here
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+}
+
 enum AppointmentStatus {
   PENDING
   CONFIRMED
@@ -553,13 +564,13 @@ enum Action {
   WRITE_REVIEW
   POST_SERVICE
   MANAGE_PROFILE
-  MANAGE_TICKETS
+  RESPOND_TO_REVIEWS
   MANAGE_ORDERS
+  MANAGE_TICKETS
   VERIFY_COMPANY
   APPROVE_COMPANY
   MANAGE_COMPANY
   APPROVE_DOCUMENTS
-  RESPOND_TO_REVIEWS
   MANAGE_APPOINTMENTS
   READ_USERS
   VIEW_CLIENTS

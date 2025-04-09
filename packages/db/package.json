@@ -4,8 +4,8 @@
   "main": "index.ts",
   "types": "index.ts",
   "dependencies": {
-    "prisma": "^6.5.0",
-    "@prisma/client": "^6.5.0"
+    "@prisma/client": "6.6.0",
+    "prisma": "^6.6.0"
   },
   "prisma": {
     "schema": "prisma/schema.prisma",

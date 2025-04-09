@@ -36,7 +36,7 @@ export type Action =
 export const RolePermissions: { [role: string]: Action[] } = {
   ADMIN: ["ALL"],
 
-  USER: [
+  CUSTOMER: [
     "CREATE_ORDER",
     "VIEW_SERVICES",
     "WRITE_REVIEW",

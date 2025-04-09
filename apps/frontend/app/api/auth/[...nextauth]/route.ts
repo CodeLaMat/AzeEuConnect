@@ -2,7 +2,6 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@packages/db";
-import { UserRole } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
 export const authOptions: NextAuthOptions = {
@@ -44,7 +43,6 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Return the full user object (not wrapped inside custom)
         return user;
       },
     }),
@@ -74,9 +72,7 @@ export const authOptions: NextAuthOptions = {
             data: {
               email: user.email!,
               password: "", // No password for Google sign-ins
-              role: {
-                connect: { name: "CUSTOMER" }, // Connect the new user to the default "CUSTOMER" role
-              },
+              role: { connect: { name: "CUSTOMER" } },
               currentRole: "CUSTOMER",
               profile: {
                 create: {
@@ -92,7 +88,6 @@ export const authOptions: NextAuthOptions = {
           });
         }
 
-        // Attach a custom property to the user object for later use
         (user as any).custom = {
           id: fullUser?.id,
           email: fullUser?.email,
@@ -125,17 +120,14 @@ export const authOptions: NextAuthOptions = {
       if (customUser) {
         token.id = customUser.id;
         token.email = customUser.email;
-        token.role =
-          typeof customUser.role === "object"
-            ? customUser.role.name
-            : customUser.role;
+        token.role = customUser.role?.name || customUser.role;
         token.currentRole = customUser.currentRole;
         token.preferredLanguage = customUser.preferredLanguage ?? undefined;
         token.firstName = customUser.firstName;
         token.lastName = customUser.lastName;
         token.membership = customUser.membership ?? undefined;
 
-        // Generate signed JWT for backend auth
+        // 🔐 Add a signed token string
         token.jwtToken = jwt.sign(
           {
             id: customUser.id,
@@ -146,6 +138,9 @@ export const authOptions: NextAuthOptions = {
           { expiresIn: "10m" }
         );
       }
+
+      // ⏳ Token expiration logic
+      token.expiration = Math.floor(Date.now() / 1000) + 10 * 60;
 
       return token;
     },
@@ -170,7 +165,9 @@ export const authOptions: NextAuthOptions = {
         };
 
         (session as any).jwtToken = token.jwtToken;
+        (session as any).expiresIn = token.expiration;
       }
+
       return session;
     },
   },

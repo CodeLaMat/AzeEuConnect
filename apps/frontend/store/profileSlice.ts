@@ -20,7 +20,11 @@ export const fetchUserProfile = createAsyncThunk(
     try {
       const session = await getSession();
       const token = (session as any)?.jwtToken;
-
+      console.log(
+        "🚀 ~ file: profileSlice.ts:17 ~ fetchUserProfile ~ token:",
+        token,
+        userId
+      );
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/profile/${userId}`,
         {
@@ -29,10 +33,12 @@ export const fetchUserProfile = createAsyncThunk(
           },
         }
       );
-
+      console.log(
+        "🚀 ~ file: profileSlice.ts:20 ~ fetchUserProfile ~ res:",
+        res
+      );
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to fetch");
-
       return data;
     } catch (error: any) {
       return rejectWithValue(error.message || "Something went wrong");

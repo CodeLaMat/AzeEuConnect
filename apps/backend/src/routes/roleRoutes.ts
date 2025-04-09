@@ -11,6 +11,7 @@ import {
 } from "../controllers/roleController";
 import { authenticateUser } from "@/middleware/authenticateUser";
 import { authorizeMiddleware } from "@/middleware/authorize";
+import { Action } from "@prisma/client";
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.post("/roles", authenticateUser, authorizeMiddleware("ALL"), createRole);
 router.delete(
   "/roles/:id",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   deleteRole
 );
 
@@ -28,19 +29,19 @@ router.delete(
 router.get(
   "/permissions",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   getAllPermissions
 );
 router.post(
   "/permissions",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   createPermission
 );
 router.delete(
   "/permissions/:id",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   deletePermission
 );
 
@@ -48,13 +49,13 @@ router.delete(
 router.post(
   "/roles/:roleId/assign-permissions",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   assignPermissionsToRole
 );
 router.patch(
   "/users/:userId/role",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   updateUserRole
 );
 

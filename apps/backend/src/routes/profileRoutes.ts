@@ -6,6 +6,7 @@ import {
 import multer from "multer";
 import { authorizeMiddleware } from "../middleware/authorize";
 import { authenticateUser } from "../middleware/authenticateUser";
+import { Action } from "@prisma/client";
 
 //!!TODO: Add the authorize middleware to the routes that need RBAC
 
@@ -20,14 +21,14 @@ const upload = multer({
 router.get(
   "/profile/:userId",
   authenticateUser,
-  authorizeMiddleware("MANAGE_PROFILE"),
+  authorizeMiddleware(Action.MANAGE_PROFILE),
   getUserProfile
 );
 // PATCH /api/profile/updateprofile
 router.patch(
   "/profile/updateprofile",
   authenticateUser,
-  authorizeMiddleware("MANAGE_PROFILE"),
+  authorizeMiddleware(Action.MANAGE_PROFILE),
   upload.single("image"),
   updateUserProfile
 );

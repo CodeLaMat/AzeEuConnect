@@ -9,6 +9,7 @@ import {
 
 import { authenticateUser } from "@/middleware/authenticateUser";
 import { authorizeMiddleware } from "@/middleware/authorize";
+import { Action } from "@prisma/client";
 
 const router = express.Router();
 
@@ -17,25 +18,25 @@ router.get("/users", authenticateUser, authorizeMiddleware("ALL"), getAllUsers);
 router.get(
   "/users/:id",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   getUserById
 );
 router.patch(
   "/users/:userId/profile",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   updateUserProfileField
 );
 router.patch(
   "/users/:userId/subscription",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   updateSubscriptionField
 );
 router.patch(
   "/users/:userId/company",
   authenticateUser,
-  authorizeMiddleware("ALL"),
+  authorizeMiddleware(Action.ALL),
   updateCompanyField
 );
 

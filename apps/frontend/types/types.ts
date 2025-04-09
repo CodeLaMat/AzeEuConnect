@@ -117,3 +117,9 @@ export interface ServiceFormData {
   currency: string;
   packages: ServicePackage[];
 }
+
+export interface ServiceState {
+  services: any[];
+  loading: boolean;
+  error: string | null;
+}

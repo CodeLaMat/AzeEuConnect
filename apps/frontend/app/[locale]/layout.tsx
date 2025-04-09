@@ -1,3 +1,4 @@
+// layouts/LocaleLayout.tsx
 import { getTranslations } from "@/lib/getTranslations";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +9,7 @@ import UserHydrator from "@/components/UserHydration";
 import { defaultLocale, locales } from "@/i18n";
 import { Toaster } from "@/components/ui/sonner";
 import SessionLoader from "@/components/SessionLoader";
+import SessionManager from "@/components/SessionManager"; // Import the session manager
 
 export default async function LocaleLayout({
   children,
@@ -31,6 +33,7 @@ export default async function LocaleLayout({
         <Providers locale={locale} messages={messages}>
           <SessionLoader>
             <UserHydrator />
+            <SessionManager /> {/* Add SessionManager to the layout */}
             <Navbar locale={locale} />
             <main>{children}</main>
             <Toaster richColors position="top-right" />

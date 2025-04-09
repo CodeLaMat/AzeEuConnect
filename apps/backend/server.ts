@@ -7,6 +7,7 @@ import userRouter from "./src/routes/userRoutes";
 import profileRouter from "./src/routes/profileRoutes";
 import usersRouter from "./src/routes/allUsersRoutes";
 import roleRouter from "./src/routes/roleRoutes";
+import serviceRouter from "./src/routes/serviceRoutes";
 
 dotenv.config();
 const app = express();
@@ -16,7 +17,7 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-    methods: ["GET", "POST", "PATCH"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -28,6 +29,7 @@ app.use("/api/auth", userRouter);
 app.use("/api", profileRouter);
 app.use("/api", usersRouter);
 app.use("/api", roleRouter);
+app.use("/api", serviceRouter);
 
 process.on("SIGINT", async () => {
   console.log("Shutting down server...");

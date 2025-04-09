@@ -4,6 +4,7 @@ import userReducer from "./userSlice";
 import profileReducer from "./profileSlice";
 import adminUsersReducer from "./adminUserSlice";
 import rolesReducer from "./rolesSlice";
+import servicesReducer from "./servicesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     profile: profileReducer,
     adminUsers: adminUsersReducer,
     roles: rolesReducer,
+    services: servicesReducer,
   },
 });
 

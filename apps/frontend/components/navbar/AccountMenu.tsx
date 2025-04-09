@@ -59,6 +59,8 @@ export default function AccountMenu({
     }
   };
 
+  console.log("AccountMenu rendered with role:", profile);
+  console.log("Session:", session);
   return (
     <div className="relative" ref={menuRef}>
       <div

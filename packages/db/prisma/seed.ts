@@ -1,4 +1,3 @@
-// prisma/seed.ts
 import {
   UserRole,
   BusinessType,
@@ -9,6 +8,9 @@ import {
   PaymentMethod,
   Language,
   Action,
+  ServiceType,
+  OrderStatus,
+  ServiceStatus,
 } from "@prisma/client";
 import { prisma } from "../index";
 
@@ -109,18 +111,19 @@ async function seedRolesAndPermissions() {
   console.log("✅ RolePermission associations seeded");
 }
 
-async function seedAdminUser() {
-  const adminUser = await prisma.user.upsert({
-    where: { email: "admin@example.com" },
+async function seedServiceProvider() {
+  const serviceProviderUser = await prisma.user.upsert({
+    where: { email: "serviceprovider@example.com" },
     update: {},
     create: {
-      email: "admin@example.com",
+      email: "serviceprovider@example.com",
       password: "hashedpassword123", // Replace with real bcrypt hash
-      role: { connect: { name: UserRole.ADMIN } },
+      role: { connect: { name: UserRole.SERVICE_PROVIDER } },
+      currentRole: UserRole.SERVICE_PROVIDER,
       profile: {
         create: {
-          firstName: "Admin",
-          lastName: "User",
+          firstName: "Service",
+          lastName: "Provider",
           phone: "+123456789",
           nationality: "Azerbaijani",
           timezone: "Europe/Berlin",
@@ -129,11 +132,11 @@ async function seedAdminUser() {
       },
       companyDetails: {
         create: {
-          businessName: "Test GmbH",
+          businessName: "SP Consulting GmbH",
           businessType: BusinessType.GMBH,
           businessCategory: BusinessCategory.TECH,
           registrationStatus: RegistrationStatus.APPROVED,
-          vatNumber: "DE123456789",
+          vatNumber: "DE987654321",
           countryOfRegistration: "Germany",
         },
       },
@@ -144,21 +147,98 @@ async function seedAdminUser() {
           paymentMethod: PaymentMethod.STRIPE,
         },
       },
+      services: {
+        create: {
+          companyFormation: ServiceStatus.REQUESTED,
+          taxAndAccounting: ServiceStatus.IN_PROGRESS,
+          legalConsultation: ServiceStatus.COMPLETED,
+          bankingSetup: ServiceStatus.REQUESTED,
+          virtualOffice: ServiceStatus.IN_PROGRESS,
+        },
+      },
     },
     include: {
       profile: true,
       companyDetails: true,
       subscription: true,
-      role: true,
+      services: true,
     },
   });
 
-  console.log("✅ Seeded admin user:", adminUser);
+  console.log("✅ Seeded service provider user:", serviceProviderUser);
+  return serviceProviderUser; // Returning the user object for further use
+}
+
+async function seedBuyer() {
+  const buyerUser = await prisma.user.upsert({
+    where: { email: "buyer@example.com" },
+    update: {},
+    create: {
+      email: "buyer@example.com",
+      password: "hashedpassword123", // Replace with real bcrypt hash
+      role: { connect: { name: UserRole.CUSTOMER } },
+      currentRole: UserRole.CUSTOMER,
+      profile: {
+        create: {
+          firstName: "Buyer",
+          lastName: "Customer",
+          phone: "+987654321",
+          nationality: "Azerbaijani",
+          timezone: "Europe/Berlin",
+          preferredLanguage: Language.AZ,
+        },
+      },
+    },
+    include: {
+      profile: true,
+    },
+  });
+
+  console.log("✅ Seeded buyer user:", buyerUser);
+  return buyerUser; // Returning the user object for further use
+}
+
+async function seedServiceListing(serviceProviderUserId: string) {
+  const serviceListing = await prisma.serviceListing.create({
+    data: {
+      title: "Consulting Service",
+      description: "Business and financial consulting services.",
+      category: "Consulting",
+      country: "Germany",
+      price: 100.0,
+      serviceType: ServiceType.LEGAL_CONSULTATION,
+      ownerId: serviceProviderUserId, // Use the service provider's user ID
+    },
+  });
+
+  console.log("✅ Seeded service listing:", serviceListing);
+  return serviceListing; // Returning the service listing for order creation
+}
+
+async function seedOrders(
+  buyerUserId: string,
+  serviceListingId: string,
+  serviceProviderUserId: string
+) {
+  const order = await prisma.order.create({
+    data: {
+      status: OrderStatus.PENDING,
+      buyerId: buyerUserId, // Use the actual buyer user ID
+      providerId: serviceProviderUserId, // Use the service provider's user ID
+      serviceId: serviceListingId, // Use the actual service listing ID
+      amount: 150.0,
+      isPaid: false,
+    },
+  });
+
+  console.log("✅ Seeded order:", order);
 }
 
 async function main() {
-  await seedRolesAndPermissions();
-  await seedAdminUser();
+  const serviceProvider = await seedServiceProvider(); // Get the service provider user
+  const buyer = await seedBuyer(); // Get the buyer user
+  const serviceListing = await seedServiceListing(serviceProvider.id); // Pass the service provider's ID to the service listing
+  await seedOrders(buyer.id, serviceListing.id, serviceProvider.id); // Pass both buyer and service provider IDs to create the order
 }
 
 main()
