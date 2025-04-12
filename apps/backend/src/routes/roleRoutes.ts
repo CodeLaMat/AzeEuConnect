@@ -11,7 +11,7 @@ import {
 } from "../controllers/roleController";
 import { authenticateUser } from "@/middleware/authenticateUser";
 import { authorizeMiddleware } from "@/middleware/authorize";
-import { Action } from "@prisma/client";
+import { Action } from "@packages/db";
 
 const router = Router();
 

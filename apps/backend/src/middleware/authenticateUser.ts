@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "@packages/db";
 
 interface JwtPayload {
   id: string;

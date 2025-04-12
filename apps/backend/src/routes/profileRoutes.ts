@@ -6,7 +6,7 @@ import {
 import multer from "multer";
 import { authorizeMiddleware } from "../middleware/authorize";
 import { authenticateUser } from "../middleware/authenticateUser";
-import { Action } from "@prisma/client";
+import { Action } from "@packages/db";
 
 //!!TODO: Add the authorize middleware to the routes that need RBAC
 
