@@ -4,9 +4,10 @@
   "main": "server.ts",
   "scripts": {
     "dev": "npx ts-node -r tsconfig-paths/register server.ts",
-    "start": "node server.ts",
-    "migrate": "prisma migrate dev --name init --schema=../../packages/db/prisma/schema.prisma",
-    "postinstall": "prisma generate --schema=../../packages/db/prisma/schema.prisma"
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "migrate": "npx prisma migrate deploy --schema=../../packages/db/prisma/schema.prisma",
+    "postinstall": "npx prisma generate --schema=../../packages/db/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
