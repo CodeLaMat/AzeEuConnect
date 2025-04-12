@@ -83,12 +83,19 @@ export interface ProfileState {
   serviceSubscriptions?: any[];
   reviews?: Review[];
 }
+export interface Invoice {
+  id: string;
+  type: "ADVANCE" | "FINAL";
+  amount: number;
+  status: "PAID" | "UNPAID";
+}
 
 export interface UserState {
   id: string;
   email: string;
   role: UserRole;
   currentRole: UserRole;
+  unpaidInvoices?: Invoice[];
 }
 
 export interface RolesState {

@@ -471,7 +471,7 @@
   "pricingTitle": "Pricing Plans",
 
   "services": {
-    "title": "Our Services",
+    "title": "Available Services",
     "description": "Discover our wide range of services tailored to meet your needs.",
     "ctaText": "Ready to start your project? Contact us today!",
     "ctaButton": "Get Started",
@@ -551,7 +551,7 @@
       }
     },
     "services": {
-      "title": "Our Services",
+      "title": "Available Services",
 
       "list": {
         "company-formation": "Company Formation",

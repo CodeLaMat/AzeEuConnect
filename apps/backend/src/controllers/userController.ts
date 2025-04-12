@@ -288,6 +288,8 @@ export const getUserProfile: RequestHandler = async (req, res, next) => {
         serviceSubscriptions: true,
         reviews: true,
         role: true,
+        paidInvoices: true,
+        receivedInvoices: true,
       },
     });
 

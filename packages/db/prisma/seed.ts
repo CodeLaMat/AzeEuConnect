@@ -11,7 +11,9 @@ import {
   Currency,
   ServiceCategory,
   OrderStatus,
-  ServiceStatus,
+  InvoiceStatus,
+  InvoiceType,
+  PaymentStage,
 } from "@prisma/client";
 import { prisma } from "../index";
 
@@ -219,6 +221,53 @@ async function main() {
   const provider = await seedServiceProvider();
   const buyer = await seedBuyer();
   await seedServiceListings(provider.id);
+
+  const sampleListing = await prisma.serviceListing.findFirst({
+    where: { ownerId: provider.id },
+  });
+
+  if (!sampleListing) throw new Error("No service listing found.");
+
+  const order = await prisma.order.create({
+    data: {
+      status: OrderStatus.PENDING,
+      type: "MARKETPLACE",
+      buyerId: buyer.id,
+      providerId: provider.id,
+      serviceId: sampleListing.id,
+      advanceAmount: 60,
+      finalAmount: 90,
+      paymentStage: PaymentStage.ADVANCE_PAID,
+      amount: 150,
+      isPaid: false,
+      customNotes: "Urgent processing preferred.",
+    },
+  });
+
+  console.log(`✅ Seeded order with ID: ${order.id}`);
+
+  const invoices = await prisma.invoice.createMany({
+    data: [
+      {
+        orderId: order.id,
+        type: InvoiceType.ADVANCE,
+        amount: 60,
+        status: InvoiceStatus.PAID,
+        paidById: buyer.id,
+        paidToId: provider.id,
+      },
+      {
+        orderId: order.id,
+        type: InvoiceType.FINAL,
+        amount: 90,
+        status: InvoiceStatus.UNPAID,
+        paidById: buyer.id,
+        paidToId: provider.id,
+      },
+    ],
+  });
+
+  console.log(`✅ Seeded ${invoices.count} invoices for the order.`);
 }
 
 main()

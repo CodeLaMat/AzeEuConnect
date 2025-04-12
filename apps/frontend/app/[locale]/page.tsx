@@ -17,10 +17,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-secondary">
       {/* Hero Section */}
-      <div
-        className="relative w-full flex items-center justify-center  text-center"
-        style={{ backgroundImage: "url('/images/hero.jpg')" }}
-      >
+      <div className="relative w-full flex items-center justify-center  text-center">
         <HeroSection />
       </div>
 

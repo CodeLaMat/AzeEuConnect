@@ -41,13 +41,13 @@ export default async function LocaleLayout({
             {/* Main Layout with 3/4 content and future ad slots */}
             <div className="flex w-full justify-center my-6">
               {/* Left Ad Slot */}
-              <aside className="hidden lg:block w-[10%]"></aside>
+              <aside className="hidden lg:block w-[12.5%]"></aside>
 
               {/* Main Content */}
-              <main className="w-full max-w-[80%] px-4">{children}</main>
+              <main className="w-full max-w-[70%] px-4">{children}</main>
 
               {/* Right Ad Slot */}
-              <aside className="hidden lg:block w-[10%]"></aside>
+              <aside className="hidden lg:block w-[12.5%]"></aside>
             </div>
 
             <Toaster richColors position="top-right" />

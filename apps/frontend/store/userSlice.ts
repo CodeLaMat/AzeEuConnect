@@ -8,6 +8,7 @@ const initialState: UserState = {
   email: "",
   role: "CUSTOMER",
   currentRole: "CUSTOMER",
+  unpaidInvoices: [],
 };
 
 export const userSlice = createSlice({
