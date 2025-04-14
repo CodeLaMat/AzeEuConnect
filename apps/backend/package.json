@@ -1,18 +1,16 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "scripts": {
-    "dev": "npx ts-node -r tsconfig-paths/register server.ts",
+    "dev": "ts-node -r tsconfig-paths/register server.ts",
     "start": "node dist/server.js",
     "build": "tsc",
-    "migrate": "npx prisma migrate deploy --schema=../../packages/db/prisma/schema.prisma"
+    "migrate": "prisma migrate deploy --schema=../../packages/db/prisma/schema.prisma",
+    "seed": "ts-node ../../packages/db/prisma/seed.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
+    "@prisma/client": "6.6.0",
     "bcrypt": "5.1.1",
     "cors": "2.8.5",
     "dotenv": "16.4.7",
@@ -24,7 +22,6 @@
     "pg": "8.14.1",
     "tsconfig-paths": "4.2.0",
     "zod": "3.24.2",
-    "@prisma/client": "6.6.0",
     "prisma": "6.6.0"
   },
   "devDependencies": {
@@ -37,8 +34,5 @@
     "@types/nodemailer": "6.4.17",
     "ts-node": "10.9.2",
     "typescript": "5.8.2"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
   }
 }

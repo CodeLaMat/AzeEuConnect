@@ -8,8 +8,8 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
-    "migrate": "prisma migrate dev --schema=./prisma/schema.prisma",
-    "generate": "prisma generate --schema=./prisma/schema.prisma",
+    "generate": "prisma generate --schema=prisma/schema.prisma",
+    "migrate": "prisma migrate dev --schema=prisma/schema.prisma",
     "seed": "prisma db seed"
   },
   "dependencies": {
