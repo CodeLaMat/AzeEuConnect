@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import SessionLoader from "@/components/SessionLoader";
 import SessionManager from "@/components/SessionManager";
 
-export default async function LocaleLayout({
+export default async function Layout({
   children,
   params: paramsPromise,
 }: {
