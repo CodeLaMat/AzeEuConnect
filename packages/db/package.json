@@ -1,8 +1,7 @@
 {
   "name": "@packages/db",
   "version": "1.0.0",
-  "main": "index.ts",
-  "types": "index.ts",
+  "private": true,
   "prisma": {
     "schema": "prisma/schema.prisma",
     "seed": "ts-node prisma/seed.ts"
@@ -13,11 +12,11 @@
     "seed": "prisma db seed"
   },
   "dependencies": {
-    "@prisma/client": "6.6.0",
-    "prisma": "6.6.0"
+    "@prisma/client": "^6.6.0"
   },
   "devDependencies": {
-    "ts-node": "10.9.2",
-    "typescript": "5.8.3"
+    "prisma": "^6.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 import { protectedSubRoutes, publicRoutes } from "./lib/roleBasedLinks";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "@packages/db";
 import { supportedLocales } from "./lib/options";
 import type { JWT } from "next-auth/jwt";
 
@@ -125,13 +125,22 @@ export async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
+// export const config = {
+//   matcher: [
+//     // Protected sub-routes
+//     ...Object.keys(protectedSubRoutes).flatMap((subRoute) =>
+//       locales.map((locale) => `/${locale}/${subRoute}/:path*`)
+//     ),
+//     // BUT EXCLUDE auth pages
+//     "/((?!signin|signup).*)",
+//   ],
+// };
 export const config = {
   matcher: [
-    // Protected sub-routes
-    ...Object.keys(protectedSubRoutes).flatMap((subRoute) =>
-      locales.map((locale) => `/${locale}/${subRoute}/:path*`)
-    ),
-    // BUT EXCLUDE auth pages
-    "/((?!signin|signup).*)",
+    /*
+      Match all locale-based dashboard and protected sub-routes,
+      but explicitly exclude static Next.js resources and public/auth routes.
+    */
+    "/(en|az|de|ru)/(dashboard|services|documents|company-formation|tax-accounting|banking|profile|manage-users|userlist|support)(/.*)?",
   ],
 };
