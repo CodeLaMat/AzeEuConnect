@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "target": "ES2022",
+    "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "@packages/*": ["../../packages/*"]
     },
     "typeRoots": ["types", "./node_modules/@types"],
-    "outDir": "dist"
+    "outDir": "dist",
+    "rootDir": "../../"
   },
-  "include": ["server.ts", "src/**/*", "../../packages/db/**/*"]
+  "include": ["server.ts", "src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

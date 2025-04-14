@@ -1,10 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "dist/apps/backend/server.js",
   "scripts": {
     "dev": "ts-node -r tsconfig-paths/register server.ts",
-    "start": "node dist/server.js",
+    "start": "node dist/apps/backend/server.js",
     "build": "tsc",
     "migrate": "prisma migrate deploy --schema=../../packages/db/prisma/schema.prisma",
     "seed": "ts-node ../../packages/db/prisma/seed.ts"
