@@ -2,7 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 import userRouter from "./src/routes/userRoutes";
 import profileRouter from "./src/routes/profileRoutes";
 import usersRouter from "./src/routes/allUsersRoutes";
