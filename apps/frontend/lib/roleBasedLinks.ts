@@ -9,7 +9,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { Action, authorize } from "@/lib/rbac";
-import { UserRole } from "@packages/db";
+import { UserRole } from "@repo/db";
 
 /// ✅ Define the navigation links for the main menu
 export const getNavLinks = (
