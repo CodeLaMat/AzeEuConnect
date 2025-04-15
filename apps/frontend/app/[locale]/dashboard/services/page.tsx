@@ -40,7 +40,7 @@ const UploadServiceWizard: React.FC = () => {
   const selectedCategory = useWatch({ control, name: "category" });
   const currentServiceTypes =
     serviceCategories.find((cat) => cat.value === selectedCategory)
-      ?.serviceTypes || [];
+      ?.serviceSubCategories || [];
 
   // Sorted options (if desired)
   const sortedCategories = [...serviceCategories].sort((a, b) =>
@@ -187,7 +187,7 @@ const UploadServiceWizard: React.FC = () => {
             <div className="mb-4">
               <label className="block mb-1">{t("serviceType")}</label>
               <select
-                {...register("serviceType", {
+                {...register("subCategory", {
                   required: t("serviceTypeRequired"),
                 })}
                 className="w-full px-3 py-2 border rounded-md bg-input text-foreground"
@@ -199,9 +199,9 @@ const UploadServiceWizard: React.FC = () => {
                   </option>
                 ))}
               </select>
-              {errors.serviceType && (
+              {errors.subCategory && (
                 <span className="text-destructive">
-                  {errors.serviceType.message}
+                  {errors.subCategory.message}
                 </span>
               )}
             </div>

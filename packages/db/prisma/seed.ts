@@ -14,8 +14,8 @@ import {
   InvoiceStatus,
   InvoiceType,
   PaymentStage,
-} from "@prisma/client";
-import { prisma } from "../index";
+} from "../src";
+import { prisma } from "../src";
 
 const RolePermissions: { [role in UserRole]: Action[] } = {
   ADMIN: ["ALL"],

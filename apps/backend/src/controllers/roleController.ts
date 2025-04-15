@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 
 // ✅ Get all roles with their permissions
 export const getAllRoles = async (req: Request, res: Response) => {

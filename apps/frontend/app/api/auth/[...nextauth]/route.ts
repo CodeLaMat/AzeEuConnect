@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 import jwt from "jsonwebtoken";
 
 export const authOptions: NextAuthOptions = {

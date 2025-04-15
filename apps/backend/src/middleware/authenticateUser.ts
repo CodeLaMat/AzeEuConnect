@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { UserRole } from "@packages/db";
+import { UserRole } from "@repo/db";
 
 interface JwtPayload {
   id: string;

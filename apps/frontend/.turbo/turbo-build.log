@@ -1,16 +1,0 @@
-[?9001h[?1004h[?25l[2J[m[H]0;C:\WINDOWS\system32\cmd.exe [?25h]0;npm]0;npm run build[?25l
-> frontend@0.1.0 build
-> next build[5;1H[?25h[K]0;C:\WINDOWS\system32\cmd.exe    [38;2;173;127;168m[1m▲ Next.js 15.2.2
-[?25l[m   - Environments: .env[8;1H[?25h [37m[1m [m Creating an optimized production build ...
- ⨯ page.tsx doesn't have a root layout. To fix this error, make sure every page has
-[7;83Hs a root layout.
-Next.js build worker exited with code: 1 and signal: null
-[1mnpm[22m [31merror [mLifecycle script `build` failed with error:[K
-[1mnpm[22m [31merror [94mcode [33m1[K[m
-[1mnpm[22m [31merror [94mpath [mC:\Users\eyvaz\Documents\REACT22S\AzEUConnect\AzeEU\apps\frontend   [8;1H
-[1mnpm[22m [31merror [94mworkspace [mfrontend@0.1.0[K
-[1mnpm[22m [31merror [94mlocation [mC:\Users\eyvaz\Documents\REACT22S\AzEUConnect\AzeEU\apps\fronten
-[7;83Hnd
-[1mnpm[22m [31merror [mcommand failed[K
-[1mnpm[22m [31merror [94mcommand [mC:\WINDOWS\system32\cmd.exe /d /s /c next build[K
-⠙[K[?9001l[?1004l

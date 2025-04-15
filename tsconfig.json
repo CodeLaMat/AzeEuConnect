@@ -4,5 +4,6 @@
     "paths": {
       "@packages/*": ["packages/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }

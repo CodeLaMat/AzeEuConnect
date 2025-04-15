@@ -1,4 +1,4 @@
-import { Company, Review, Subscription, UserRole } from "@prisma/client";
+import { Company, Review, Subscription, UserRole } from "@repo/db";
 
 export interface ManagedUser {
   id: string;

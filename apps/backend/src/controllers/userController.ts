@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 import crypto from "crypto";
 import { sendEmail } from "../lib/sendEmail";
 

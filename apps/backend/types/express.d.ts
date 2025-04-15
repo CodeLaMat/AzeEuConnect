@@ -1,4 +1,4 @@
-import { UserRole } from "@packages/db";
+import { UserRole } from "@repo/db";
 
 declare global {
   namespace Express {

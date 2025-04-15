@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 
 // Create a new service listing
 export const createServiceListing = async (req: Request, res: Response) => {

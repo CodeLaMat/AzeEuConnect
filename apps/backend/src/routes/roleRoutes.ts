@@ -11,7 +11,7 @@ import {
 } from "../controllers/roleController";
 import { authenticateUser } from "@/middleware/authenticateUser";
 import { authorizeMiddleware } from "@/middleware/authorize";
-import { Action } from "@packages/db";
+import { Action } from "@repo/db";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 
 // ✅ Get all users with profile and subscription
 export const getAllUsers = async (req: Request, res: Response) => {

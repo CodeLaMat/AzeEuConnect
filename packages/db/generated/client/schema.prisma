@@ -1,0 +1,590 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String        @id @default(uuid())
+  email            String        @unique
+  password         String
+  roleId           String?
+  role             Role?         @relation(fields: [roleId], references: [id])
+  currentRole      String?
+  emailVerified    Boolean       @default(false)
+  twoFactorEnabled Boolean       @default(false)
+  lastLogin        DateTime?
+  accountStatus    AccountStatus @default(ACTIVE)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  deletedAt        DateTime? // optional soft delete
+  createdBy        String? // optional audit trail
+  updatedBy        String?
+
+  resetToken       String?
+  resetTokenExpiry DateTime?
+
+  appointments         Appointment[]
+  companyDetails       Company?
+  documents            Document[]
+  notifications        Notification[]
+  profile              Profile?
+  services             Services?
+  subscription         Subscription?
+  serviceSubscriptions ServiceSubscription[]
+  supportTickets       SupportTicket[]
+  serviceListings      ServiceListing[]
+  reviews              Review[]
+  orders               Order[]
+  savedJobs            SavedJob[]
+
+  // Required for NextAuth
+  accounts Account[]
+
+  // Custom Relations
+  buyerOrders      Order[]   @relation("BuyerOrders")
+  providerOrders   Order[]   @relation("ProviderOrders")
+  paidInvoices     Invoice[] @relation("InvoicePayer")
+  receivedInvoices Invoice[] @relation("InvoiceReceiver")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Profile {
+  id                String    @id @default(uuid())
+  firstName         String?
+  lastName          String?
+  location          String?
+  phone             String?
+  image             String?
+  gender            Gender?
+  nationality       String?
+  timezone          String?   @default("UTC")
+  preferredLanguage Language? @default(AZ)
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id])
+}
+
+model Company {
+  id                    String             @id @default(uuid())
+  businessName          String
+  businessType          BusinessType
+  businessCategory      BusinessCategory
+  registrationStatus    RegistrationStatus @default(PENDING)
+  businessAddress       String?
+  vatNumber             String?
+  taxId                 String?
+  companySize           CompanySize?
+  countryOfRegistration String?
+  formationDate         DateTime?
+  lastUpdated           DateTime?
+  userId                String             @unique
+  user                  User               @relation(fields: [userId], references: [id])
+}
+
+model Subscription {
+  id              String           @id @default(uuid())
+  plan            SubscriptionPlan @default(BASIC)
+  paymentStatus   PaymentStatus    @default(ACTIVE)
+  paymentMethod   PaymentMethod?
+  nextBillingDate DateTime?
+  discountApplied Boolean          @default(false)
+  referralCode    String?
+  userId          String           @unique
+  user            User             @relation(fields: [userId], references: [id])
+}
+
+model Services {
+  id                    String         @id @default(uuid())
+  companyFormation      ServiceStatus?
+  taxAndAccounting      ServiceStatus?
+  legalConsultation     ServiceStatus?
+  bankingSetup          ServiceStatus?
+  virtualOffice         ServiceStatus?
+  trademarkRegistration ServiceStatus?
+  regulatoryCompliance  ServiceStatus?
+  businessExpansion     ServiceStatus?
+  userId                String         @unique
+  user                  User           @relation(fields: [userId], references: [id])
+}
+
+model ServiceSubscription {
+  id           String                    @id @default(uuid())
+  subscriberId String
+  serviceId    String
+  status       ServiceSubscriptionStatus @default(ACTIVE)
+  startDate    DateTime                  @default(now())
+  endDate      DateTime?
+  createdAt    DateTime                  @default(now())
+
+  subscriber User           @relation(fields: [subscriberId], references: [id])
+  service    ServiceListing @relation(fields: [serviceId], references: [id])
+
+  @@index([subscriberId])
+  @@index([serviceId])
+}
+
+model SavedJob {
+  id        String   @id @default(uuid())
+  userId    String
+  serviceId String
+  savedAt   DateTime @default(now())
+
+  user    User           @relation(fields: [userId], references: [id])
+  service ServiceListing @relation(fields: [serviceId], references: [id])
+
+  @@index([userId])
+  @@index([serviceId])
+}
+
+model Document {
+  id           String         @id @default(uuid())
+  documentType DocumentType
+  fileUrl      String
+  status       DocumentStatus @default(UPLOADED)
+  uploadedAt   DateTime       @default(now())
+  verifiedBy   String?
+  userId       String
+  user         User           @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Appointment {
+  id              String            @id @default(uuid())
+  consultantId    String
+  serviceCategory ServiceCategory
+  scheduledDate   DateTime
+  status          AppointmentStatus @default(PENDING)
+  userId          String
+  user            User              @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  type      NotificationType
+  message   String
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+}
+
+model SupportTicket {
+  id          String                @id @default(uuid())
+  subject     String
+  description String
+  priority    SupportTicketPriority
+  status      SupportTicketStatus   @default(OPEN)
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  userId      String
+  user        User                  @relation(fields: [userId], references: [id])
+}
+
+model ServiceListing {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  category    String
+  subCategory String // ✅ Add this line
+  country     String
+  price       Float?
+  currency    Currency @default(EUR)
+  rating      Float    @default(0)
+  image       String? // already added based on earlier convo
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  packages      ServicePackage[]
+  subscriptions ServiceSubscription[]
+  reviews       Review[]
+  orders        Order[]
+  SavedJob      SavedJob[]
+
+  @@index([ownerId])
+}
+
+model ServicePackage {
+  id               String         @id @default(uuid())
+  name             String
+  description      String?
+  price            Float
+  conditions       String?
+  image            String? // ✅ New
+  serviceListingId String
+  serviceListing   ServiceListing @relation(fields: [serviceListingId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @default(now()) @updatedAt
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int      @default(5)
+  comment   String
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User           @relation(fields: [userId], references: [id])
+  serviceId String
+  service   ServiceListing @relation(fields: [serviceId], references: [id])
+}
+
+model Order {
+  id        String      @id @default(uuid())
+  status    OrderStatus @default(PENDING)
+  type      OrderType   @default(MARKETPLACE)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
+  deletedAt DateTime? // soft delete optional
+
+  buyerId String
+  buyer   User   @relation("BuyerOrders", fields: [buyerId], references: [id])
+
+  providerId String?
+  provider   User?   @relation("ProviderOrders", fields: [providerId], references: [id])
+
+  serviceId String
+  service   ServiceListing @relation(fields: [serviceId], references: [id])
+
+  stripePaymentIntentId String?
+  amount                Float?
+  isPaid                Boolean @default(false)
+
+  customNotes String?
+  deliveryDue DateTime?
+  User        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+
+  // ✅ New fields for two-stage payment
+  advanceAmount Float?
+  finalAmount   Float?
+  paymentStage  PaymentStage @default(NONE)
+  invoices      Invoice[] // Related invoices
+}
+
+model Invoice {
+  id       String        @id @default(uuid())
+  orderId  String
+  type     InvoiceType
+  amount   Float
+  status   InvoiceStatus @default(UNPAID)
+  fileUrl  String?
+  issuedAt DateTime      @default(now())
+  paidAt   DateTime?
+
+  stripePaymentIntentId String?
+  stripeCustomerId      String?
+
+  paidById String?
+  paidToId String?
+
+  order  Order @relation(fields: [orderId], references: [id])
+  paidBy User? @relation("InvoicePayer", fields: [paidById], references: [id])
+  paidTo User? @relation("InvoiceReceiver", fields: [paidToId], references: [id])
+}
+
+enum PaymentStage {
+  NONE
+  AWAITING_ADVANCE_PAYMENT
+  ADVANCE_PAID
+  AWAITING_FINAL_PAYMENT
+  FINAL_PAID
+}
+
+enum InvoiceType {
+  ADVANCE
+  FINAL
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PAID
+  REFUNDED
+  CANCELLED
+}
+
+model Permission {
+  id          String           @id @default(uuid())
+  name        String           @unique
+  action      Action           @default(ALL)
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @default(now()) @updatedAt
+  roles       RolePermission[]
+}
+
+model Role {
+  id          String           @id @default(uuid())
+  name        String           @unique
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @default(now()) @updatedAt
+  permissions RolePermission[]
+  users       User[]
+}
+
+model RolePermission {
+  id           String   @id @default(uuid())
+  roleId       String
+  permissionId String
+  displayName  String
+  createdAt    DateTime @default(now())
+
+  role       Role       @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@unique([roleId, permissionId])
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
+  CONSULTANT
+  SERVICE_PROVIDER
+  MODERATOR
+  SUPPORT_AGENT
+  REGULATORY_OFFICER
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Language {
+  AZ
+  EN
+  DE
+  RU
+}
+
+enum Currency {
+  EUR
+  USD
+  TRY
+  AZN
+}
+
+enum BusinessType {
+  GMBH
+  UG
+  SARL
+  BV
+  LTD
+  AG
+}
+
+enum BusinessCategory {
+  TECH
+  FINANCE
+  RETAIL
+  MANUFACTURING
+  OTHER
+}
+
+enum RegistrationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum CompanySize {
+  SOLE_PROPRIETOR
+  SMALL_BUSINESS
+  MEDIUM_BUSINESS
+  LARGE_BUSINESS
+}
+
+enum SubscriptionPlan {
+  BASIC
+  PRO
+  ENTERPRISE
+}
+
+enum ServiceSubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+}
+
+enum PaymentStatus {
+  ACTIVE
+  PENDING
+  CANCELLED
+}
+
+enum PaymentMethod {
+  STRIPE
+  PAYPAL
+  SEPA
+  KLARNA
+}
+
+enum ServiceStatus {
+  REQUESTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum DocumentType {
+  ARTICLES_OF_INCORPORATION
+  BUSINESS_LICENSE
+  TAX_CERTIFICATE
+  BANKING_AGREEMENT
+}
+
+enum DocumentStatus {
+  UPLOADED
+  VERIFIED
+  REJECTED
+}
+
+enum ServiceCategory {
+  LEGAL_CONSULTATION
+  TAX_ADVISORY
+  BANKING_SETUP
+  COMPANY_FORMATION
+  FINANCIAL_PLANNING
+  MARKETING_SERVICES
+  CONSULTING_SERVICES
+  PROCUREMENT_SERVICES
+  MERGERS_AND_ACQUISITIONS
+  IT_SUPPORT
+  SOFTWARE_DEVELOPMENT
+  DESIGN_SERVICES
+  HUMAN_RESOURCES
+  RECRUITMENT
+  REAL_ESTATE_SERVICES
+  HOME_RENOVATION
+  REPAIR_SERVICES
+  HEALTHCARE_SERVICES
+  FITNESS_TRAINING
+  PERSONAL_COACHING
+  BEAUTY_SERVICES
+  LIFESTYLE_CONSULTING
+  PET_SERVICES
+  TRAVEL_PLANNING
+  EVENT_MANAGEMENT
+  ENTERTAINMENT_SERVICES
+  FOOD_CATERING
+  SECURITY_SERVICES
+  LEGAL_DOCUMENT_PREPARATION
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum NotificationType {
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum SupportTicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum SupportTicketStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum OrderType {
+  MARKETPLACE
+  CUSTOM_JOB
+}
+
+enum Action {
+  ALL
+  CREATE_ORDER
+  VIEW_SERVICES
+  WRITE_REVIEW
+  POST_SERVICE
+  MANAGE_PROFILE
+  RESPOND_TO_REVIEWS
+  MANAGE_ORDERS
+  MANAGE_TICKETS
+  VERIFY_COMPANY
+  APPROVE_COMPANY
+  MANAGE_COMPANY
+  APPROVE_DOCUMENTS
+  MANAGE_APPOINTMENTS
+  READ_USERS
+  VIEW_CLIENTS
+  VIEW_SUPPORT_TICKETS
+  MANAGE_CLIENTS
+  VIEW_ORDERS
+  MANAGE_SUBSCRIPTIONS
+  VIEW_SERVICE_LISTINGS
+  MANAGE_SUPPORT_AGENTS
+  MANAGE_DOCUMENTS
+  VIEW_APPOINTMENTS
+  MANAGE_NOTIFICATIONS
+  VIEW_NOTIFICATIONS
+  SEND_MESSAGES
+  SEND_EMAILS
+  MANAGE_MESSAGES
+  MANAGE_USERS
+  VIEW_USERS
+  VIEW_REVIEWS
+  MANAGE_REVIEWS
+  POST_REVIEW
+  APPROVE_SERVICE
+}

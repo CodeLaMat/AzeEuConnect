@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
+    "@repo/db": "file:../../packages/db",
+    "@repo/ui": "file:../../packages/ui",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

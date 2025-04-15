@@ -2,30 +2,22 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**", "prisma/**", "!.next/cache/**"]
+    "db:generate": {
+      "cache": false
     },
-    "dev": {
+    "db:migrate": {
       "cache": false,
       "persistent": true
     },
-    "lint": {
-      "dependsOn": ["^lint"],
-      "outputs": []
+    "db:deploy": {
+      "cache": false
     },
-    "check-types": {
-      "dependsOn": ["^check-types"],
-      "outputs": []
+    "db:seed": {
+      "cache": false,
+      "persistent": true
     },
-    "generate": {
-      "outputs": ["node_modules/.prisma/client"]
-    },
-    "migrate": {
-      "outputs": []
-    },
-    "seed": {
-      "outputs": []
+    "db:build": {
+      "cache": false
     }
   }
 }

@@ -13,7 +13,7 @@ import { AppDispatch } from "@/store/store";
 import { setUserIdentity } from "@/store/userSlice";
 import { fetchUserProfile } from "@/store/profileSlice";
 import { getDashboardRoute } from "@/lib/utils";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "@repo/db";
 import { supportedLocales } from "@/lib/options";
 
 export default function SignInPage() {

@@ -1,3 +1,3 @@
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 
 export default prisma;

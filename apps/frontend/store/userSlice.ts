@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserRole } from "@prisma/client";
+import { UserRole } from "@repo/db";
 import { UserState } from "@/types/types";
 
 // Update this type if not yet changed:
