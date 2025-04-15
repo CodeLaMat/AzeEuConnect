@@ -9,7 +9,11 @@ import usersRouter from "./src/routes/allUsersRoutes";
 import roleRouter from "./src/routes/roleRoutes";
 import serviceRouter from "./src/routes/serviceRoutes";
 
-dotenv.config();
+dotenv.config({
+  path:
+    process.env.NODE_ENV === "production" ? ".env.production" : ".env.local",
+});
+
 const app = express();
 
 app.use(express.json());
