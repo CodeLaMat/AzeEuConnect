@@ -4,7 +4,7 @@
   "private": true,
   "main": "dist/server.js",
   "scripts": {
-    "dev": "ts-node -r tsconfig-paths/register server.ts",
+    "dev": "ts-node server.ts",
     "start": "node dist/server.js",
     "build": "tsc",
     "lint": "eslint .",
