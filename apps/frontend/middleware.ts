@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 import { protectedSubRoutes, publicRoutes } from "./lib/roleBasedLinks";
-import { UserRole } from "@packages/db";
+import { UserRole } from "@repo/db";
 import { supportedLocales } from "./lib/options";
 import type { JWT } from "next-auth/jwt";
 
