@@ -1,10 +1,11 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import path from "path";
 
 dotenv.config({
-  path: path.resolve(__dirname, "../../.env"),
+  path:
+    process.env.NODE_ENV === "production" ? ".env.production" : ".env.local",
 });
+
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
