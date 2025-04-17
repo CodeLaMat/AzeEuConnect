@@ -17,7 +17,7 @@
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:dev": "tsc --watch",
-    "db:build": "tsc"
+    "build": "tsc"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0"

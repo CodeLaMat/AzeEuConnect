@@ -1,5 +1,5 @@
 // test.ts
-import { PrismaClient } from "@repo/db/generated/client"; // Adjust the import path as necessary
+import { PrismaClient } from "./generated/client"; // Adjust the import path as necessary
 
 const prisma = new PrismaClient();
 
