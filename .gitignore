@@ -1,1 +1,32 @@
-node_modules
+# Node dependencies
+node_modules/
+
+# Local env files
+.env*
+!.env.example
+
+# Turborepo
+.turbo/
+
+# Build output (sometimes root-level build folder gets created)
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log
+*.pem

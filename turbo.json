@@ -3,7 +3,7 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^db:generate"],
       "outputs": [".next/**", "dist/**", "build/**"]
     },
     "start": {
@@ -11,12 +11,11 @@
       "cache": false
     },
     "dev": {
-      "cache": false
+      "dependsOn": ["^db:generate"],
+      "cache": false,
+      "persistent": true
     },
     "lint": {
-      "outputs": []
-    },
-    "test": {
       "outputs": []
     },
     "db:generate": {

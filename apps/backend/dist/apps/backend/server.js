@@ -2,17 +2,19 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
-import { prisma } from "@packages/db";
+import { prisma } from "@repo/db";
 import userRouter from "./src/routes/userRoutes";
 import profileRouter from "./src/routes/profileRoutes";
 import usersRouter from "./src/routes/allUsersRoutes";
 import roleRouter from "./src/routes/roleRoutes";
 import serviceRouter from "./src/routes/serviceRoutes";
-dotenv.config();
+dotenv.config({
+    path: process.env.NODE_ENV === "production" ? ".env.production" : ".env.local",
+});
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -30,4 +32,17 @@ process.on("SIGINT", async () => {
     await prisma.$disconnect();
     process.exit(0);
 });
-app.listen(process.env.PORT, () => console.log("🚀 Server running on port 5001"));
+cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+});
+cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    credentials: true,
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+});
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

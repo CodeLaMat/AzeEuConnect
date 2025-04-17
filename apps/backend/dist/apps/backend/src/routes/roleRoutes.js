@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getAllRoles, getAllPermissions, createRole, createPermission, assignPermissionsToRole, updateUserRole, deleteRole, deletePermission, } from "../controllers/roleController";
-import { authenticateUser } from "@/middleware/authenticateUser";
-import { authorizeMiddleware } from "@/middleware/authorize";
+import { authenticateUser } from "../middleware/authenticateUser";
+import { authorizeMiddleware } from "../middleware/authorize";
 import { Action } from "@repo/db";
 const router = Router();
 // Routes for role management

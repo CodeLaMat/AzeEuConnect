@@ -1,7 +1,7 @@
 import express from "express";
-import { getAllUsers, getUserById, updateUserProfileField, updateSubscriptionField, updateCompanyField, } from "@/controllers/usersController";
-import { authenticateUser } from "@/middleware/authenticateUser";
-import { authorizeMiddleware } from "@/middleware/authorize";
+import { getAllUsers, getUserById, updateUserProfileField, updateSubscriptionField, updateCompanyField, } from "../controllers/usersController";
+import { authenticateUser } from "../middleware/authenticateUser";
+import { authorizeMiddleware } from "../middleware/authorize";
 import { Action } from "@repo/db";
 const router = express.Router();
 // ✅ Users

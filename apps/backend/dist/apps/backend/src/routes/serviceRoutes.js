@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { createServiceListing, getAllServiceListings, updateServiceListing, deleteServiceListing, } from "../controllers/serviceController";
-import { authenticateUser } from "@/middleware/authenticateUser";
-import { authorizeMiddleware } from "@/middleware/authorize";
+import { authenticateUser } from "../middleware/authenticateUser";
+import { authorizeMiddleware } from "../middleware/authorize";
 import { Action } from "@repo/db";
 const router = Router();
 // Route to create a new service listing

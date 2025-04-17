@@ -23,12 +23,15 @@ export const authenticateUser = async (
     const token = authHeader.split(" ")[1];
 
     console.log("🔑 Token received:", token);
-    console.log("🧪 Decoded:", jwt.decode(token, { complete: true }));
     console.log("🔐 Secret used:", process.env.NEXTAUTH_SECRET);
+    if (!token) {
+      throw new Error("Token is undefined");
+    }
+
     const decoded = jwt.verify(
       token,
       process.env.NEXTAUTH_SECRET!
-    ) as JwtPayload;
+    ) as unknown as JwtPayload;
 
     console.log("🧪 Decoded:", decoded);
 
