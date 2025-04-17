@@ -1,0 +1,15 @@
+{
+    "title": "Pricing Plans",
+    "description": "Choose the best plan that fits your needs.",
+    "plans": {
+      "basic": "Basic",
+      "basicPrice": "$29/mo",
+      "basicDesc": "Essential features for startups.",
+      "pro": "Pro",
+      "proPrice": "$99/mo",
+      "proDesc": "Advanced features for growing businesses.",
+      "enterprise": "Enterprise",
+      "enterprisePrice": "Custom",
+      "enterpriseDesc": "Tailored solutions for large enterprises."
+    }
+  }

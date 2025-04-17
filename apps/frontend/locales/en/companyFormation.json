@@ -1,0 +1,28 @@
+{
+    "title": "Start Your EU Business",
+    "description": "We help you register your company quickly and easily.",
+    "stepsTitle": "Steps to Register Your Company",
+    "steps": {
+      "step1": "Choose the right legal structure (GmbH, UG, Ltd, etc.)",
+      "step2": "Prepare necessary legal documents",
+      "step3": "Submit the application to the business registry",
+      "step4": "Obtain a tax ID and open a business bank account",
+      "step5": "Start operations and stay compliant with local regulations"
+    },
+    "benefitsTitle": "Why Start a Business in the EU?",
+    "benefits": {
+      "benefit1": "Access to a large EU market",
+      "benefit2": "Legal protections and business stability",
+      "benefit3": "Lower corporate taxes in some EU countries",
+      "benefit4": "Easier access to international banking and funding"
+    },
+    "documentsTitle": "Required Documents",
+    "documents": {
+      "document1": "Valid passport or national ID",
+      "document2": "Proof of address (utility bill, bank statement)",
+      "document3": "Company bylaws and articles of incorporation",
+      "document4": "Shareholder and director details"
+    },
+    "ctaText": "Ready to establish your business in the EU?",
+    "getStarted": "Get Started Today"
+  }

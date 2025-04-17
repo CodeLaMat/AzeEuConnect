@@ -1,131 +1,179 @@
 {
   "navbar": {
     "companyFormation": "Firmengründung",
+    "homePage": "Startseite",
     "services": "Dienstleistungen",
     "pricing": "Preise",
-    "aboutUs": "Über Uns",
+    "aboutUs": "Über uns",
     "blog": "Blog",
     "contact": "Kontakt",
+    "clients": "Kunden",
+    "news": "Neuigkeiten",
+    "manageUsers": "Benutzer verwalten",
+    "announcements": "Ankündigungen",
     "dashboard": "Dashboard",
     "documents": "Dokumente",
-    "homePage": "Startseite",
-
     "logIn": "Anmelden",
     "signUp": "Registrieren",
     "logout": "Abmelden",
-    "selectLanguage": "Sprache Wählen",
+    "selectLanguage": "Sprache auswählen",
     "logInWithGoogle": "Mit Google anmelden",
-    "loading": "Lädt...",
+    "loading": "Lädt …",
     "auth": {
-      "title": "Melden Sie sich an",
-      "description": "Melden Sie sich mit Google an oder verwenden Sie E-Mail und Passwort.",
-      "logInWithGoogle": "Mit Google anmelden",
+      "title": "Melde dich bei deinem Konto an",
+      "description": "Wähle unten deine bevorzugte Anmeldemethode.",
+      "logInWithGoogle": "Mit Google fortfahren",
       "or": "oder",
-      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
-      "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+      "emailPlaceholder": "E‑Mail eingeben",
+      "passwordPlaceholder": "Passwort eingeben",
+      "forgotPassword": "Passwort vergessen?",
       "login": "Anmelden",
       "noAccount": "Noch kein Konto?",
       "signUp": "Registrieren"
+    },
+    "account": {
+      "personalSettings": "Persönliche Einstellungen",
+      "bookmarks": "Lesezeichen",
+      "drafts": "Entwürfe",
+      "helpCenter": "Hilfe‑Center",
+      "logout": "Abmelden",
+      "noLocation": "Kein Standort angegeben",
+      "dashboard": "Dashboard",
+      "switchRole": "Rolle wechseln"
     }
   },
+
   "companyFormation": {
-    "title": "Starten Sie Ihr EU-Unternehmen",
-    "description": "Wir helfen Ihnen, Ihr Unternehmen schnell und einfach zu registrieren.",
-    "stepsTitle": "Schritte zur Unternehmensregistrierung",
+    "title": "Starte dein EU‑Unternehmen",
+    "description": "Wir helfen dir, dein Unternehmen schnell und einfach zu registrieren.",
+    "stepsTitle": "Schritte zur Unternehmens­registrierung",
     "steps": {
-      "step1": "Wählen Sie die richtige Rechtsform (GmbH, UG, Ltd usw.)",
-      "step2": "Erstellen Sie die erforderlichen Rechtsdokumente",
-      "step3": "Reichen Sie die Anmeldung beim Handelsregister ein",
-      "step4": "Erhalten Sie eine Steuernummer und eröffnen Sie ein Geschäftskonto",
-      "step5": "Starten Sie Ihr Geschäft und bleiben Sie konform mit lokalen Vorschriften"
+      "step1": "Wähle die passende Rechtsform (GmbH, UG, Ltd. usw.)",
+      "step2": "Bereite die erforderlichen Unterlagen vor",
+      "step3": "Reiche den Antrag beim Handelsregister ein",
+      "step4": "Beantrage eine Steuernummer und eröffne ein Geschäftskonto",
+      "step5": "Starte den Betrieb und bleibe rechtskonform"
     },
     "benefitsTitle": "Warum ein Unternehmen in der EU gründen?",
     "benefits": {
-      "benefit1": "Zugang zu einem großen EU-Markt",
-      "benefit2": "Rechtlicher Schutz und wirtschaftliche Stabilität",
-      "benefit3": "Geringere Unternehmenssteuern in einigen EU-Ländern",
-      "benefit4": "Einfacherer Zugang zu internationalen Bankdienstleistungen und Finanzierungen"
+      "benefit1": "Zugang zu einem großen EU‑Markt",
+      "benefit2": "Rechtssicherheit und stabile Rahmenbedingungen",
+      "benefit3": "Niedrigere Unternehmens­steuern in manchen EU‑Ländern",
+      "benefit4": "Leichterer Zugang zu internationalem Banking und Finanzierung"
     },
-    "documentsTitle": "Erforderliche Dokumente",
+    "documentsTitle": "Erforderliche Unterlagen",
     "documents": {
       "document1": "Gültiger Reisepass oder Personalausweis",
-      "document2": "Adressnachweis (z. B. Stromrechnung, Kontoauszug)",
-      "document3": "Unternehmenssatzung und Gründungsdokumente",
+      "document2": "Adressnachweis (Stromrechnung, Kontoauszug)",
+      "document3": "Satzung und Gesellschaftsvertrag",
       "document4": "Informationen zu Gesellschaftern und Geschäftsführern"
     },
-    "ctaText": "Bereit, Ihr Unternehmen in der EU zu gründen?",
-    "getStarted": "Jetzt Starten"
+    "ctaText": "Bereit, dein Unternehmen in der EU zu gründen?",
+    "getStarted": "Jetzt loslegen"
   },
 
   "about": {
     "title": "Über uns",
-    "description": "Erfahren Sie mehr über unser Unternehmen, unsere Mission und unsere Werte.",
+    "description": "Erfahre mehr über unser Unternehmen, unsere Mission und Werte.",
     "mission": {
       "title": "Unsere Mission",
-      "description": "Wir wollen die Unternehmensgründung und Expansion in der EU vereinfachen und für alle zugänglich machen."
+      "description": "Wir vereinfachen die Unternehmens­gründung und Expansion in der EU, damit sie für alle zugänglich ist."
     },
     "values": {
-      "title": "Unsere Werte",
-      "integrity": "Integrität: Wir halten höchste ethische Standards ein.",
+      "title": "Unsere Kernwerte",
+      "integrity": "Integrität: Wir handeln stets ethisch einwandfrei.",
       "transparency": "Transparenz: Offene und ehrliche Kommunikation.",
       "innovation": "Innovation: Ständige Verbesserung unserer Dienstleistungen.",
-      "customerFocus": "Kundenorientierung: Ihr Erfolg ist unsere Priorität."
+      "customerFocus": "Kundenorientierung: Dein Erfolg hat Priorität."
     },
     "team": {
       "title": "Unser Team",
-      "description": "Unser Team besteht aus Branchenexperten mit langjähriger Erfahrung in der Unternehmensgründung und Rechtsberatung.",
-      "ceo": "Geschäftsführer",
-      "cfo": "Finanzdirektor",
-      "cto": "Technischer Direktor"
+      "description": "Unser Team besteht aus Branchen­experten mit langjähriger Erfahrung in Gründungs‑ und Rechtsberatung.",
+      "ceo": "Geschäftsführer (CEO)",
+      "cfo": "Finanzvorstand (CFO)",
+      "cto": "Technikvorstand (CTO)"
     },
-    "ctaText": "Bereit, Ihr Unternehmen in der EU zu starten?",
+    "ctaText": "Bereit für dein EU‑Business?",
     "ctaButton": "Jetzt starten"
   },
+
   "blog": {
     "title": "Unser Blog",
-    "description": "Lesen Sie Artikel und Einblicke zur Firmengründung."
+    "description": "Artikel und Einblicke rund um die Unternehmens­gründung."
   },
+
+  "documents": {
+    "title": "Dokumente",
+    "description": "Liste der benötigten Unterlagen für die Gründung.",
+    "filter": {
+      "title": "Dokumente filtern",
+      "country": "Land",
+      "businessArea": "Branche",
+      "type": "Typ",
+      "authority": "Behörde",
+      "clear": "Filter zurücksetzen",
+      "language": "Sprache",
+      "dateFrom": "Von",
+      "dateTo": "Bis"
+    },
+    "table": {
+      "documentName": "Dokumentname",
+      "country": "Land",
+      "businessArea": "Branche",
+      "type": "Typ",
+      "date": "Datum",
+      "authority": "Behörde",
+      "language": "Sprache",
+      "view": "Ansehen",
+      "noDocuments": "Keine Dokumente gefunden"
+    }
+  },
+
   "contact": {
-    "title": "Kontaktieren Sie uns",
-    "description": "Kontaktieren Sie uns für Fragen oder Anfragen."
+    "title": "Kontakt aufnehmen",
+    "description": "Schreib uns bei Fragen oder Anliegen."
   },
+
   "dashboard": {
     "title": "Dashboard",
     "sidebar": {
       "dashboard": "Dashboard",
+      "profile": "Profil",
+      "services": "Dienstleistungen",
       "documents": "Dokumente",
       "companyFormation": "Firmengründung",
       "taxAccounting": "Steuern & Buchhaltung",
-      "banking": "Bankwesen",
-      "support": "Unterstützung"
+      "banking": "Banking",
+      "support": "Support",
+      "userList": "Benutzer verwalten"
     },
     "registrationStatus": {
-      "title": "Registrierungsstatus",
+      "title": "Registrierungs­status",
       "inProgress": "In Bearbeitung",
       "completedSteps": "{completed} von {total} Schritten abgeschlossen"
     },
     "upcomingTasks": {
-      "title": "Bevorstehende Aufgaben",
-      "task1": "Notarielle Dokumente einreichen ({days} Tage)",
-      "task2": "Bankkontodaten verifizieren ({days} Tage)",
-      "task3": "Steuerberatungstermin vereinbaren ({days} Tage)"
+      "title": "Anstehende Aufgaben",
+      "task1": "Notarisierte Dokumente einreichen ({days} Tage)",
+      "task2": "Bankdaten verifizieren ({days} Tage)",
+      "task3": "Steuerberatung vereinbaren ({days} Tage)"
     },
     "subscription": {
       "title": "Abonnement",
-      "plan": "{plan}-Plan",
+      "plan": "{plan}‑Paket",
       "activeUntil": "Aktiv bis {date}",
-      "manage": "Abonnement verwalten"
+      "manage": "Abo verwalten"
     },
     "recentDocuments": {
-      "title": "Letzte Dokumente",
+      "title": "Neueste Dokumente",
       "uploaded": "Hochgeladen am {date}",
-      "viewAll": "Alle anzeigen"
+      "viewAll": "Alle ansehen"
     },
     "documents": {
       "title": "Dokumente",
       "upload": {
         "title": "Dokumente hochladen",
-        "description": "Laden Sie die erforderlichen Geschäftsdokumente zur Überprüfung hoch.",
+        "description": "Lade erforderliche Geschäftsdokumente zur Prüfung hoch.",
         "button": "Datei hochladen"
       },
       "status": {
@@ -138,60 +186,208 @@
         "pending": "Ausstehend"
       },
       "recentDocuments": {
-        "title": "Letzte Dokumente",
+        "title": "Neueste Dokumente",
         "uploaded": "Hochgeladen am {date}"
       }
     },
     "companyFormation": {
       "title": "Firmengründung",
-      "registrationProgress": "Registrierungsfortschritt",
+      "registrationProgress": "Fortschritt der Registrierung",
       "steps": {
         "documentPreparation": "Dokumentenvorbereitung",
-        "notarization": "Notarisierung",
-        "bankAccountOpening": "Bankkontoeröffnung",
+        "notarization": "Notarisation",
+        "bankAccountOpening": "Kontoeröffnung",
         "commercialRegisterEntry": "Handelsregistereintrag",
         "taxRegistration": "Steuerregistrierung"
       },
       "status": {
         "completed": "Abgeschlossen",
         "inProgress": "In Bearbeitung",
-        "notStarted": "Nicht gestartet"
+        "notStarted": "Nicht begonnen"
       }
     },
+
     "taxAccounting": {
       "title": "Steuern & Buchhaltung",
       "taxStatus": {
-        "title": "Steuerstatus",
+        "title": "Status der Steuererklärung",
         "inProgress": "In Bearbeitung",
         "progress": "{completed} von {total} Schritten abgeschlossen"
       },
       "services": {
-        "title": "Steuer- & Buchhaltungsdienste",
+        "title": "Steuer‑ & Buchhaltungs­services",
         "taxConsulting": "Steuerberatung",
-        "taxConsultingDesc": "Erhalten Sie professionelle Beratung zur Steueroptimierung und -konformität.",
-        "vatFiling": "Mehrwertsteuererklärung",
-        "vatFilingDesc": "Reichen Sie Ihre Mehrwertsteuererklärung mit professioneller Unterstützung ein."
+        "taxConsultingDesc": "Expertenrat zu Steuer­optimierung und Compliance.",
+        "vatFiling": "Umsatzsteuer­meldung",
+        "vatFilingDesc": "Reiche deine USt‑Voranmeldung professionell ein."
       },
       "filings": {
-        "title": "Letzte Steuererklärungen",
-        "date": "Einreichungsdatum: {date}",
+        "title": "Letzte Steuer­meldungen",
+        "date": "Einreichdatum: {date}",
         "completed": "Abgeschlossen",
         "pending": "Ausstehend"
       }
     },
+
+    "services": {
+      "uploadServiceTitle": "Service hochladen",
+      "step1Title": "Servicedetails",
+      "step2Title": "Preise & Pakete",
+      "step3Title": "Prüfen & Absenden",
+      "package": "Paket",
+      "serviceDetails": "Servicedetails",
+      "title": "Titel",
+      "titleRequired": "Titel ist erforderlich",
+      "titlePlaceholder": "Servicetitel eingeben",
+      "description": "Beschreibung",
+      "descriptionRequired": "Beschreibung ist erforderlich",
+      "descriptionPlaceholder": "Service­beschreibung eingeben",
+      "category": "Kategorie",
+      "categoryRequired": "Kategorie ist erforderlich",
+      "categoryPlaceholder": "Kategorie wählen",
+      "country": "Land",
+      "countryRequired": "Land ist erforderlich",
+      "countryPlaceholder": "Land wählen",
+      "serviceCategory": "Servicekategorie",
+      "serviceCategoryRequired": "Servicekategorie ist erforderlich",
+      "selectType": "Service­typ wählen",
+      "pricingAndPackages": "Preise & Pakete",
+      "fixedPriceOptional": "Festpreis (optional)",
+      "pricePlaceholder": "Preis eingeben (falls zutreffend)",
+      "currency": "Währung",
+      "currencyRequired": "Währung ist erforderlich",
+      "packageDetails": "Paketdetails",
+      "packageName": "Paketname",
+      "packageNameRequired": "Paketname ist erforderlich",
+      "packageNamePlaceholder": "z. B. Basic",
+      "packageDescription": "Paketbeschreibung",
+      "packageDescriptionPlaceholder": "Paketbeschreibung eingeben",
+      "packagePrice": "Paketpreis",
+      "packagePriceRequired": "Paketpreis ist erforderlich",
+      "packagePricePlaceholder": "Paketpreis eingeben",
+      "conditions": "Bedingungen",
+      "conditionsPlaceholder": "Bedingungen oder Hinweise eingeben",
+      "addPackage": "Paket hinzufügen",
+      "removePackage": "Paket entfernen",
+      "reviewAndSubmit": "Prüfen & absenden",
+      "reviewPrompt": "Bitte überprüfe deine Angaben, bevor du sendest.",
+      "back": "Zurück",
+      "next": "Weiter",
+      "submitService": "Service absenden",
+
+      "legal": "Recht",
+      "legalConsultation": "Rechtsberatung",
+      "companyFormation": "Firmengründung",
+      "consultingServices": "Beratungs­dienstleistungen",
+      "procurementServices": "Beschaffungs­dienstleistungen",
+      "mergersAndAcquisitions": "Mergers & Acquisitions",
+      "legalDocumentPreparation": "Rechtsdokumente",
+
+      "finance": "Finanzen",
+      "taxAdvisory": "Steuerberatung",
+      "bankingSetup": "Banking‑Einrichtung",
+      "financialPlanning": "Finanzplanung",
+      "marketingServices": "Marketing­services",
+
+      "tech": "Technik",
+      "itSupport": "IT‑Support",
+      "softwareDevelopment": "Software­entwicklung",
+      "designServices": "Design­services",
+      "techSupport": "Tech‑Support",
+      "cloudComputing": "Cloud‑Computing",
+      "dataManagement": "Daten­management",
+      "projectManagement": "Projekt­management",
+      "systemAdministration": "System­administration",
+      "testingAndQualityAssurance": "Testing & Qualitätssicherung",
+      "itilAndServiceManagement": "ITIL & Servicemanagement",
+
+      "realEstate": "Immobilien",
+      "realEstateServices": "Immobilien­dienstleistungen",
+      "homeRenovation": "Haus­renovierung",
+      "repairServices": "Reparatur­services",
+      "propertyManagement": "Immobilien­verwaltung",
+      "retailSales": "Einzelhandels­verkauf",
+      "realEstateAdvisory": "Immobilien­beratung",
+      "realEstateLegalAdvice": "Immobilien­rechtsberatung",
+
+      "healthcare": "Gesundheit",
+      "healthcareServices": "Gesundheits­dienstleistungen",
+      "fitnessTraining": "Fitness­training",
+      "personalCoaching": "Personal Coaching",
+      "beautyServices": "Beauty‑Services",
+      "lifestyleConsulting": "Lifestyle‑Beratung",
+      "petServices": "Haustier‑Services",
+      "mentalHealthAdvice": "Psychische Gesundheit",
+      "healthAndRecoveryPrograms": "Gesundheits‑ & Reha‑Programme",
+
+      "entertainment": "Unterhaltung",
+      "travelPlanning": "Reise­planung",
+      "eventManagement": "Eventmanagement",
+      "entertainmentServices": "Unterhaltungs­dienste",
+      "tourGuiding": "Tour‑Guiding",
+      "eventPlanning": "Eventplanung",
+      "entertainmentAdvisory": "Unterhaltungs­beratung",
+
+      "security": "Sicherheit",
+      "securityServices": "Sicherheits­dienste",
+      "policeServices": "Polizei­dienste",
+      "fireServices": "Feuerwehr­dienste",
+      "securityAssistance": "Sicherheits­hilfe",
+      "securityTraining": "Sicherheits­training",
+      "emergencyResponse": "Notfall­einsatz",
+
+      "food": "Essen",
+      "foodCatering": "Catering",
+      "cateringServices": "Catering‑Services",
+      "foodDelivery": "Essens­lieferung",
+      "restaurantManagement": "Restaurant­management",
+      "foodAdvisory": "Lebensmittel­beratung",
+      "foodSafetyCompliance": "Lebensmittel­sicherheit",
+      "foodPreparation": "Essens­zubereitung",
+
+      "transportation": "Transport",
+      "logisticsServices": "Logistik­services",
+      "transportationServices": "Transport­dienste",
+      "deliveryServices": "Liefer­services",
+      "vehicleRental": "Fahrzeug­vermietung",
+      "transportationAdvisory": "Transport­beratung",
+
+      "sports": "Sport",
+      "sportsCoaching": "Sport­coaching",
+      "sportsAdvisory": "Basketball",
+      "sportsEquipmentRental": "Sportgeräte­verleih",
+      "sportsEventManagement": "Sportevent‑Management",
+
+      "manufacturingServices": "Fertigungs­services",
+      "productionManagement": "Produktions­management",
+      "qualityControl": "Qualitäts­kontrolle",
+      "supplyChainManagement": "Supply‑Chain‑Management",
+      "manufacturingAdvisory": "Fertigungs­beratung",
+
+      "tutoringServices": "Nachhilfe­dienste",
+      "languageTutoring": "Sprach­unterricht",
+      "onlineCourses": "Online‑Kurse",
+      "educationalAdvisory": "Bildungs­beratung",
+      "languageTraining": "Sprach­training",
+      "musicTutoring": "Musik­unterricht",
+      "educationalResources": "Bildungs­ressourcen",
+
+      "other": "Sonstiges"
+    },
+
     "banking": {
-      "title": "Bankwesen",
+      "title": "Banking",
       "setup": {
-        "title": "Fortschritt bei der Kontoeröffnung",
+        "title": "Fortschritt der Kontoeröffnung",
         "inProgress": "In Bearbeitung",
         "progress": "{completed} von {total} Schritten abgeschlossen"
       },
       "services": {
-        "title": "Bankdienstleistungen",
+        "title": "Banking‑Dienstleistungen",
         "businessAccounts": "Geschäftskonten",
-        "businessAccountsDesc": "Einfach Geschäftskonten eröffnen und verwalten.",
-        "corporateCards": "Unternehmens-Kreditkarten",
-        "corporateCardsDesc": "Erhalten Sie Firmenkreditkarten für geschäftliche Transaktionen."
+        "businessAccountsDesc": "Geschäftskonten einfach eröffnen und verwalten.",
+        "corporateCards": "Firmenkarten",
+        "corporateCardsDesc": "Erhalte Firmenkarten für deine Transaktionen."
       },
       "transactions": {
         "title": "Letzte Transaktionen",
@@ -200,77 +396,159 @@
         "pending": "Ausstehend"
       }
     },
+
+    "profile": {
+      "title": "Profil",
+      "personalInfo": {
+        "title": "Persönliche Daten",
+        "name": "Name",
+        "email": "E‑Mail",
+        "phone": "Telefon",
+        "address": "Adresse"
+      }
+    },
+
+    "manageUsers": {
+      "title": "Benutzer verwalten",
+      "addUser": {
+        "title": "Neuen Benutzer hinzufügen",
+        "description": "Lade Teammitglieder zur Mitarbeit ein.",
+        "emailPlaceholder": "E‑Mail‑Adresse eingeben",
+        "role": "Rolle wählen",
+        "admin": "Admin",
+        "user": "Benutzer",
+        "inviteButton": "Einladung senden"
+      },
+      "userList": {
+        "title": "Benutzerliste",
+        "name": "Name",
+        "email": "E‑Mail",
+        "role": "Rolle",
+        "status": "Status",
+        "active": "Aktiv",
+        "inactive": "Inaktiv",
+        "phone": "Telefon",
+        "nationality": "Nationalität",
+        "location": "Standort",
+        "language": "Sprache",
+        "dateAdded": "Hinzugefügt am",
+        "actions": {
+          "edit": "Bearbeiten",
+          "remove": "Entfernen"
+        }
+      }
+    },
+
     "support": {
-      "title": "Support-Center",
+      "title": "Support‑Center",
       "contact": {
         "title": "Support kontaktieren",
-        "description": "Benötigen Sie Hilfe? Kontaktieren Sie unser Support-Team per Telefon oder E-Mail.",
-        "phone": "Rufen Sie uns an",
-        "email": "Schreiben Sie uns"
+        "description": "Brauchen Sie Hilfe? Kontaktieren Sie uns per Telefon oder E‑Mail.",
+        "phone": "Anrufen",
+        "email": "E‑Mail schreiben"
       },
       "liveChat": {
-        "title": "Live-Chat",
-        "description": "Chatten Sie in Echtzeit mit unserem Support-Team für sofortige Hilfe.",
+        "title": "Live‑Chat",
+        "description": "Chatten Sie in Echtzeit mit unserem Support‑Team.",
         "startChat": "Chat starten"
       },
       "faq": {
-        "title": "Häufig gestellte Fragen",
+        "title": "Häufige Fragen",
         "faq1": {
-          "question": "Wie kann ich meine Firmendaten aktualisieren?",
-          "answer": "Sie können Ihre Firmendaten im Bereich 'Firmengründung' aktualisieren."
+          "question": "Wie aktualisiere ich meine Unternehmens­daten?",
+          "answer": "Unter 'Firmengründung' kannst du deine Daten anpassen."
         },
         "faq2": {
-          "question": "Welche Zahlungsmethoden werden akzeptiert?",
-          "answer": "Wir akzeptieren Kreditkarten, PayPal und Banküberweisungen."
+          "question": "Welche Zahlungs­methoden werden akzeptiert?",
+          "answer": "Wir akzeptieren Kreditkarten, PayPal und Banküberweisung."
         },
         "faq3": {
-          "question": "Wie lange dauert der Registrierungsprozess?",
-          "answer": "Der Prozess dauert in der Regel 2 bis 6 Wochen, abhängig vom Land."
+          "question": "Wie lange dauert der Registrierungs­prozess?",
+          "answer": "In der Regel zwischen 2 und 6 Wochen, abhängig vom Land."
         }
       }
     }
   },
-  "heroTitle": "Starten Sie Ihr Unternehmen in der EU mühelos",
-  "heroDescription": "Unternehmensgründung, Steuerkonformität und Geschäftsbanken – alles an einem Ort.",
-  "getStarted": "Loslegen",
-  "pricingTitle": "Preispläne",
-  "services": {
-    "title": "Unsere Dienstleistungen",
-    "description": "Erkunden Sie unser Serviceangebot.",
-    "companyFormation": "Firmengründung",
-    "companyFormationDesc": "Registrieren Sie Ihr Unternehmen einfach in jedem EU-Land.",
-    "legalTax": "Rechtliche & Steuerliche Compliance",
-    "legalTaxDesc": "Stellen Sie sicher, dass Ihr Unternehmen den EU-Vorschriften entspricht.",
-    "banking": "Geschäftsbanking",
-    "bankingDesc": "Eröffnen und verwalten Sie Geschäftskonten mühelos.",
-    "virtualOffice": "Virtuelle Büroservices",
-    "virtualOfficeDesc": "Erhalten Sie eine Geschäftsadresse und Postdienstleistungen.",
-    "trademark": "Markeneintragung",
-    "trademarkDesc": "Schützen Sie Ihre Marke auf dem europäischen Markt.",
-    "aiLegalChat": "KI-gestützter Rechtschat",
-    "aiLegalChatDesc": "Erhalten Sie sofort Antworten auf geschäftsbezogene Fragen.",
-    "ctaText": "Bereit, Ihr Unternehmen auf die nächste Stufe zu bringen?",
-    "ctaButton": "Jetzt Loslegen"
+
+  "hero": {
+    "title": "Wir verbinden Kunden mit Services in EU‑Ländern",
+    "description": "Firmengründung, Steuerkonformität und Banking – alles an einem Ort.",
+    "findServices": "Services finden",
+    "getStarted": "Loslegen",
+    "learnMore": "Mehr erfahren",
+    "offerServices": "Services anbieten",
+    "search": "Suchen",
+    "ctaButton": "Jetzt starten"
   },
-  "pricing": {
-    "title": "Preispläne",
-    "description": "Wählen Sie den besten Plan für Ihre Bedürfnisse.",
-    "plans": {
-      "basic": "Basic",
-      "basicPrice": "$29/Monat",
-      "basicDesc": "Wesentliche Funktionen für Startups.",
-      "pro": "Pro",
-      "proPrice": "$99/Monat",
-      "proDesc": "Erweiterte Funktionen für wachsende Unternehmen.",
-      "enterprise": "Enterprise",
-      "enterprisePrice": "Individuell",
-      "enterpriseDesc": "Maßgeschneiderte Lösungen für große Unternehmen."
+
+  "services": {
+    "title": "Verfügbare Dienstleistungen",
+    "description": "Entdecke unsere breite Palette an Services, die auf deine Bedürfnisse zugeschnitten sind.",
+    "ctaText": "Bereit, dein Projekt zu starten? Kontaktiere uns!",
+    "ctaButton": "Jetzt starten",
+    "companyFormation": "Firmengründung",
+    "companyFormationDesc": "Gründe dein Unternehmen in jedem EU‑Land einfach.",
+    "legalTax": "Recht & Steuern",
+    "legalTaxDesc": "Stelle sicher, dass dein Unternehmen EU‑Vorgaben erfüllt.",
+    "banking": "Business‑Banking",
+    "bankingDesc": "Geschäftskonten einfach eröffnen und verwalten.",
+    "virtualOffice": "Virtuelles Büro",
+    "virtualOfficeDesc": "Geschäftsadresse und Postservice.",
+    "trademark": "Markenregistrierung",
+    "trademarkDesc": "Schütze deine Marke im europäischen Markt.",
+    "aiLegalChat": "KI‑Rechts‑Chat",
+    "aiLegalChatDesc": "Sofortige Antworten auf unternehmens­bezogene Fragen.",
+    "categoryLabels": {
+      "legal": "Rechts­dienstleistungen",
+      "finance": "Finanzen",
+      "tech": "Technologie",
+      "real_estate": "Immobilien",
+      "healthcare": "Gesundheit",
+      "entertainment": "Unterhaltung",
+      "security": "Sicherheit",
+      "food": "Essen",
+      "transportation": "Transport",
+      "education": "Bildung",
+      "manufacturing": "Produktion",
+      "sports": "Sport",
+      "other": "Sonstiges"
+    },
+    "categoryDescriptions": {
+      "legal": "Professionelle Rechtsberatung und Unterstützung.",
+      "finance": "Finanzielle Beratung und Management.",
+      "tech": "Innovative IT‑ und Softwarelösungen.",
+      "real_estate": "Immobilien­verkauf, Vermietung und Verwaltung.",
+      "healthcare": "Qualitäts­medizin und Wellness‑Services.",
+      "entertainment": "Kreative Medien, Kunst und Unterhaltung.",
+      "security": "Umfassende Sicherheits‑ und Überwachungs­dienste.",
+      "food": "Feine Gastronomie und Catering.",
+      "transportation": "Zuverlässige Logistik‑ und Transport­lösungen.",
+      "education": "Lern‑ und Entwicklungs­services.",
+      "manufacturing": "Moderne Fertigung und Produktion.",
+      "sports": "Sport­training und Eventmanagement.",
+      "other": "Zusätzliche Dienstleistungen und Beratung."
+    },
+    "pricing": {
+      "title": "Preispakete",
+      "description": "Wähle den Plan, der am besten passt.",
+      "plans": {
+        "basic": "Basic",
+        "basicPrice": "$29/Monat",
+        "basicDesc": "Grundfunktionen für Start‑ups.",
+        "pro": "Pro",
+        "proPrice": "$99/Monat",
+        "proDesc": "Erweiterte Funktionen für wachsende Unternehmen.",
+        "enterprise": "Enterprise",
+        "enterprisePrice": "Individuell",
+        "enterpriseDesc": "Maßgeschneiderte Lösungen für Großunternehmen."
+      }
     }
   },
+
   "footer": {
     "company": {
       "name": "AzEUConnect",
-      "description": "Ihr vertrauenswürdiger Partner für Unternehmensgründung und Expansion in der EU."
+      "description": "Dein vertrauens­voller Partner für Gründung und Expansion in der EU."
     },
     "quickLinks": {
       "title": "Schnellzugriff",
@@ -283,19 +561,19 @@
       }
     },
     "services": {
-      "title": "Unsere Dienstleistungen",
+      "title": "Dienstleistungen",
       "list": {
-        "company-formation": "Unternehmensgründung",
-        "legalTax": "Rechts- und Steuerberatung",
-        "banking": "Geschäftsbanking",
+        "company-formation": "Firmengründung",
+        "legalTax": "Rechts‑ & Steuerberatung",
+        "banking": "Business‑Banking",
         "virtualOffice": "Virtuelles Büro",
-        "trademark": "Markenanmeldung"
+        "trademark": "Markenregistrierung"
       }
     },
     "contact": {
-      "title": "Kontaktieren Sie uns",
-      "address": "123 Geschäftsstraße, Berlin, Deutschland",
-      "phone": "+49 123 456 7890",
+      "title": "Kontakt",
+      "address": "Businessstraße 123, 10115 Berlin, Deutschland",
+      "phone": "+49 123 456 7890",
       "email": "info@azeuconnect.com",
       "socials": {
         "linkedin": "🔗 LinkedIn",

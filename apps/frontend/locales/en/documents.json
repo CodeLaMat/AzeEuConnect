@@ -1,0 +1,26 @@
+{
+    "title": "Documents",
+    "description": "Check the list of documents required for the business formation.",
+    "filter": {
+      "title": "Filter Documents",
+      "country": "Country",
+      "businessArea": "Business Area",
+      "type": "Type",
+      "authority": "Authority",
+      "clear": "Clear Filters",
+      "language": "Language",
+      "dateFrom": "From",
+      "dateTo": "To"
+    },
+    "table": {
+      "documentName": "Document Name",
+      "country": "Country",
+      "businessArea": "Business Area",
+      "type": "Type",
+      "date": "Date",
+      "authority": "Authority",
+      "language": "Language",
+      "view": "View",
+      "noDocuments": "No documents found"
+    }
+  }

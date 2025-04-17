@@ -1,0 +1,39 @@
+{
+    "company": {
+      "name": "AzEUConnect",
+      "description": "Your trusted partner for business formation and expansion in the EU."
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "links": {
+        "about": "About Us",
+        "services": "Services",
+        "pricing": "Pricing",
+        "blog": "Blog",
+        "contact": "Contact"
+      }
+    },
+    "services": {
+      "title": "Available Services",
+
+      "list": {
+        "company-formation": "Company Formation",
+        "legalTax": "Legal & Tax Advisory",
+        "banking": "Business Banking",
+        "virtualOffice": "Virtual Office",
+        "trademark": "Trademark Registration"
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "address": "123 Business Street, Berlin, Germany",
+      "phone": "+49 123 456 7890",
+      "email": "info@azeuconnect.com",
+      "socials": {
+        "linkedin": "🔗 LinkedIn",
+        "facebook": "📘 Facebook",
+        "instagram": "📷 Instagram"
+      }
+    },
+    "rightsReserved": "All rights reserved."
+  }

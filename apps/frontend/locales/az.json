@@ -1,107 +1,151 @@
 {
   "navbar": {
     "companyFormation": "Şirkət Qeydiyyatı",
+    "homePage": "Ana səhifə",
     "services": "Xidmətlər",
     "pricing": "Qiymətlər",
-    "homePage": "Ana səhifə",
     "aboutUs": "Haqqımızda",
     "blog": "Bloq",
     "contact": "Əlaqə",
     "clients": "Müştərilər",
-    "dashboard": "İdarə Paneli",
+    "news": "Xəbərlər",
+    "manageUsers": "İstifadəçiləri idarə et",
+    "announcements": "Elanlar",
+    "dashboard": "Panel",
     "documents": "Sənədlər",
-    "logIn": "Daxil Ol",
-    "signUp": "Qeydiyyatdan Keç",
+    "logIn": "Daxil ol",
+    "signUp": "Qeydiyyat",
     "logout": "Çıxış",
-    "selectLanguage": "Dil Seçin",
-    "logInWithGoogle": "Google ilə daxil olun",
-    "loading": "Yenilənir...",
+    "selectLanguage": "Dil seçin",
+    "logInWithGoogle": "Google ilə daxil ol",
+    "loading": "Yüklənir...",
     "auth": {
       "title": "Hesabınıza daxil olun",
-      "description": "Daxil olmaq üçün seçiminizi edin.",
-      "logInWithGoogle": "Google ilə davam edin",
+      "description": "Aşağıdakı giriş üsullarından birini seçin.",
+      "logInWithGoogle": "Google ilə davam et",
       "or": "və ya",
-      "emailPlaceholder": "E-poçtunuzu daxil edin",
-      "forgotPassword": "Şifrənizi unutmusunuz?",
+      "emailPlaceholder": "E‑poçtunuzu daxil edin",
       "passwordPlaceholder": "Şifrənizi daxil edin",
-      "login": "Daxil olun",
-      "noAccount": "Hesabınız yoxdur?",
-      "signUp": "Qeydiyyatdan keçin"
+      "forgotPassword": "Şifrəni unutmusan?",
+      "login": "Daxil ol",
+      "noAccount": "Hələ hesabınız yoxdur?",
+      "signUp": "Qeydiyyat"
+    },
+    "account": {
+      "personalSettings": "Şəxsi parametrlər",
+      "bookmarks": "Əlfəcinlər",
+      "drafts": "Qaralamalar",
+      "helpCenter": "Dəstək mərkəzi",
+      "logout": "Çıxış",
+      "noLocation": "Ünvan göstərilməyib",
+      "dashboard": "Panel",
+      "switchRole": "Rolu dəyiş"
     }
   },
 
   "companyFormation": {
-    "title": "Avropada Biznesinizi Başlayın",
-    "description": "Biz sizə şirkətinizi tez və asan qeydiyyatdan keçirməkdə kömək edirik.",
-    "stepsTitle": "Şirkətinizi Qeydiyyatdan Keçirmək Addımları",
+    "title": "EU Biznesinə Başla",
+    "description": "Şirkətinizi tez və asan qeydiyyatdan keçiririk.",
+    "stepsTitle": "Şirkətin Qeydiyyatı Addımları",
     "steps": {
-      "step1": "Doğru hüquqi formanı seçin (GmbH, UG, Ltd və s.)",
+      "step1": "Uyğun hüquqi formanı seçin (GmbH, UG, Ltd və s.)",
       "step2": "Lazımi hüquqi sənədləri hazırlayın",
-      "step3": "Biznes reyestrinə müraciət edin",
-      "step4": "Vergi şəxsiyyəti alın və biznes bank hesabı açın",
-      "step5": "Fəaliyyətə başlayın və yerli qaydalara uyğun olun"
+      "step3": "Müraciəti ticarət reyestrinə təqdim edin",
+      "step4": "Vergi ID alın və biznes bank hesabı açın",
+      "step5": "Fəaliyyətə başlayın və yerli qaydalara əməl edin"
     },
-    "benefitsTitle": "Niyə Avropada Biznes Başlamaq?",
+    "benefitsTitle": "Niyə EU‑da Biznes Başlamaq?",
     "benefits": {
-      "benefit1": "Böyük Avropa bazarına çıxış",
-      "benefit2": "Hüquqi qorunma və sabit biznes mühiti",
-      "benefit3": "Bəzi Avropa ölkələrində aşağı korporativ vergilər",
-      "benefit4": "Beynəlxalq bankçılıq və maliyyəyə asan giriş"
+      "benefit1": "Geniş EU bazarına çıxış",
+      "benefit2": "Hüquqi qorunma və biznes sabitliyi",
+      "benefit3": "Bəzi EU ölkələrində daha aşağı korporativ vergi",
+      "benefit4": "Beynəlxalq bankçılıq və maliyyəyə asan çıxış"
     },
-    "documentsTitle": "Lazımi Sənədlər",
+    "documentsTitle": "Tələb olunan Sənədlər",
     "documents": {
-      "document1": "Keçərli pasport və ya şəxsiyyət vəsiqəsi",
+      "document1": "Etibarlı pasport və ya şəxsiyyət vəsiqəsi",
       "document2": "Ünvan təsdiqi (kommunal qəbz, bank çıxarışı)",
       "document3": "Şirkət nizamnaməsi və təsis sənədləri",
-      "document4": "Pay sahibləri və direktorların məlumatları"
+      "document4": "Səhmdar və direktor məlumatları"
     },
-    "ctaText": "Avropada biznesinizi qurmağa hazırsınız?",
-    "getStarted": "İndi Başlayın"
+    "ctaText": "EU‑da biznesinizi qurmağa hazırsınız?",
+    "getStarted": "Bu gün başlayın"
   },
+
   "about": {
     "title": "Haqqımızda",
     "description": "Şirkətimiz, missiyamız və dəyərlərimiz haqqında daha çox öyrənin.",
     "mission": {
       "title": "Missiyamız",
-      "description": "Biz Avropa İttifaqında biznesin qeydiyyatını və genişlənməsini asanlaşdırmağa çalışırıq, hər kəs üçün əlçatan edirik."
+      "description": "Biz biznesin EU daxilində qurulmasını və genişləndirilməsini hamı üçün əlçatan edirik."
     },
     "values": {
       "title": "Əsas Dəyərlərimiz",
-      "integrity": "Dürüstlük: Ən yüksək etik standartlara riayət edirik.",
-      "transparency": "Şəffaflıq: Açıq və dürüst ünsiyyət qururuq.",
-      "innovation": "İnnovasiya: Xidmətlərimizi daim təkmilləşdiririk.",
-      "customerFocus": "Müştəri yönümlülük: Sizin uğurunuz bizim prioritetimizdir."
+      "integrity": "Dürüstlük: Ən yüksək etik standartları qoruyuruq.",
+      "transparency": "Şəffaflıq: Açıq və dürüst ünsiyyət.",
+      "innovation": "İnnovasiya: Xidmətlərimizi daima təkmilləşdiririk.",
+      "customerFocus": "Müştəri yönümlülük: Uğurunuz bizim prioritetimizdir."
     },
     "team": {
-      "title": "Komandamız",
-      "description": "Komandamız biznes qeydiyyatı və hüquqi məsləhət sahəsində illərlə təcrübəsi olan mütəxəssislərdən ibarətdir.",
-      "ceo": "İcraçı Direktor",
-      "cfo": "Maliyyə Direktoru",
-      "cto": "Texnologiya Direktoru"
+      "title": "Komanda ilə Tanış olun",
+      "description": "Komandamız illərin təcrübəsinə malik qeydiyyat və hüquqi məsləhət mütəxəssislərindən ibarətdir.",
+      "ceo": "Baş icraçı direktor",
+      "cfo": "Maliyyə direktoru",
+      "cto": "Texnologiya direktoru"
     },
-    "ctaText": "Avropa İttifaqında biznes qurmağa hazırsınız?",
-    "ctaButton": "İndi Başlayın"
+    "ctaText": "EU biznesinə başlamağa hazırsınız?",
+    "ctaButton": "İndi başlayın"
   },
 
   "blog": {
-    "title": "Bizim Bloq",
-    "description": "Biznes qeydiyyatı haqqında məqalələr və fikirlər oxuyun."
+    "title": "Bloq",
+    "description": "Şirkət qeydiyyatı haqqında məqalə və icmallar."
+  },
+
+  "documents": {
+    "title": "Sənədlər",
+    "description": "Qeydiyyat üçün tələb olunan sənədlərin siyahısını yoxlayın.",
+    "filter": {
+      "title": "Sənədləri Filtrlə",
+      "country": "Ölkə",
+      "businessArea": "Sahə",
+      "type": "Tip",
+      "authority": "Orqan",
+      "clear": "Filtrləri sıfırla",
+      "language": "Dil",
+      "dateFrom": "Başlama tarixi",
+      "dateTo": "Bitmə tarixi"
+    },
+    "table": {
+      "documentName": "Sənədin adı",
+      "country": "Ölkə",
+      "businessArea": "Sahə",
+      "type": "Tip",
+      "date": "Tarix",
+      "authority": "Orqan",
+      "language": "Dil",
+      "view": "Bax",
+      "noDocuments": "Sənəd tapılmadı"
+    }
   },
 
   "contact": {
     "title": "Bizimlə Əlaqə",
-    "description": "Hər hansı sual üçün bizimlə əlaqə saxlayın."
+    "description": "Hər hansı sualınız varsa, bizimlə əlaqə saxlayın."
   },
 
   "dashboard": {
-    "title": "İdarə paneli",
+    "title": "Panel",
     "sidebar": {
-      "dashboard": "İdarə paneli",
+      "dashboard": "Panel",
+      "profile": "Profil",
+      "services": "Xidmətlər",
       "documents": "Sənədlər",
       "companyFormation": "Şirkət Qeydiyyatı",
-      "taxAccounting": "Vergi və Mühasibatlıq",
+      "taxAccounting": "Vergi və Mühasibat",
       "banking": "Bankçılıq",
-      "support": "Dəstək"
+      "support": "Dəstək",
+      "userList": "İstifadəçiləri idarə et"
     },
     "registrationStatus": {
       "title": "Qeydiyyat Statusu",
@@ -109,37 +153,37 @@
       "completedSteps": "{completed} / {total} addım tamamlandı"
     },
     "upcomingTasks": {
-      "title": "Gözlənilən Tapşırıqlar",
-      "task1": "Notarial sənədləri təqdim edin ({days} gün)",
-      "task2": "Bank hesab məlumatlarını təsdiqləyin ({days} gün)",
-      "task3": "Vergi məsləhətini planlaşdırın ({days} gün)"
+      "title": "Gələcək Tapşırıqlar",
+      "task1": "Notarial sənədləri təqdim et ({days} gün)",
+      "task2": "Bank hesabını təsdiqlə ({days} gün)",
+      "task3": "Vergi məsləhəti planlaşdır ({days} gün)"
     },
     "subscription": {
       "title": "Abunəlik",
-      "plan": "{plan} Planı",
-      "activeUntil": "{date} tarixinədək aktivdir",
+      "plan": "{plan} paketi",
+      "activeUntil": "{date} tarixinə qədər aktivdir",
       "manage": "Abunəliyi idarə et"
     },
     "recentDocuments": {
       "title": "Son Sənədlər",
       "uploaded": "{date} tarixində yüklənib",
-      "viewAll": "Hamısını göstər"
+      "viewAll": "Hamısına bax"
     },
     "documents": {
       "title": "Sənədlər",
       "upload": {
-        "title": "Sənədləri Yüklə",
-        "description": "Baxış üçün lazımi biznes sənədlərini yükləyin.",
-        "button": "Faylı yüklə"
+        "title": "Sənəd Yüklə",
+        "description": "İcmal üçün lazımi sənədləri yükləyin.",
+        "button": "Fayl yüklə"
       },
       "status": {
         "title": "Sənəd Statusu",
-        "documentReview": "Sənədin nəzərdən keçirilməsi",
+        "documentReview": "Sənədin icmalı",
         "verification": "Təsdiq",
         "completed": "Tamamlandı",
         "inProgress": "Davam edir",
-        "approved": "Təsdiqlənib",
-        "pending": "Gözlənilir"
+        "approved": "Təsdiqləndi",
+        "pending": "Gözləyir"
       },
       "recentDocuments": {
         "title": "Son Sənədlər",
@@ -148,141 +192,366 @@
     },
     "companyFormation": {
       "title": "Şirkət Qeydiyyatı",
-      "registrationProgress": "Qeydiyyat Prosesinin Gedişi",
+      "registrationProgress": "Qeydiyyat Proqresi",
       "steps": {
-        "documentPreparation": "Sənədlərin Hazırlanması",
-        "notarization": "Notarial təsdiq",
-        "bankAccountOpening": "Bank Hesabının Açılması",
-        "commercialRegisterEntry": "Kommersiya Reyestrinə Qeydiyyat",
-        "taxRegistration": "Vergi Qeydiyyatı"
+        "documentPreparation": "Sənədlərin hazırlanması",
+        "notarization": "Notariat təsdiqi",
+        "bankAccountOpening": "Bank hesabının açılması",
+        "commercialRegisterEntry": "Ticarət reyestrinə daxil",
+        "taxRegistration": "Vergi qeydiyyatı"
       },
       "status": {
         "completed": "Tamamlandı",
         "inProgress": "Davam edir",
-        "notStarted": "Başlanılmayıb"
+        "notStarted": "Başlamayıb"
       }
     },
+
     "taxAccounting": {
-      "title": "Vergi və Mühasibatlıq",
+      "title": "Vergi və Mühasibat",
       "taxStatus": {
-        "title": "Vergi Statusu",
+        "title": "Vergi Bəyannaməsi Statusu",
         "inProgress": "Davam edir",
         "progress": "{completed} / {total} addım tamamlandı"
       },
       "services": {
-        "title": "Vergi və Mühasibatlıq Xidmətləri",
-        "taxConsulting": "Vergi Məsləhəti",
-        "taxConsultingDesc": "Vergi optimallaşdırılması və uyğunluq məsələləri üzrə peşəkar məsləhət alın.",
+        "title": "Vergi və Mühasibat Xidmətləri",
+        "taxConsulting": "Vergi Konsultasiyası",
+        "taxConsultingDesc": "Vergi optimallaşdırması və uyğunluq barədə ekspert məsləhəti.",
         "vatFiling": "ƏDV Bəyannaməsi",
-        "vatFilingDesc": "ƏDV bəyannamənizi peşəkar dəstəklə təqdim edin."
+        "vatFilingDesc": "ƏDV hesabatlarını peşəkar dəstəklə təqdim edin."
       },
       "filings": {
         "title": "Son Vergi Bəyannamələri",
-        "date": "Bəyannamə tarixi: {date}",
+        "date": "Təqdim tarixi: {date}",
         "completed": "Tamamlandı",
-        "pending": "Gözlənilir"
+        "pending": "Gözləyir"
       }
     },
+
+    "services": {
+      "uploadServiceTitle": "Xidmət Yüklə",
+      "step1Title": "Xidmət Detalları",
+      "step2Title": "Qiymət və Paketlər",
+      "step3Title": "Yoxla və Göndər",
+      "package": "Paket",
+      "serviceDetails": "Xidmət Detalları",
+      "title": "Başlıq",
+      "titleRequired": "Başlıq mütləqdir",
+      "titlePlaceholder": "Xidmət başlığı daxil edin",
+      "description": "Təsvir",
+      "descriptionRequired": "Təsvir mütləqdir",
+      "descriptionPlaceholder": "Xidmət təsvirini daxil edin",
+      "category": "Kateqoriya",
+      "categoryRequired": "Kateqoriya mütləqdir",
+      "categoryPlaceholder": "Kateqoriya seçin",
+      "country": "Ölkə",
+      "countryRequired": "Ölkə mütləqdir",
+      "countryPlaceholder": "Ölkə seçin",
+      "serviceCategory": "Xidmət Kateqoriyası",
+      "serviceCategoryRequired": "Xidmət kateqoriyası mütləqdir",
+      "selectType": "Xidmət növü seçin",
+      "pricingAndPackages": "Qiymətlər və Paketlər",
+      "fixedPriceOptional": "Sabit qiymət (istəyə bağlı)",
+      "pricePlaceholder": "Qiymət daxil edin (əgər varsa)",
+      "currency": "Valyuta",
+      "currencyRequired": "Valyuta mütləqdir",
+      "packageDetails": "Paket Detalları",
+      "packageName": "Paket adı",
+      "packageNameRequired": "Paket adı mütləqdir",
+      "packageNamePlaceholder": "məs.: Basic",
+      "packageDescription": "Paket təsviri",
+      "packageDescriptionPlaceholder": "Paket təsvirini daxil edin",
+      "packagePrice": "Paket qiyməti",
+      "packagePriceRequired": "Paket qiyməti mütləqdir",
+      "packagePricePlaceholder": "Qiymət daxil edin",
+      "conditions": "Şərtlər",
+      "conditionsPlaceholder": "Şərtlər və qeydlər daxil edin",
+      "addPackage": "Paket əlavə et",
+      "removePackage": "Paketi sil",
+      "reviewAndSubmit": "Yoxla və Göndər",
+      "reviewPrompt": "Göndərmədən əvvəl məlumatları yoxlayın.",
+      "back": "Geri",
+      "next": "İrəli",
+      "submitService": "Xidməti göndər",
+
+      "legal": "Hüquq",
+      "legalConsultation": "Hüquqi məsləhət",
+      "companyFormation": "Şirkət Qeydiyyatı",
+      "consultingServices": "Konsultasiya Xidmətləri",
+      "procurementServices": "Satınalma Xidmətləri",
+      "mergersAndAcquisitions": "Birleşmə və Alqı‑satqı",
+      "legalDocumentPreparation": "Hüquqi sənədlərin hazırlanması",
+
+      "finance": "Maliyyə",
+      "taxAdvisory": "Vergi Məsləhəti",
+      "bankingSetup": "Bank hesabının qurulması",
+      "financialPlanning": "Maliyyə Planlaşdırması",
+      "marketingServices": "Marketinq Xidmətləri",
+
+      "tech": "Texnologiya",
+      "itSupport": "IT Dəstəyi",
+      "softwareDevelopment": "Proqram təminatı",
+      "designServices": "Dizayn Xidmətləri",
+      "techSupport": "Texniki Dəstək",
+      "cloudComputing": "Bulud Hesablama",
+      "dataManagement": "Məlumat İdarəetməsi",
+      "projectManagement": "Layihə İdarəetməsi",
+      "systemAdministration": "Sistem Administratorluğu",
+      "testingAndQualityAssurance": "Test və Keyfiyyətə Nəzarət",
+      "itilAndServiceManagement": "ITIL və Xidmət İdarəetməsi",
+
+      "realEstate": "Əmlak",
+      "realEstateServices": "Əmlak Xidmətləri",
+      "homeRenovation": "Ev Təmir",
+      "repairServices": "Təmir Xidmətləri",
+      "propertyManagement": "Əmlak İdarəetməsi",
+      "retailSales": "Pərakəndə Satış",
+      "realEstateAdvisory": "Əmlak Məsləhəti",
+      "realEstateLegalAdvice": "Əmlak Hüquqi Yardımı",
+
+      "healthcare": "Səhiyyə",
+      "healthcareServices": "Səhiyyə Xidmətləri",
+      "fitnessTraining": "Fitness Təlimi",
+      "personalCoaching": "Şəxsi Kouçinq",
+      "beautyServices": "Gözəllik Xidmətləri",
+      "lifestyleConsulting": "Həyat Tərzi Məsləhəti",
+      "petServices": "Heyvan Xidmətləri",
+      "mentalHealthAdvice": "Ruh Sağlamlığı Məsləhəti",
+      "healthAndRecoveryPrograms": "Sağlamlıq və Reabilitasiya Proqramları",
+
+      "entertainment": "Əyləncə",
+      "travelPlanning": "Səyahət Planlaması",
+      "eventManagement": "Tədbir İdarəetməsi",
+      "entertainmentServices": "Əyləncə Xidmətləri",
+      "tourGuiding": "Bələdçi Xidməti",
+      "eventPlanning": "Tədbir Planlaması",
+      "entertainmentAdvisory": "Əyləncə Məsləhəti",
+
+      "security": "Təhlükəsizlik",
+      "securityServices": "Mühafizə Xidmətləri",
+      "policeServices": "Polis Xidmətləri",
+      "fireServices": "Yanğınsöndürmə Xidmətləri",
+      "securityAssistance": "Təhlükəsizlik Yardımı",
+      "securityTraining": "Təhlükəsizlik Təlimi",
+      "emergencyResponse": "Təcili Cavab",
+
+      "food": "Qida",
+      "foodCatering": "Katerinq",
+      "cateringServices": "Katerinq Xidmətləri",
+      "foodDelivery": "Qida Çatdırılması",
+      "restaurantManagement": "Restoran İdarəetməsi",
+      "foodAdvisory": "Qida Məsləhəti",
+      "foodSafetyCompliance": "Qida Təhlükəsizliyi",
+      "foodPreparation": "Qida Hazırlanması",
+
+      "transportation": "Nəqliyyat",
+      "logisticsServices": "Logistika Xidmətləri",
+      "transportationServices": "Nəqliyyat Xidmətləri",
+      "deliveryServices": "Çatdırılma Xidmətləri",
+      "vehicleRental": "Nəqliyyat İcarəsi",
+      "transportationAdvisory": "Nəqliyyat Məsləhəti",
+
+      "sports": "İdman",
+      "sportsCoaching": "İdman Kouçinq",
+      "sportsAdvisory": "Basketbol",
+      "sportsEquipmentRental": "İdman Avadanlığı İcarəsi",
+      "sportsEventManagement": "İdman Tədbir İdarəetməsi",
+
+      "manufacturingServices": "İstehsalat Xidmətləri",
+      "productionManagement": "İstehsal İdarəetməsi",
+      "qualityControl": "Keyfiyyətə Nəzarət",
+      "supplyChainManagement": "Təchizat Zənciri İdarəetməsi",
+      "manufacturingAdvisory": "İstehsalat Məsləhəti",
+
+      "tutoringServices": "Repetitor Xidmətləri",
+      "languageTutoring": "Dil Dərsləri",
+      "onlineCourses": "Onlayn Kurslar",
+      "educationalAdvisory": "Təhsil Məsləhəti",
+      "languageTraining": "Dil Təlimi",
+      "musicTutoring": "Musiqi Dərsləri",
+      "educationalResources": "Təhsil Resursları",
+
+      "other": "Digər"
+    },
+
     "banking": {
       "title": "Bankçılıq",
       "setup": {
-        "title": "Bank Hesabının Açılma Prosesinin Gedişi",
+        "title": "Hesab Açılış Proqresi",
         "inProgress": "Davam edir",
         "progress": "{completed} / {total} addım tamamlandı"
       },
       "services": {
-        "title": "Bank Xidmətləri",
-        "businessAccounts": "Biznes Bank Hesabları",
-        "businessAccountsDesc": "Biznes bank hesablarını asanlıqla açın və idarə edin.",
+        "title": "Bankçılıq Xidmətləri",
+        "businessAccounts": "Biznes Hesabları",
+        "businessAccountsDesc": "Biznes hesablarını asanlıqla açın və idarə edin.",
         "corporateCards": "Korporativ Kartlar",
         "corporateCardsDesc": "Biznes əməliyyatlarınız üçün korporativ kartlar əldə edin."
       },
       "transactions": {
-        "title": "Son Bank Əməliyyatları",
-        "date": "Əməliyyat tarixi: {date}",
+        "title": "Son Tranzaksiyalar",
+        "date": "Tranzaksiya tarixi: {date}",
         "completed": "Tamamlandı",
-        "pending": "Gözlənilir"
+        "pending": "Gözləyir"
       }
     },
+
+    "profile": {
+      "title": "Profil",
+      "personalInfo": {
+        "title": "Şəxsi Məlumatlar",
+        "name": "Ad",
+        "email": "E‑poçt",
+        "phone": "Telefon nömrəsi",
+        "address": "Ünvan"
+      }
+    },
+
+    "manageUsers": {
+      "title": "İstifadəçiləri idarə et",
+      "addUser": {
+        "title": "Yeni İstifadəçi əlavə et",
+        "description": "Hesabınıza komanda üzvləri dəvət edin.",
+        "emailPlaceholder": "E‑poçt ünvanı daxil edin",
+        "role": "Rol seçin",
+        "admin": "Admin",
+        "user": "İstifadəçi",
+        "inviteButton": "Dəvət Göndər"
+      },
+      "userList": {
+        "title": "İstifadəçi Siyahısı",
+        "name": "Ad",
+        "email": "E‑poçt",
+        "role": "Rol",
+        "status": "Status",
+        "active": "Aktiv",
+        "inactive": "Passiv",
+        "phone": "Telefon",
+        "nationality": "Vətəndaşlıq",
+        "location": "Məkan",
+        "language": "Dil",
+        "dateAdded": "Əlavə olunma tarixi",
+        "actions": {
+          "edit": "Redaktə et",
+          "remove": "Sil"
+        }
+      }
+    },
+
     "support": {
       "title": "Dəstək Mərkəzi",
       "contact": {
-        "title": "Dəstək Xidməti ilə Əlaqə",
-        "description": "Yardım lazımdır? Telefon və ya e-poçt vasitəsilə dəstək komandamıza müraciət edin.",
-        "phone": "Bizə zəng edin",
-        "email": "Bizə yazın"
+        "title": "Dəstəklə Əlaqə",
+        "description": "Köməyə ehtiyacınız var? Telefon və ya e‑poçt vasitəsilə bizimlə əlaqə saxlayın.",
+        "phone": "Zəng et",
+        "email": "E‑poçt yaz"
       },
       "liveChat": {
         "title": "Canlı Çat",
-        "description": "Dəstək komandamızla real vaxtda danışaraq dərhal kömək alın.",
-        "startChat": "Çatı başladın"
+        "description": "Dəstək komandamız ilə real vaxtda yazışın.",
+        "startChat": "Çatı Başlat"
       },
       "faq": {
-        "title": "Tez-Tez Verilən Suallar",
+        "title": "Tez‑tez verilən suallar",
         "faq1": {
-          "question": "Şirkət məlumatlarımı necə yeniləyə bilərəm?",
-          "answer": "Şirkət məlumatlarınızı 'Şirkət Qeydiyyatı' bölməsində yeniləyə bilərsiniz."
+          "question": "Şirkət məlumatlarını necə yeniləyim?",
+          "answer": "‘Şirkət Qeydiyyatı’ bölməsində məlumatlarınızı yeniləyə bilərsiniz."
         },
         "faq2": {
-          "question": "Hansı ödəniş üsulları qəbul olunur?",
-          "answer": "Biz kredit kartları, PayPal və bank köçürmələrini qəbul edirik."
+          "question": "Hansı ödəniş üsullarını qəbul edirsiniz?",
+          "answer": "Kredit kartları, PayPal və bank köçürmələrini qəbul edirik."
         },
         "faq3": {
-          "question": "Qeydiyyat prosesi nə qədər vaxt aparır?",
-          "answer": "Proses ölkəyə görə 2-6 həftə arasında dəyişir."
+          "question": "Qeydiyyat prosesi nə qədər çəkir?",
+          "answer": "Ölkədən asılı olaraq adətən 2‑6 həftə davam edir."
         }
       }
     }
   },
-  "heroTitle": "Avropada Biznesinizi Asanlıqla Başlayın",
-  "heroDescription": "Şirkət qeydiyyatı, vergi uyğunluğu və biznes bankçılığı – hamısı bir yerdə.",
-  "getStarted": "İndi Başlayın",
-  "pricingTitle": "Tarif Planları",
 
-  "services": {
-    "title": "Xidmətlərimiz",
-    "description": "Təklif etdiyimiz xidmətlər haqqında öyrənin.",
-    "companyFormation": "Şirkət Qeydiyyatı",
-    "companyFormationDesc": "Şirkətinizi asanlıqla qeydiyyatdan keçirin.",
-    "legalTax": "Hüquq və Vergi Uyğunluğu",
-    "legalTaxDesc": "Biznesinizin Avropa qaydalarına uyğun olmasını təmin edin.",
-    "banking": "Biznes Bankçılığı",
-    "bankingDesc": "Bank hesablarını asanlıqla açın və idarə edin.",
-    "virtualOffice": "Virtual Ofis Xidmətləri",
-    "virtualOfficeDesc": "Biznes ünvanı və poçt xidməti əldə edin.",
-    "trademark": "Ticarət Nişanının Qeydiyyatı",
-    "trademarkDesc": "Markanızı Avropa bazarında qoruyun.",
-    "aiLegalChat": "Süni İntellekt Dəstək Xidməti",
-    "aiLegalChatDesc": "Bizneslə bağlı suallarınıza dərhal cavab alın.",
-    "ctaText": "Avropa İttifaqında biznes qurmağa hazırsınız?",
-    "ctaButton": "İndi Başlayın"
+  "hero": {
+    "title": "Müştəriləri EU ölkələrində xidmətlərlə birləşdiririk",
+    "description": "Şirkət qeydiyyatı, vergi uyğunluğu və bankçılıq – hamısı bir yerdə.",
+    "findServices": "Xidmət tap",
+    "getStarted": "Başla",
+    "learnMore": "Daha çox öyrən",
+    "offerServices": "Xidmət təklif et",
+    "search": "Axtarış",
+    "ctaButton": "Başla"
   },
 
-  "pricing": {
-    "title": "Qiymət Planları",
-    "description": "Biznes ehtiyaclarınıza uyğun ən yaxşı planı seçin.",
-    "plans": {
-      "basic": "Əsas",
-      "basicPrice": "$29/ay",
-      "basicDesc": "Yeni başlayanlar üçün əsas xüsusiyyətlər.",
-      "pro": "Peşəkar",
-      "proPrice": "$99/ay",
-      "proDesc": "İnkişaf edən bizneslər üçün qabaqcıl imkanlar.",
-      "enterprise": "Böyük Biznes",
-      "enterprisePrice": "Xüsusi",
-      "enterpriseDesc": "Böyük müəssisələr üçün fərdi həllər.",
-      "ctaText": "Biznesinizi növbəti səviyyəyə qaldırmağa hazırsınız?",
-      "ctaButton": "İndi Başlayın"
+  "services": {
+    "title": "Mövcud Xidmətlər",
+    "description": "Ehtiyaclarınıza uyğun geniş xidmət çeşidimizi kəşf edin.",
+    "ctaText": "Layihənizə başlamağa hazırsınız? Bizimlə əlaqə saxlayın!",
+    "ctaButton": "Başla",
+    "companyFormation": "Şirkət Qeydiyyatı",
+    "companyFormationDesc": "Biznesinizi hər hansı EU ölkəsində asan qeydiyyatdan keçirin.",
+    "legalTax": "Hüquq və Vergi",
+    "legalTaxDesc": "Biznesinizin EU tələblərinə uyğunluğunu təmin edin.",
+    "banking": "Biznes Bankçılığı",
+    "bankingDesc": "Biznes hesablarını asan açın və idarə edin.",
+    "virtualOffice": "Virtual Ofis",
+    "virtualOfficeDesc": "Biznes ünvanı və poçt xidməti.",
+    "trademark": "Ticarət Markasının Qeydiyyatı",
+    "trademarkDesc": "Brendinizi Avropa bazarında qoruyun.",
+    "aiLegalChat": "AI Hüquqi Çat",
+    "aiLegalChatDesc": "Biznes suallarına instant cavablar.",
+    "categoryLabels": {
+      "legal": "Hüquqi Xidmətlər",
+      "finance": "Maliyyə",
+      "tech": "Texnologiya",
+      "real_estate": "Əmlak",
+      "healthcare": "Səhiyyə",
+      "entertainment": "Əyləncə",
+      "security": "Təhlükəsizlik",
+      "food": "Qida Xidmətləri",
+      "transportation": "Nəqliyyat",
+      "education": "Təhsil",
+      "manufacturing": "İstehsalat",
+      "sports": "İdman",
+      "other": "Digər Xidmətlər"
+    },
+    "categoryDescriptions": {
+      "legal": "Peşəkar hüquqi məsləhət və dəstək.",
+      "finance": "Ekspert maliyyə konsultasiyası və idarəetmə.",
+      "tech": "İnnovativ IT və proqram həlləri.",
+      "real_estate": "Əmlak satışı, icarəsi və idarəetməsi.",
+      "healthcare": "Keyfiyyətli tibbi və sağlamlıq xidmətləri.",
+      "entertainment": "Kreativ media, incəsənət və əyləncə.",
+      "security": "Kompleks mühafizə və nəzarət xidmətləri.",
+      "food": "Ləzzətli qida və katerinq xidmətləri.",
+      "transportation": "Etibarlı logistika və nəqliyyat həlləri.",
+      "education": "Öyrənmə və inkişaf xidmətləri.",
+      "manufacturing": "Müasir istehsalat və istehsal.",
+      "sports": "İdman təlimi və tədbir idarəetməsi.",
+      "other": "Əlavə xidmətlər və konsultasiya."
+    },
+    "pricing": {
+      "title": "Qiymət Planları",
+      "description": "Ehtiyaclarınıza uyğun plan seçin.",
+      "plans": {
+        "basic": "Basic",
+        "basicPrice": "$29/ay",
+        "basicDesc": "Startaplar üçün əsas funksiyalar.",
+        "pro": "Pro",
+        "proPrice": "$99/ay",
+        "proDesc": "Böyüyən biznes üçün genişləndirilmiş funksiyalar.",
+        "enterprise": "Enterprise",
+        "enterprisePrice": "Fərdi",
+        "enterpriseDesc": "Böyük müəssisələr üçün fərdiləşdirilmiş həllər."
+      }
     }
   },
 
   "footer": {
     "company": {
       "name": "AzEUConnect",
-      "description": "Avropa İttifaqında biznes qurmaq və genişləndirmək üçün etibarlı tərəfdaşınız."
+      "description": "EU‑da biznesin yaradılması və genişləndirilməsi üçün etibarlı tərəfdaşınız."
     },
     "quickLinks": {
-      "title": "Tez keçidlər",
+      "title": "Sürətli Keçidlər",
       "links": {
         "about": "Haqqımızda",
         "services": "Xidmətlər",
@@ -292,19 +561,19 @@
       }
     },
     "services": {
-      "title": "Xidmətlərimiz",
+      "title": "Xidmətlər",
       "list": {
         "company-formation": "Şirkət Qeydiyyatı",
-        "legalTax": "Hüquqi və Vergi Məsləhətləri",
+        "legalTax": "Hüquq və Vergi Məsləhəti",
         "banking": "Biznes Bankçılığı",
         "virtualOffice": "Virtual Ofis",
-        "trademark": "Ticarət Markasının Qeydiyyatı"
+        "trademark": "Ticarət Markası Qeydiyyatı"
       }
     },
     "contact": {
-      "title": "Bizimlə Əlaqə",
-      "address": "123 Biznes Küçəsi, Berlin, Almaniya",
-      "phone": "+49 123 456 7890",
+      "title": "Əlaqə",
+      "address": "Biznes küçəsi 123, Berlin, Almaniya",
+      "phone": "+49 123 456 7890",
       "email": "info@azeuconnect.com",
       "socials": {
         "linkedin": "🔗 LinkedIn",

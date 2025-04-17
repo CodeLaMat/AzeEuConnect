@@ -1,0 +1,43 @@
+{
+    "companyFormation": "Company Formation",
+    "homePage": "Home",
+    "services": "Services",
+    "pricing": "Pricing",
+    "aboutUs": "About Us",
+    "blog": "Blog",
+    "contact": "Contact",
+    "clients": "Clients",
+    "news": "News",
+    "manageUsers": "Manage Users",
+    "announcements": "Announcements",
+    "dashboard": "Dashboard",
+    "documents": "Documents",
+    "logIn": "Log In",
+    "signUp": "Sign Up",
+    "logout": "Logout",
+    "selectLanguage": "Select Language",
+    "logInWithGoogle": "Log in with Google",
+    "loading": "Loading...",
+    "auth": {
+      "title": "Sign In to Your Account",
+      "description": "Choose your preferred sign-in method below.",
+      "logInWithGoogle": "Continue with Google",
+      "or": "or",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot your password?",
+      "login": "Log In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up"
+    },
+    "account": {
+      "personalSettings": "Personal Settings",
+      "bookmarks": "Bookmarks",
+      "drafts": "Drafts",
+      "helpCenter": "Help Center",
+      "logout": "Logout",
+      "noLocation": "No location specified",
+      "dashboard": "Dashboard",
+      "switchRole": "Switch Role"
+    }
+  }

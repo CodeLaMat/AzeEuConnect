@@ -1,0 +1,24 @@
+{
+    "title": "About Us",
+    "description": "Learn more about our company, mission, and values.",
+    "mission": {
+      "title": "Our Mission",
+      "description": "We strive to simplify business formation and expansion across the EU, making it accessible for everyone."
+    },
+    "values": {
+      "title": "Our Core Values",
+      "integrity": "Integrity: We uphold the highest ethical standards.",
+      "transparency": "Transparency: Open and honest communication.",
+      "innovation": "Innovation: Constantly improving our services.",
+      "customerFocus": "Customer Focus: Your success is our priority."
+    },
+    "team": {
+      "title": "Meet the Team",
+      "description": "Our team consists of industry experts with years of experience in business formation and legal advisory.",
+      "ceo": "Chief Executive Officer",
+      "cfo": "Chief Financial Officer",
+      "cto": "Chief Technology Officer"
+    },
+    "ctaText": "Ready to start your EU business?",
+    "ctaButton": "Get Started Now"
+  }

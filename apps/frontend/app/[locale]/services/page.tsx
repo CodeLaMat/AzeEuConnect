@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import {
   FaGavel,
   FaCreditCard,
@@ -19,7 +19,7 @@ import {
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { JSX } from "react";
-import { serviceCategories } from "@/lib/options";
+import { serviceCategories } from "../../../lib/options";
 
 export default function Services() {
   const t = useTranslations("services");
@@ -47,7 +47,7 @@ export default function Services() {
   };
 
   return (
-    <main className="container mx-auto py-12 px-6 bg-primary text-secondary">
+    <main className="container mx-auto py-12 px-6  text-secondary">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: -50 }}
@@ -68,7 +68,7 @@ export default function Services() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="bg-white shadow-md p-6 rounded-lg flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+            className="bg-primary shadow-md p-6 rounded-lg flex flex-col items-center text-center hover:shadow-xl transition-shadow duration-300 cursor-pointer"
             onClick={() => handleCategorySelect(category.value)}
           >
             <div className="text-secondary-foreground text-5xl mb-4">
