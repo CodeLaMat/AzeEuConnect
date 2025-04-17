@@ -1,84 +1,131 @@
-# Turborepo starter
+# 🌍 AzEUConnect
 
-This Turborepo starter is maintained by the Turborepo core team.
+AzEUConnect is a B2C SaaS platform designed to help Azerbaijanis living in the EU discover services, connect with providers, and manage business formation seamlessly. Users can explore verified services, make secure bookings, and handle communication and document exchange — all in one place.
 
-## Using this example
+---
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 🧱 Monorepo Structure
 
 ```
-cd my-turborepo
-pnpm build
+AzeEU/
+├── apps/
+│   ├── frontend       # Next.js 15 app (App Router)
+│   └── backend        # Express.js API with Prisma
+├── packages/
+│   ├── db             # Shared Prisma Client
+│   ├── typescript-config
+│   └── eslint-config
+└── .env / .env.production
 ```
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## 🚀 Features
 
+- 🔐 Authentication with **Google OAuth** and custom credentials (NextAuth)
+- 📄 Profile and Role Management (USER / SERVICE_PROVIDER)
+- 🧾 Marketplace Listings & Service Booking
+- 💬 Internal Messaging System
+- 📂 Document Exchange between users and providers
+- ⚙️ Admin Interface for user and service moderation
+- 🌐 Deployed to [Railway](https://railway.app)
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend**: Next.js 15, TailwindCSS, TypeScript
+- **Backend**: Node.js, Express.js, Prisma ORM
+- **Database**: PostgreSQL via Prisma Accelerate (Data Proxy)
+- **Auth**: NextAuth.js (Google + Credentials)
+- **Deployment**: Railway
+- **Monorepo Tooling**: Turborepo
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/CedeLaMat/AzEUConnect.git
+cd AzeEU
 ```
-cd my-turborepo
-pnpm dev
+
+### 2. Install Dependencies
+
+```bash
+npm install
 ```
 
-### Remote Caching
+### 3. Set Up Environment Variables
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Create a `.env` and `.env.production` file in the root:
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```env
+NEXTAUTH_SECRET=your-secret
+NEXTAUTH_URL=http://localhost:3000
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+DATABASE_URL=your-db-url
+PRISMA_SCHEMA=../../packages/db/prisma/schema.prisma
 ```
 
-## Useful Links
+> Make sure to set valid URLs for both frontend & backend.
 
-Learn more about the power of Turborepo:
+### 4. Generate Prisma Client
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+```bash
+npm run db:generate
+```
+
+### 5. Run Dev Server
+
+```bash
+npm run dev --filter=frontend
+npm run dev --filter=backend
+```
+
+---
+
+## 🧪 Running in Production
+
+Deploy using Railway or your preferred platform. Make sure to:
+
+- Set production `.env.production` variables.
+- Build the apps with:
+
+```bash
+npm run build --filter=backend
+npm run build --filter=frontend
+```
+
+---
+
+## 📂 Folder Highlights
+
+| Path | Description |
+|------|-------------|
+| `apps/frontend` | Main web interface (Next.js) |
+| `apps/backend` | RESTful API & Auth logic |
+| `packages/db` | Shared Prisma ORM setup |
+| `packages/typescript-config` | Shared TSConfig |
+| `packages/eslint-config` | Shared ESLint rules |
+
+---
+
+## 📌 License
+
+MIT
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
+
+---
+
+## 📬 Contact
+
+For questions, feedback, or support, reach out at: **eyvaz.alishov@gmail.com**
