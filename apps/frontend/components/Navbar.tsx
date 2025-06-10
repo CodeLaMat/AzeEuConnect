@@ -17,8 +17,7 @@ import { getNavLinks } from "@/lib/roleBasedLinks";
 export default function Navbar({ locale }: { locale: string }) {
   const { data: session, status } = useSession();
   const [showAccountMenu, setShowAccountMenu] = useState(false);
-  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
-  const [showServicesDropdown, setShowServicesDropdown] = useState(false);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
@@ -97,10 +96,6 @@ export default function Navbar({ locale }: { locale: string }) {
           locale={locale}
           navLinks={navLinks}
           pathname={pathname}
-          showAboutDropdown={showAboutDropdown}
-          setShowAboutDropdown={setShowAboutDropdown}
-          showServicesDropdown={showServicesDropdown}
-          setShowServicesDropdown={setShowServicesDropdown}
           t={t}
         />
       </div>
@@ -142,10 +137,7 @@ export default function Navbar({ locale }: { locale: string }) {
               locale={locale}
               navLinks={navLinks}
               pathname={pathname}
-              showAboutDropdown={showAboutDropdown}
-              setShowAboutDropdown={setShowAboutDropdown}
-              showServicesDropdown={showServicesDropdown}
-              setShowServicesDropdown={setShowServicesDropdown}
+
               t={t}
             />
             <LanguageSwitcher
