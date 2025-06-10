@@ -13,7 +13,6 @@ export default function LandingPage() {
   const t = useTranslations("services");
   const locale = useLocale();
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleCategoryClick = (category: string) => {
     router.push(`/${locale}/services/category?category=${category}`);

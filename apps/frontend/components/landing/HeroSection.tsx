@@ -1,74 +1,130 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
+import Link from 'next/link';
+import { ArrowRightIcon, PlayIcon } from '@heroicons/react/24/outline';
+
+
+interface Stat {
+  label: string;
+  value: string;
+}
 
 export default function HeroSection() {
   const t = useTranslations();
-  const [activeTab, setActiveTab] = useState<"find" | "browse">("find");
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const locale = useLocale();
+  
+
+  const stats: Stat[] = [
+    { label: t('hero.stats.activeUsers'), value: '10K+' },
+    { label: t('hero.stats.serviceProviders'), value: '500+' },
+    { label: t('hero.stats.euCountries'), value: '15+' },
+    { label: t('hero.stats.successRate'), value: '98%' },
+  ];
+
 
   return (
-    <section
-      className="relative w-full h-[60vh] flex items-center justify-center bg-cover bg-center rounded-2xl text-center mt-2.5"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-      }}
-    >
-      <div className="absolute inset-0 bg-black/50 rounded-2xl " />
-      <div className="relative z-10 w-full max-w-4xl text-white text-center px-4 sm:pt-8">
-        <h1 className="text-3xl sm:text-3xl md:text-5xl font-bold leading-tight">
-          {t("hero.title")}
+    <section className=" min-h-screen flex items-center justify-center overflow-hidden">
+    {/* Background */}
+    <div className="absolute inset-0 hero-gradient"></div>
+    <div className="absolute inset-0 bg-black/20"></div>
+    
+    {/* Animated Background Elements */}
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-float"></div>
+      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
+    </div>
+
+    <div className="relative z-10 container-max section-padding text-center">
+      <div className="max-w-4xl mx-auto">
+        {/* Badge */}
+        <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-8 animate-fade-in">
+          <span className="w-2 h-2 bg-accent-400 rounded-full mr-2 animate-pulse"></span>
+          Connecting Azerbaijanis Across Europe
+        </div>
+
+        {/* Main Heading */}
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 animate-slide-up">
+          {t('hero.title')}
+          <span className="block bg-gradient-to-r from-accent-500 to-yellow-300 bg-clip-text text-transparent">
+            {t('hero.subtitle')}
+          </span>
         </h1>
-        <p className="text-md sm:text-lg mt-4">{t("hero.description")}</p>
 
-        {/* Search Box */}
-        <div className="mt-8 bg-secondary/80 p-4 sm:p-6 rounded-2xl shadow-md backdrop-blur-md md:w-[70%]">
-          {/* Tabs */}
-          <div className="flex flex-col sm:flex-row mb-4 justify-center gap-2 sm:gap-4">
-            <button
-              className={`px-6 py-2 rounded-full text-sm font-medium transition ${
-                activeTab === "find"
-                  ? "bg-white text-black"
-                  : "bg-transparent text-white border border-white"
-              }`}
-            >
-              {t("hero.findServices")}
-            </button>
-            <button
-              onClick={() => setActiveTab("browse")}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition ${
-                activeTab === "browse"
-                  ? "bg-white text-black"
-                  : "bg-transparent text-white border border-white"
-              }`}
-            >
-              {t("hero.offerServices")}
-            </button>
-          </div>
+        {/* Subtitle */}
+        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          {t('hero.description')}
+        </p>
 
-          {/* Search input and button */}
-          <div className="flex flex-col sm:flex-row gap-3 items-center w-full">
-            <Input
-              placeholder={t("searchPlaceholder")}
-              className="w-full px-4 py-2 text-black rounded-lg"
-            />
-            <Button className="w-full sm:w-auto bg-primary hover:bg-green-600 text-secondary px-6 py-2 rounded-lg">
-              {t("hero.search")}
-            </Button>
-          </div>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <Link href={`/${locale}/auth/signup`} className="btn-accent text-lg px-8 py-4 group">
+            {t('hero.startJourney')}
+            <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
+          
+          <button
+            onClick={() => setIsVideoOpen(true)}
+            className="flex items-center space-x-2 text-white hover:text-accent-300 transition-colors group"
+          >
+            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
+              <PlayIcon className="w-5 h-5 ml-0.5" />
+            </div>
+            <span className="font-medium">{t('hero.watchDemo')}</span>
+          </button>
+        </div>
 
-          {/* Logos */}
-          <div className="mt-6 flex justify-center items-center flex-wrap gap-4 sm:gap-6 opacity-80">
-            <img src="/images/microsoft.svg" alt="Last search" className="h-5" />
-            <img src="/images/airbnb.svg" alt="Last search" className="h-5" />
-            <img src="/images/nasdaq.svg" alt="Last search" className="h-5" />
-            <img src="/images/glassdoor.svg" alt="Last search" className="h-5" />
-          </div>
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          {stats.map((stat, index) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                {stat.value}
+              </div>
+              <div className="text-white/70 text-sm">
+                {stat.label}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-gentle">
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+
+    {/* Video Modal */}
+    {isVideoOpen && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="relative max-w-4xl w-full mx-4">
+
+          <button
+            onClick={() => setIsVideoOpen(false)}
+            className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden">
+            <div className="w-full h-full flex items-center justify-center text-white">
+              <div className="text-center">
+                <PlayIcon className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                <p>Demo video coming soon...</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    )}
+  </section>
   );
 }

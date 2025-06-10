@@ -467,8 +467,16 @@
 
   "hero": {
     "title": "Connecting clients in need to services in EU countries",
-    "description": "Company formation, tax compliance, and business banking – all in one place.",
-    
+    "subtitle": "European Success",
+    "description": "Connect with trusted Azerbaijani professionals across the EU. From legal services to business formation, we're your bridge from Baku to Berlin and beyond.",
+    "startJourney": "Start Your Journey",
+    "watchDemo": "Watch Demo",
+    "stats": {
+      "activeUsers": "Active Users",
+      "serviceProviders": "Service Providers",
+      "euCountries": "EU Countries",
+      "successRate": "Success Rate"
+    },
   "findServices": "Find Services",
     "getStarted": "Get Started",
     "learnMore": "Learn More",

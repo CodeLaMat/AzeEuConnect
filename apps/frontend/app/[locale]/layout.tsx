@@ -27,27 +27,27 @@ export default async function Layout({
 
   return (
     <html lang={locale || defaultLocale}>
-      <body className=" text-secondary flex flex-col items-center">
+      <body className=" text-secondary flex flex-col items-center font-sans antialiased">
         <Providers locale={locale} messages={messages}>
           <SessionLoader>
             <UserHydrator />
             <SessionManager />
 
             {/* Navbar wrapper (optional max width) */}
-            <div className="w-full max-w-[80%] px-4">
+            <div className="w-full ">
               <Navbar locale={locale} />
             </div>
 
             {/* Main Layout with 3/4 content and future ad slots */}
             <div className="flex w-full justify-center my-6">
               {/* Left Ad Slot */}
-              <aside className="hidden lg:block w-[12.5%]"></aside>
+              {/* <aside className="hidden lg:block w-[12.5%]"></aside> */}
 
               {/* Main Content */}
-              <main className="w-full max-w-[70%] px-4">{children}</main>
+              <main className="w-full">{children}</main>
 
               {/* Right Ad Slot */}
-              <aside className="hidden lg:block w-[12.5%]"></aside>
+              {/* <aside className="hidden lg:block w-[12.5%]"></aside> */}
             </div>
 
             <Toaster richColors position="top-right" />

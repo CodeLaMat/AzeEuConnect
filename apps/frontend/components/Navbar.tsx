@@ -17,22 +17,15 @@ import { getNavLinks } from "@/lib/roleBasedLinks";
 export default function Navbar({ locale }: { locale: string }) {
   const { data: session, status } = useSession();
   const [showAccountMenu, setShowAccountMenu] = useState(false);
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("navbar");
   const profile = useSelector((state: RootState) => state.profile);
-
-  // Accessing currentRole instead of role
   const userRole = session?.user?.currentRole || "CUSTOMER";
-
-  // Generate the correct navigation links based on currentRole
   const navLinks = getNavLinks(userRole, t);
 
-  // Language switch handler
   const handleLanguageChange = (newLocale: string) => {
     if (!locales.includes(newLocale as "az" | "en" | "ru" | "de")) return;
 
@@ -43,7 +36,6 @@ export default function Navbar({ locale }: { locale: string }) {
     router.replace(newPath);
   };
 
-  // Close account menu when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -55,116 +47,128 @@ export default function Navbar({ locale }: { locale: string }) {
   }, []);
 
   return (
-    <nav className="relative flex justify-between items-center px-8 py-4 text-secondary">
-      {/* Logo */}
-      <Logo locale={locale} />
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Logo locale={locale} />
 
-      {/* Hamburger Icon - Visible on mobile */}
-      <button
-        className="md:hidden focus:outline-none"
-        onClick={() => setMobileMenuOpen((prev) => !prev)}
-        aria-label="Toggle menu"
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {mobileMenuOpen ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          )}
-        </svg>
-      </button>
+          {/* Hamburger Icon */}
+          <button
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle menu"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {mobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
 
-      {/* Desktop NavLinks */}
-      <div className="hidden md:flex">
-        <NavLinks
-          locale={locale}
-          navLinks={navLinks}
-          pathname={pathname}
-          t={t}
-        />
-      </div>
-
-      {/* Language + Auth - Desktop */}
-      <div className="hidden md:flex space-x-4 items-center">
-        <LanguageSwitcher
-          locale={locale}
-          handleLanguageChange={handleLanguageChange}
-          t={t}
-        />
-        {status === "loading" ? (
-          <Button className="bg-gray-500 text-white font-bold" disabled>
-            {t("loading")}
-          </Button>
-        ) : session ? (
-          <div className="relative" ref={menuRef}>
-            <AccountMenu
-              session={session}
-              locale={locale}
-              profile={profile}
-              userRole={userRole}
-              showAccountMenu={showAccountMenu}
-              setShowAccountMenuAction={setShowAccountMenu}
-              menuRef={menuRef}
-              t={t}
-            />
-          </div>
-        ) : (
-          <AuthButtons locale={locale} t={t} />
-        )}
-      </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white z-50 shadow-md md:hidden">
-          <div className="flex flex-col items-start px-4 py-2 space-y-2">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex md:items-center md:space-x-8">
             <NavLinks
               locale={locale}
               navLinks={navLinks}
               pathname={pathname}
+              t={t}
+            />
 
-              t={t}
-            />
-            <LanguageSwitcher
+            <div className="flex items-center space-x-4">
+              <LanguageSwitcher
+                locale={locale}
+                handleLanguageChange={handleLanguageChange}
+                t={t}
+              />
+              
+              {status === "loading" ? (
+                <Button variant="ghost" disabled>
+                  {t("loading")}
+                </Button>
+              ) : session ? (
+                <div className="relative" ref={menuRef}>
+                  <AccountMenu
+                    session={session}
+                    locale={locale}
+                    profile={profile}
+                    userRole={userRole}
+                    showAccountMenu={showAccountMenu}
+                    setShowAccountMenuAction={setShowAccountMenu}
+                    menuRef={menuRef}
+                    t={t}
+                  />
+                </div>
+              ) : (
+                <AuthButtons locale={locale} t={t} />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <NavLinks
               locale={locale}
-              handleLanguageChange={handleLanguageChange}
+              navLinks={navLinks}
+              pathname={pathname}
               t={t}
+              
             />
-            {status === "loading" ? (
-              <Button className="bg-gray-500 text-white font-bold" disabled>
-                {t("loading")}
-              </Button>
-            ) : session ? (
-              <div className="relative w-full" ref={menuRef}>
-                <AccountMenu
-                  session={session}
+            
+            <div className="pt-4 pb-3 border-t border-gray-200">
+              <div className="flex items-center px-5 space-x-3">
+                <LanguageSwitcher
                   locale={locale}
-                  profile={profile}
-                  userRole={userRole}
-                  showAccountMenu={showAccountMenu}
-                  setShowAccountMenuAction={setShowAccountMenu}
-                  menuRef={menuRef}
+                  handleLanguageChange={handleLanguageChange}
                   t={t}
+                  
                 />
+                
+                {status === "loading" ? (
+                  <Button variant="ghost" disabled className="w-full">
+                    {t("loading")}
+                  </Button>
+                ) : session ? (
+                  <div className="relative w-full" ref={menuRef}>
+                    <AccountMenu
+                      session={session}
+                      locale={locale}
+                      profile={profile}
+                      userRole={userRole}
+                      showAccountMenu={showAccountMenu}
+                      setShowAccountMenuAction={setShowAccountMenu}
+                      menuRef={menuRef}
+                      t={t}
+                      
+                    />
+                  </div>
+                ) : (
+                  <AuthButtons locale={locale} t={t}  />
+                )}
               </div>
-            ) : (
-              <AuthButtons locale={locale} t={t} />
-            )}
+            </div>
           </div>
         </div>
       )}
