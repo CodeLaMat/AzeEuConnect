@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
 const path = require("path");
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {},
   output: "standalone",
@@ -20,12 +21,13 @@ const nextConfig = {
     ],
   },
   webpack: (config: any) => {
-    config.resolve.alias["@shared"] = path.resolve(
-      __dirname,
-      "../packages/shared"
-    );
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      "@": path.resolve(__dirname), // ← matches "@/..." in tsconfig
+      "@shared": path.resolve(__dirname, "../packages/shared"),
+    };
     return config;
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
