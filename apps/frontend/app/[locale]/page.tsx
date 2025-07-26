@@ -6,13 +6,14 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import HeroSection from "@/components/landing/HeroSection";
-import { serviceCategories } from "../../lib/options";
-
+import Services from "@/components/landing/Services";
+import { useServiceCategories } from "@/lib/options";
 
 export default function LandingPage() {
   const t = useTranslations("services");
   const locale = useLocale();
   const router = useRouter();
+  const serviceCategories = useServiceCategories(locale);
 
   const handleCategoryClick = (category: string) => {
     router.push(`/${locale}/services/category?category=${category}`);
@@ -25,8 +26,7 @@ export default function LandingPage() {
         <HeroSection />
       </div>
 
-      {/* Category Filter Buttons */}
-      <section className="text-center py-12 px-4">
+      {/* <section className="text-center py-12 px-4">
         <h2 className="text-3xl font-bold mb-6">{t("title")}</h2>
         <div className="flex flex-wrap justify-center gap-4">
           {serviceCategories.map((category) => (
@@ -40,6 +40,11 @@ export default function LandingPage() {
             </Button>
           ))}
         </div>
+      </section> */}
+
+      {/* Services Section */}
+      <section >
+         <Services />
       </section>
 
       {/* Pricing Plans */}

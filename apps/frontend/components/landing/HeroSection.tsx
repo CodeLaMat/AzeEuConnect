@@ -61,7 +61,7 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-          <Link href={`/${locale}/auth/signup`} className="btn-accent text-lg px-8 py-4 group">
+          <Link href={`/${locale}/signup`} className="btn-accent text-lg px-8 py-4 group">
             {t('hero.startJourney')}
             <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>

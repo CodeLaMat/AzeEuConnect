@@ -487,54 +487,55 @@
 
 
 
-  "services": {
-    "title": "Available Services",
-    "description": "Discover our wide range of services tailored to meet your needs.",
-    "ctaText": "Ready to start your project? Contact us today!",
-    "ctaButton": "Get Started",
-    "companyFormation": "Company Formation",
-    "companyFormationDesc": "Register your business in any EU country easily.",
-    "legalTax": "Legal & Tax Compliance",
-    "legalTaxDesc": "Ensure your business meets EU regulations.",
-    "banking": "Business Banking",
-    "bankingDesc": "Open and manage business accounts with ease.",
-    "virtualOffice": "Virtual Office Services",
-    "virtualOfficeDesc": "Get a business address and mail handling service.",
-    "trademark": "Trademark Registration",
-    "trademarkDesc": "Protect your brand in the European market.",
-    "aiLegalChat": "AI-Powered Legal Chat",
-    "aiLegalChatDesc": "Get instant answers to business-related queries.",
-    "categoryLabels": {
-      "legal": "Legal Services",
-      "finance": "Finance",
-      "tech": "Technology",
-      "real_estate": "Real Estate",
-      "healthcare": "Healthcare",
-      "entertainment": "Entertainment",
-      "security": "Security",
-      "food": "Food Services",
-      "transportation": "Transportation",
-      "education": "Education",
-      "manufacturing": "Manufacturing",
-      "sports": "Sports",
-      "other": "Other Services"
-    },
-    "categoryDescriptions": {
-      "legal": "Professional legal advice and support.",
-      "finance": "Expert financial consulting and management.",
-      "tech": "Innovative technology and software solutions.",
-      "real_estate": "Property sales, leasing, and management.",
-      "healthcare": "Quality medical and wellness services.",
-      "entertainment": "Creative media, arts, and entertainment.",
-      "security": "Comprehensive security and surveillance.",
-      "food": "Gourmet food services and catering.",
-      "transportation": "Reliable logistics and transport solutions.",
-      "education": "Learning and development services.",
-      "manufacturing": "Advanced manufacturing and production.",
-      "sports": "Sports training and event management.",
-      "other": "Additional services and consulting."
-    },
-    "pricing": {
+"services": {
+  "title": "Available Services",
+  "subtitle": "Across Europe",
+  "description": "Connect with verified Azerbaijani professionals offering expert services in 13 categories across 15+ EU countries.",
+  "ctaText": "Ready to start your project? Contact us today!",
+  "ctaButton": "Get Started",
+  "companyFormation": "Company Formation",
+  "companyFormationDesc": "Register your business in any EU country easily.",
+  "legalTax": "Legal & Tax Compliance",
+  "legalTaxDesc": "Ensure your business meets EU regulations.",
+  "banking": "Business Banking",
+  "bankingDesc": "Open and manage business accounts with ease.",
+  "virtualOffice": "Virtual Office Services",
+  "virtualOfficeDesc": "Get a business address and mail handling service.",
+  "trademark": "Trademark Registration",
+  "trademarkDesc": "Protect your brand in the European market.",
+  "aiLegalChat": "AI-Powered Legal Chat",
+  "aiLegalChatDesc": "Get instant answers to business-related queries.",
+  "categoryLabels": {
+    "legal": "Legal Services",
+    "finance": "Finance",
+    "tech": "Technology",
+    "realEstate": "Real Estate",
+    "healthcare": "Healthcare",
+    "entertainment": "Entertainment",
+    "security": "Security",
+    "food": "Food Services",
+    "transportation": "Transportation",
+    "education": "Education",
+    "manufacturing": "Manufacturing",
+    "sports": "Sports",
+    "other": "Other Services"
+  },
+  "categoryDescriptions": {
+    "legal": "Professional legal advice and support.",
+    "finance": "Expert financial consulting and management.",
+    "tech": "Innovative technology and software solutions.",
+    "realEstate": "Property sales, leasing, and management.",
+    "healthcare": "Quality medical and wellness services.",
+    "entertainment": "Creative media, arts, and entertainment.",
+    "security": "Comprehensive security and surveillance.",
+    "food": "Gourmet food services and catering.",
+    "transportation": "Reliable logistics and transport solutions.",
+    "education": "Learning and development services.",
+    "manufacturing": "Advanced manufacturing and production.",
+    "sports": "Sports training and event management.",
+    "other": "Additional services and consulting."
+  },
+  "pricing": {
     "title": "Pricing Plans",
     "description": "Choose the best plan that fits your needs.",
     "plans": {
@@ -548,8 +549,167 @@
       "enterprisePrice": "Custom",
       "enterpriseDesc": "Tailored solutions for large enterprises."
     }
-  }
   },
+  "categories": {
+    "legal": {
+      "title": "Legal Services",
+      "label": "Legal",
+      "description": "Company formation, legal consultation, document preparation",
+      "features": [
+        "Business Registration",
+        "Legal Consultation",
+        "Document Preparation",
+        "Compliance Support",
+        "Legal Document Drafting"
+      ]
+    },
+    "finance": {
+      "title": "Finance Services",
+      "label": "Finance",
+      "description": "Tax advisory, banking setup, financial planning",
+      "features": [
+        "Tax Advisory",
+        "Banking Setup",
+        "Financial Planning",
+        "Investment Consulting",
+        "Marketing Services"
+      ]
+    },
+    "tech": {
+      "title": "Tech Services",
+      "label": "Technology",
+      "description": "Software development, IT support, cloud computing",
+      "features": [
+        "Software Development",
+        "IT Support",
+        "Cloud Solutions",
+        "Data Management",
+        "System Administration"
+      ]
+    },
+    "realEstate": {
+      "title": "Real Estate Services",
+      "label": "Real Estate",
+      "description": "Property sales, leasing, management, and advisory",
+      "features": [
+        "Real Estate Sales",
+        "Leasing",
+        "Property Management",
+        "Home Renovation",
+        "Legal Advice"
+      ]
+    },
+    "healthcare": {
+      "title": "Healthcare Services",
+      "label": "Healthcare",
+      "description": "Medical, wellness, and coaching services",
+      "features": [
+        "Healthcare Services",
+        "Fitness Training",
+        "Personal Coaching",
+        "Mental Health Support",
+        "Beauty & Lifestyle Consulting"
+      ]
+    },
+    "entertainment": {
+      "title": "Entertainment Services",
+      "label": "Entertainment",
+      "description": "Creative media, travel, and event planning",
+      "features": [
+        "Travel Planning",
+        "Event Management",
+        "Entertainment Advisory",
+        "Tour Guiding",
+        "Media Production"
+      ]
+    },
+    "security": {
+      "title": "Security Services",
+      "label": "Security",
+      "description": "Comprehensive security, assistance, and training",
+      "features": [
+        "Security Services",
+        "Police & Fire Services",
+        "Emergency Response",
+        "Security Training",
+        "Assistance & Surveillance"
+      ]
+    },
+    "food": {
+      "title": "Food Services",
+      "label": "Food",
+      "description": "Catering, delivery, compliance, and advisory",
+      "features": [
+        "Food Catering",
+        "Food Delivery",
+        "Restaurant Management",
+        "Food Safety Compliance",
+        "Food Preparation"
+      ]
+    },
+    "transportation": {
+      "title": "Transportation Services",
+      "label": "Transportation",
+      "description": "Logistics, delivery, and vehicle rental",
+      "features": [
+        "Logistics Services",
+        "Delivery Services",
+        "Vehicle Rental",
+        "Transportation Advisory",
+        "Freight Management"
+      ]
+    },
+    "education": {
+      "title": "Education Services",
+      "label": "Education",
+      "description": "Tutoring, online courses, and advisory",
+      "features": [
+        "Tutoring Services",
+        "Online Courses",
+        "Educational Advisory",
+        "Language Training",
+        "Educational Resources"
+      ]
+    },
+    "manufacturing": {
+      "title": "Manufacturing Services",
+      "label": "Manufacturing",
+      "description": "Production, supply chain, and quality control",
+      "features": [
+        "Manufacturing Services",
+        "Production Management",
+        "Quality Control",
+        "Supply Chain Management",
+        "Manufacturing Advisory"
+      ]
+    },
+    "sports": {
+      "title": "Sports Services",
+      "label": "Sports",
+      "description": "Coaching, events, and equipment rental",
+      "features": [
+        "Sports Coaching",
+        "Sports Advisory",
+        "Equipment Rental",
+        "Event Management",
+        "Athlete Training"
+      ]
+    },
+    "other": {
+      "title": "Other Services",
+      "label": "Other",
+      "description": "Additional services and custom consulting",
+      "features": [
+        "Custom Consulting",
+        "Special Projects",
+        "General Assistance"
+      ]
+    }
+  },
+  "browseProviders": "Browse Providers",
+  "requestCustom": "Request Custom Service"
+},
+
 
   
 

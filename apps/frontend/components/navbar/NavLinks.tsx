@@ -24,7 +24,7 @@ export default function NavLinks({ locale, navLinks, pathname, t }: NavLinkProps
     <NavigationMenuLink asChild>
       <Link
         href={href}
-        className="block rounded-md px-4 py-2 hover:bg-muted transition"
+        className="block rounded-md px-4 py-2 hover:bg-muted-200 transition-colors text-muted-800 hover:text-muted-950"
       >
         <div className="font-semibold">{label}</div>
       </Link>
@@ -59,13 +59,13 @@ export default function NavLinks({ locale, navLinks, pathname, t }: NavLinkProps
           if (href === "services") {
             return (
               <NavigationMenuItem key={href}>
-                <NavigationMenuTrigger className="px-4 py-2 rounded-md">
+                <NavigationMenuTrigger className="px-4 py-2 rounded-md text-muted-800 hover:text-primary-600 hover:bg-muted-100 data-[state=open]:bg-muted-200 data-[state=open]:text-primary-700">
                   {label}
                 </NavigationMenuTrigger>
-                <NavigationMenuContent>
+                <NavigationMenuContent className="bg-muted-50 border border-muted-200">
                   <div className="grid w-[600px] gap-4 p-4 md:grid-cols-2">
                     <div>
-                      <h3 className="text-sm font-bold uppercase mb-2">For Service Providers</h3>
+                      <h3 className="text-sm font-bold uppercase mb-2 text-primary-700">For Service Providers</h3>
                       <ul className="space-y-1">
                         {serviceItems
                           .filter(item => item.category === "For Service Providers")
@@ -77,7 +77,7 @@ export default function NavLinks({ locale, navLinks, pathname, t }: NavLinkProps
                       </ul>
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold uppercase mb-2">For Customers</h3>
+                      <h3 className="text-sm font-bold uppercase mb-2 text-primary-700">For Customers</h3>
                       <ul className="space-y-1">
                         {serviceItems
                           .filter(item => item.category === "For Customers")
@@ -97,13 +97,13 @@ export default function NavLinks({ locale, navLinks, pathname, t }: NavLinkProps
           if (href === "about") {
             return (
               <NavigationMenuItem key={href}>
-                <NavigationMenuTrigger className="px-4 py-2 rounded-md">
+                <NavigationMenuTrigger className="px-4 py-2 rounded-md text-muted-800 hover:text-primary-600 hover:bg-muted-100 data-[state=open]:bg-muted-200 data-[state=open]:text-primary-700">
                   {label}
                 </NavigationMenuTrigger>
-                <NavigationMenuContent>
+                <NavigationMenuContent className="bg-muted-50 border border-muted-200">
                   <div className="grid w-[600px] gap-4 p-4 md:grid-cols-2">
                     <div>
-                      <h3 className="text-sm font-bold uppercase mb-2">Company</h3>
+                      <h3 className="text-sm font-bold uppercase mb-2 text-primary-700">Company</h3>
                       <ul className="space-y-1">
                         {aboutItems
                           .filter(item => item.category === "Company")
@@ -115,7 +115,7 @@ export default function NavLinks({ locale, navLinks, pathname, t }: NavLinkProps
                       </ul>
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold uppercase mb-2">Press</h3>
+                      <h3 className="text-sm font-bold uppercase mb-2 text-primary-700">Press</h3>
                       <ul className="space-y-1">
                         {aboutItems
                           .filter(item => item.category === "Press")
@@ -133,16 +133,20 @@ export default function NavLinks({ locale, navLinks, pathname, t }: NavLinkProps
           }
 
           return (
-            <NavigationMenuItem key={href}>
-              <NavigationMenuLink asChild>
+            <NavigationMenuItem key={href} >
+              <NavigationMenuLink className="px-4 py-2 rounded-md text-muted-800 hover:text-primary-600 hover:bg-muted-100 data-[state=open]:bg-muted-200 data-[state=open]:text-primary-700"asChild>
                 <Link
                   href={`/${locale}/${href}`}
                   className={`group relative px-4 py-2 rounded-md transition duration-300 ease-in-out ${
-                    isActive(href) ? "bg-secondary-foreground text-secondary font-bold" : ""
+                    isActive(href) 
+                      ? "bg-primary-600 text-muted-50 font-bold" 
+                      : "text-muted-800 hover:text-primary-600"
                   }`}
                 >
                   <span className="relative z-10">{label}</span>
-                  <span className="absolute left-4 bottom-1 w-0 h-[2px] bg-accent opacity-0 group-hover:opacity-100 group-hover:w-[calc(100%-2rem)] transition-all duration-300 ease-out origin-left"></span>
+                  {!isActive(href) && (
+                    <span className="absolute left-4 bottom-1 w-0 h-[2px] opacity-0 group-hover:opacity-100 group-hover:w-[calc(100%-2rem)] transition-all duration-300 ease-out origin-left"></span>
+                  )}
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
