@@ -23,7 +23,7 @@ const nextConfig = {
   webpack: (config: any) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      "@": path.resolve(__dirname), // ← matches "@/..." in tsconfig
+      "@": path.resolve(__dirname),
       "@shared": path.resolve(__dirname, "../packages/shared"),
     };
     return config;
