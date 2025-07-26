@@ -43,8 +43,8 @@ export default function LandingPage() {
       </section> */}
 
       {/* Services Section */}
-      <section >
-         <Services />
+      <section>
+        <Services />
       </section>
 
       {/* Pricing Plans */}
@@ -54,7 +54,9 @@ export default function LandingPage() {
           {pricingKeys.map((key) => (
             <Card key={key} className="p-6 shadow-md">
               <CardContent>
-                <h3 className="text-2xl font-bold">{t(`pricing.plans.${key}`)}</h3>
+                <h3 className="text-2xl font-bold">
+                  {t(`pricing.plans.${key}`)}
+                </h3>
                 <p className="text-xl font-semibold text-accent mt-2">
                   {t(`pricing.plans.${key}Price`)}
                 </p>

@@ -19,12 +19,13 @@ import {
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { JSX } from "react";
-import { serviceCategories } from "../../../lib/options";
+import { useServiceCategories } from "../../../lib/options";
 
 export default function Services() {
   const t = useTranslations("services");
   const router = useRouter();
   const locale = useLocale();
+  const serviceCategories = useServiceCategories(locale);
 
   const iconMap: Record<string, JSX.Element> = {
     LEGAL: <FaGavel />,

@@ -641,5 +641,3 @@ export const currencies = [
   { value: "USD", label: "US Dollar", symbol: "$" },
   { value: "AZN", label: "Azerbaijani Manat", symbol: "₼" },
 ];
-
-export const serviceCategories = useServiceCategories("en");
