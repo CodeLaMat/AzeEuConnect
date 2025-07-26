@@ -37,7 +37,7 @@ export default function SessionManager() {
 
   useEffect(() => {
     if (status === "authenticated" && session) {
-      const interval = setInterval(checkExpiration, 1000);
+      const interval = setInterval(checkExpiration, 1000) as unknown as number;
       return () => clearInterval(interval);
     }
   }, [checkExpiration, session, status]);

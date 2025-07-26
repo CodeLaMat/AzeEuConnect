@@ -30,3 +30,7 @@ Thumbs.db
 # Misc
 *.log
 *.pem
+
+
+# Ignore lock files for package managers
+**/pnpm-lock.yaml
