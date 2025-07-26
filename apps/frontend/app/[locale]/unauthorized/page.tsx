@@ -14,7 +14,10 @@ export default function UnauthorizedPage() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="bg-white rounded-2xl shadow-xl p-8 md:p-12 flex flex-col items-center space-y-6"
+        {...{
+          className:
+            "bg-white rounded-2xl shadow-xl p-8 md:p-12 flex flex-col items-center space-y-6",
+        }}
       >
         <ShieldAlert className="h-20 w-20 text-red-500" />
         <h1 className="text-4xl font-bold text-gray-800">

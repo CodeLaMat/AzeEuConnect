@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import {
-  serviceCategories,
+  useServiceCategories,
   countryToTimezone,
   currencies,
 } from "@/lib/options";
@@ -38,11 +38,12 @@ const UploadServiceWizard: React.FC = () => {
 
   // Watch the selected category to filter service types.
   const selectedCategory = useWatch({ control, name: "category" });
+  const serviceCategories = useServiceCategories("en"); // or use dynamic locale
+
   const currentServiceTypes =
     serviceCategories.find((cat) => cat.value === selectedCategory)
       ?.serviceSubCategories || [];
 
-  // Sorted options (if desired)
   const sortedCategories = [...serviceCategories].sort((a, b) =>
     a.label.localeCompare(b.label)
   );
@@ -53,7 +54,7 @@ const UploadServiceWizard: React.FC = () => {
     a.label.localeCompare(b.label)
   );
   const sortedServiceTypes = [...currentServiceTypes].sort((a, b) =>
-    a.labelKey.localeCompare(b.labelKey)
+    a.label.localeCompare(b.label)
   );
 
   const [step, setStep] = useState(1);
@@ -195,7 +196,7 @@ const UploadServiceWizard: React.FC = () => {
                 <option value="">{t("selectType")}</option>
                 {sortedServiceTypes.map((type) => (
                   <option key={type.value} value={type.value}>
-                    {t(type.labelKey)}
+                    {t(type.label)}
                   </option>
                 ))}
               </select>
